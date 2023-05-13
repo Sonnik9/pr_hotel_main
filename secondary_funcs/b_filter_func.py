@@ -31,6 +31,20 @@ def black_filter(finRes):
         for item in sorted_blackList:
             refactor_blackList += item
 
+        for rfi in refactor_blackList:            
+            if "fotos" not in rfi:
+                rfi.setdefault("fotos", 1)
+            if "description" not in rfi:
+                rfi.setdefault("description", 1)
+            if "facility" not in rfi:
+                rfi.setdefault("facility", 1)
+            if "otziv" not in rfi:
+                rfi.setdefault("otziv", '?')
+            if "room" not in rfi:
+                rfi.setdefault("room", 1)
+            if "room_block" not in rfi:
+                rfi.setdefault("room_block", 1)
+
     except Exception as ex:
         # print(f"327____{ex}")
         pass

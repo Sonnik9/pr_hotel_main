@@ -1,22 +1,14 @@
-import mysql.connector
 def create_tables():
     import mysql.connector
     from mysql.connector import connect, Error 
-    from config_copy import user, password, database, host, port
-    import pyperclip
-    print([user, password, database, host, port])
-    pyperclip.copy('')
-    # Get the text from the clipboard
-    clipboard_text = pyperclip.paste()
-
-    # return
+    from . import config_real
 
     config = {
-        'user': user,
-        'password': password,
-        'host': host,
-        # 'port': port,
-        'database': database,      
+        'user': config_real.user,
+        'password': config_real.password,
+        'host': config_real.host,
+        'port': config_real.port,
+        'database': config_real.database,      
     }
 
     try:
@@ -29,28 +21,129 @@ def create_tables():
         cursor = conn.cursor() 
     except Error as e:
         print(f"Error connecting to MySQL: {e}")
+
+    # try:
+    #    cursor.execute("DROP TABLE result_photos_test1")
+    # except:
+    #     pass 
+
+    # try:
+    #     cursor.execute("DROP TABLE result_description_test1")
+    # except:
+    #     pass 
+
+    # try:
+    #    cursor.execute("DROP TABLE result_facilities_test1")
+    # except:
+    #     pass 
+    # try:
+    #    cursor.execute("DROP TABLE result_room_test1")
+    # except:
+    #     pass 
+    # try:
+    #    cursor.execute("DROP TABLE result_room_block_test1")
+    # except:
+    #     pass
+
     create_table_query1 = '''
-        CREATE TABLE upz_hotels_copy (
-        # id INT AUTO_INCREMENT PRIMARY KEY,
-        hotel_id VARCHAR(255),
-        url VARCHAR(255),
-        fotos INT,
-        description INT,
-        room INT,
-        facility INT,
-        otziv INT
+    CREATE TABLE result_photos_test1 (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        hotelid VARCHAR(20),
+        photo_id VARCHAR(20),
+        tags TEXT,
+        url_square60 TEXT,
+        url_max TEXT
     )
     '''
 
-    cursor.execute(create_table_query1)
-    # conn.commit()
+    create_table_query2 = '''
+    CREATE TABLE result_description_test1 (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        hotelid VARCHAR(20),
+        enusname TEXT
+    )
+    '''
+
+    create_table_query3 = '''
+    CREATE TABLE result_facilities_test1 (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        hotelid VARCHAR(20),
+        facilitytype_id TEXT,
+        name TEXT,
+        facilitytype_name TEXT,
+        hotelfacilitytype_id TEXT,
+        uniq TEXT        
+    )
+    '''
+    create_table_query4 = '''
+    CREATE TABLE result_room_test1 (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        hotelid VARCHAR(20),
+        roomid VARCHAR(20),
+        endescription TEXT,
+        allow_children VARCHAR(15),
+        photo1 TEXT,
+        photo2 TEXT,
+        photo3 TEXT,
+        photo4 TEXT,
+        photo5 TEXT,
+        photo6 TEXT,
+        photo7 TEXT,
+        photo8 TEXT,
+        photo9 TEXT,
+        photo10 TEXT,
+        private_bathroom_highlight TEXT,
+        bed_configurations TEXT        
+    )
+    '''
+    create_table_query5 = '''
+        CREATE TABLE result_room_block_test1 (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        hotelid VARCHAR(20),
+        room_id VARCHAR(20),
+        gross_price TEXT,
+        currency TEXT,
+        room_name TEXT,
+        nr_children VARCHAR(15),
+        max_occupancy TEXT,
+        mealplan TEXT,
+        room_surface_in_m2 TEXT,
+        nr_adults VARCHAR(15),
+        all_inclusive TEXT        
+    )
+    '''
+
+    create_table_query6 = '''
+    CREATE TABLE black_list_test1 (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        hotelid VARCHAR(20),
+        url TEXT,
+        fotos INT,
+        description INT,
+        facility INT,
+        otziv VARCHAR(4),
+        room INT,
+        room_block INT
+
+    )
+    '''
+    # cursor.execute(create_table_query1)
+    # cursor.execute(create_table_query2)
+    # cursor.execute(create_table_query3)
+    # cursor.execute(create_table_query4)
+    # cursor.execute(create_table_query5)
+    # cursor.execute(create_table_query6)
+
     cursor.close()
     conn.close()
     
     return print("the tables was created successfully")
 
 
-create_tables()
+# create_tables()
+
+
+# python create_tables_db.py
 
 
 # sudo mysql -u root -p
@@ -61,139 +154,3 @@ create_tables()
 
 # FLUSH PRIVILEGES;
 # EXIT;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # import clipboard
-
-# Создание таблицы
-    # create_table_query1 = '''
-    # CREATE TABLE result_photos (
-    #     id INT AUTO_INCREMENT PRIMARY KEY,
-    #     hotelid VARCHAR(255),
-    #     url_max VARCHAR(255),
-    #     url_square60 VARCHAR(255),
-    #     preview_list_photo TEXT DEFAULT '',
-    #     photo_item_src VARCHAR(255),
-    #     photo_item_id VARCHAR(255),
-    #     photo_item_title TEXT, 
-    #     all_photos TEXT DEFAULT '',
-    #     id_photo VARCHAR(255),
-    #     photo_max1280x900 VARCHAR(255),
-    #     photo_max1024x768 VARCHAR(255),
-    #     photo_max200 VARCHAR(255)
-    # )
-
-#     create_table_query1 = '''
-#         CREATE TABLE upz_hotels_copy (
-#         # id INT AUTO_INCREMENT PRIMARY KEY,
-#         hotel_id VARCHAR(255),
-#         url VARCHAR(255),
-#         fotos INT,
-#         description INT,
-#         room INT,
-#         facility INT,
-#         otziv INT
-#     )
-#     '''
-
-#     # ['id', 'hoid', 'max', 'square60', 'list_photo', 'src', 'idF', 'pTtl', 'all_photos', 'id_ph', 'p1', 'p2', 'p3']
-#     # Создание таблиц
-#     # create_table_query2 = '''
-#     # CREATE TABLE result_description (
-#     #     id INT AUTO_INCREMENT PRIMARY KEY,
-#     #     hotelid VARCHAR(50),
-#     #     enusname TEXT
-#     # )
-#     # '''
-
-#     # create_table_query3 = '''
-#     # CREATE TABLE result_facilities (
-#     #     id INT AUTO_INCREMENT PRIMARY KEY,
-#     #     hotelid VARCHAR(255),
-#     #     result_facilities_upz_list TEXT DEFAULT '',
-#     #     name TEXT,
-#     #     facilitytype_id VARCHAR(255),
-#     #     facilitytype_name_list TEXT DEFAULT '',
-#     #     facilitytype_name VARCHAR(255),
-#     #     hotelfacilitytype_id VARCHAR(255),
-#     #     uniq VARCHAR(255)
-#     # )
-#     # '''
-
-#     # create_table_query4 = '''
-#     # CREATE TABLE result_room (
-#     #     id INT AUTO_INCREMENT PRIMARY KEY,
-#     #     hotelid VARCHAR(50),
-#     #     result_room_upz_list TEXT DEFAULT '',
-#     #     room_id VARCHAR(50),
-#     #     name_room VARCHAR(255),
-#     #     endescription TEXT,
-#     #     allow_children VARCHAR(255),
-#     #     private_bathroom_highlight VARCHAR(255),
-#     #     bed_configurations VARCHAR(255),
-#     #     apartament_photo_list TEXT DEFAULT '',
-#     #     photo1 VARCHAR(255),
-#     #     photo2 VARCHAR(255),
-#     #     photo3 VARCHAR(255),
-#     #     photo4 VARCHAR(255),
-#     #     photo5 VARCHAR(255),
-#     #     photo6 VARCHAR(255),
-#     #     photo7 VARCHAR(255),
-#     #     photo8 VARCHAR(255),
-#     #     photo9 VARCHAR(255),
-#     #     photo10 VARCHAR(255)
-#     # )
-#     # '''
-#     # create_table_query5 = '''
-#     #     CREATE TABLE result_room_block (
-#     #     id INT AUTO_INCREMENT PRIMARY KEY,
-#     #     hotelid VARCHAR(255),
-#     #     result_room_block_upz_list TEXT DEFAULT '',
-#     #     room_id VARCHAR(255),
-#     #     room_name VARCHAR(255),
-#     #     gross_price DECIMAL(10,2),
-#     #     currency VARCHAR(10),
-#     #     nr_children VARCHAR(255),
-#     #     max_occupancy VARCHAR(255),
-#     #     mealplan VARCHAR(255),
-#     #     room_surface_in_m2 VARCHAR(255),
-#     #     nr_adults VARCHAR(255),
-#     #     all_inclusive VARCHAR(255),
-#     #     all_facilities_of_room TEXT
-#     # )
-#     # '''
-#     cursor.execute(create_table_query1)
-#     # cursor.execute(create_table_query2)
-#     # cursor.execute(create_table_query3)
-#     # cursor.execute(create_table_query4) 
-#     # cursor.execute(create_table_query5) 
-#     # conn.commit()
-#     cursor.close()
-#     conn.close()
-    
-#     return print("the tables was created successfully")
-
-
-# create_tables()
-
-
-

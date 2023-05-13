@@ -1,25 +1,17 @@
-def db_opener(n1, n2, limit):
+def db_opener(n1, n2):
     import mysql.connector
     from mysql.connector import connect, Error 
     import pyperclip
-
+    from . import config_real
     pyperclip.copy('')
     clipboard_text = pyperclip.paste()
-
-
-    user = 'hote_tophot77_db'
-    password = '8dGBX2Kx'
-    database = 'hote_tophot77_db'
-    host =  '5.75.140.137'
-    port = '3306'
-
     data_DB = []
     config = {
-        'user': user,
-        'password': password,
-        'host': host,
-        'port': port,
-        'database': database,      
+        'user': config_real.user,
+        'password': config_real.password,
+        'host': config_real.host,
+        'port': config_real.port,
+        'database': config_real.database,      
     }
 
     try:
@@ -37,7 +29,7 @@ def db_opener(n1, n2, limit):
         # select_query  = ("SELECT id, hotel_id, url, fotos, description, room, facility, otziv FROM upz_hotels ")
         select_query  = ("SELECT id, hotel_id, url, fotos, description, room, facility, otziv FROM upz_hotels "
         f"WHERE id BETWEEN {n1} AND {n2} "
-        f"LIMIT {limit}")
+        )
         cursor.execute(select_query)
         hotels_data = cursor.fetchall()
     except Exception as e:

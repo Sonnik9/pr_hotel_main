@@ -1,7 +1,4 @@
-# import main 
 from bs4 import BeautifulSoup
-# import re
-
 
 def page_scraper_description(resHtml, hotelid):
     # print('hello description!')

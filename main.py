@@ -2,21 +2,21 @@ import requests
 import random 
 from random import choice
 import time
-# import json
 import math
 import re
 import atexit
 import shutil
 import tempfile
 import sys 
-
-# import mysql.connector
-
-import secondary_funcs
-import scrapers_funcs
-import db_all
 try:
-   from secondary_funcs import smart_headers, json_reader_test, writerr, b_writerr_func, b_filter_func
+    import secondary_funcs
+    import scrapers_funcs
+    import db_all
+except Exception as ex:
+    print(f"16____{ex}")
+
+try:
+   from secondary_funcs import smart_headers, writerr, b_writerr_func, b_filter_func
 #    print('success secondary_funcs')
 except Exception as ex:
     print(f"12____{ex}")
@@ -27,7 +27,7 @@ except Exception as ex:
     print(f"17____{ex}")
 
 try:
-   from db_all import db_reader
+   from db_all import db_reader, db_writerrr, bl_writerr
 #    print('success db_all') 
 except Exception as ex:
     print(f"25____{ex}")
@@ -35,8 +35,9 @@ except Exception as ex:
 # ////////// grendMather_controller block/////////////////////////////////////
 
 def grendMather_controller(data):
+    # print('hello controler')
     flagCount = 0
-    flagTest = True
+    # flagTest = True
     flag_photo = True
     flag_description = True 
     flag_facilities = True 
@@ -88,7 +89,12 @@ def grendMather_controller(data):
             black_list.append({
                 "hotel_id": hotelid,
                 "url": fixed_url,
-                "?": '?',
+                "fotos": 0,
+                "description": 0,
+                "facility": 0,
+                "otziv": "?",
+                "room": 0,
+                "room_block": 0,
             })
         except Exception as ex:
             # print(f"91____{ex}")
@@ -114,26 +120,24 @@ def grendMather_controller(data):
         room_blockInd = data_upz_hotels_item_dict["room_block"]
     except:
         room_blockInd = None     
-
-    if photoInd == "1" or photoInd == 1:
-        flag_photo = False
-        flagCount += 1  
-    if descriptionInd == "1" or descriptionInd == 1:
-        flag_description = False
-        flagCount += 1 
-    if facilityInd == "1" or facilityInd == 1:
-        flag_facilities = False
-        flagCount += 1 
-    if roomInd == "1" or roomInd == 1:
-        flag_room = False
-        flagCount += 1
-    if room_blockInd == "1" or room_blockInd == 1:
-        flag_room_block = False
-        flagCount += 1
-
-    if flagCount == 5 and flagTest != True and room_blockInd is not None: 
-        return [[None], black_list] 
-    elif flagCount == 4 and flagTest != True and room_blockInd is None:  
+    try:
+        if photoInd == "1" or photoInd == 1:
+            flag_photo = False
+            flagCount += 1  
+        if descriptionInd == "1" or descriptionInd == 1:
+            flag_description = False
+            flagCount += 1 
+        if facilityInd == "1" or facilityInd == 1:
+            flag_facilities = False
+            flagCount += 1 
+        if roomInd == "1" or roomInd == 1:
+            flag_room = False
+            flagCount += 1
+        if room_blockInd == "1" or room_blockInd == 1:
+            flag_room_block = False
+    except:
+        pass
+    if flagCount == 4:  
         return [[None], black_list]     
     else:
         for _ in range(2):
@@ -150,7 +154,7 @@ def grendMather_controller(data):
                 g = random.randrange(1, 5)
                 n = round(g + k + m, 2) 
                 time.sleep(n)  
-                try:        
+                try:     
                     r = requests.get(fixed_url, headers=smart_headers.random_headers(), proxies=proxy_item, timeout=(3.15, 21.15))
                     r.raise_for_status()
                     # print(r.status_code)
@@ -159,30 +163,30 @@ def grendMather_controller(data):
                     if r.status_code == 200 and r.text is not None and r.text != '':
                         try:
                             # result_photos_upz, result_description_upz, result_facilities_upz, result_rooms_upz, upz_hotels_rooms_blocks = scraper_gr_mather_func.scraper_grendmather(r.text, hotelid, photoInd, descriptionInd, facilityInd, roomInd)
-                            if flag_photo == True or flagTest == True:
+                            if flag_photo == True:
                                 try:
                                     result_photos_upz = photos_func.page_scraper_photos(r.text, hotelid)
                                 except:
                                     result_photos_upz = None  
-                            if flag_description == True or flagTest == True:
+                            if flag_description == True:
                                 try:                       
                                     result_description_upz = description_func.page_scraper_description(r.text, hotelid)                           
                                 except:
                                     result_description_upz = None 
                                     # print(result_description_upz)
-                            if flag_facilities == True or flagTest == True:
+                            if flag_facilities == True:
                                 try:
                                     result_facilities_upz = faciclities_func.page_scraper_facilities(r.text, hotelid)
                                 except:
                                     result_facilities_upz = None
 
-                            if flag_room == True or flagTest == True:
+                            if flag_room == True:
                                 try:
                                     result_rooms_upz = rooms_func.page_scraper_room(r.text, hotelid)
                                 except:
                                     result_rooms_upz = None 
 
-                            if flag_room_block == True or flagTest == True:
+                            if flag_room_block == True:
                                 try:
                                     upz_hotels_rooms_blocks = rooms_block_func.page_scraper_room_block(r.text, hotelid)
                                 except:
@@ -204,26 +208,26 @@ def grendMather_controller(data):
                 # print(f"237____{ex}")
                 continue
                 # return [[None], black_list] 
-        if (flag_photo == True or flagTest == True) and result_photos_upz is None:
+        if flag_photo == True and result_photos_upz is None:
             black_list.append({
                 "hotel_id": hotelid,
                 "url": fixed_url,
                 "fotos": 0,
             })
-        if (flag_description == True or flagTest == True) and result_description_upz is None:
+        if flag_description == True and result_description_upz is None:
             black_list.append({
                 "hotel_id": hotelid,
                 "url": fixed_url,
                 "description": 0,
             })
 
-        if (flag_facilities == True or flagTest == True) and result_facilities_upz is None:
+        if flag_facilities == True and result_facilities_upz is None:
             black_list.append({
                 "hotel_id": hotelid,
                 "url": fixed_url,
                 "facility": 0,
             }) 
-        if (flag_room == True or flagTest == True) and result_rooms_upz is None:
+        if flag_room == True and result_rooms_upz is None:
             # print("room condition")
             black_list.append({
                 "hotel_id": hotelid,
@@ -231,27 +235,31 @@ def grendMather_controller(data):
                 "room": 0,
             })
 
-        if (flag_room == True or flagTest == True) and upz_hotels_rooms_blocks is None:
+        if flag_room == True and upz_hotels_rooms_blocks is None:
             black_list.append({
                 "hotel_id": hotelid,
                 "url": fixed_url,
                 "room_block": 0,
             })        
         try:
-            return [[result_photos_upz, result_description_upz, result_facilities_upz, result_rooms_upz, upz_hotels_rooms_blocks, None], black_list] 
+            return [[result_photos_upz, result_description_upz, result_facilities_upz, result_rooms_upz, upz_hotels_rooms_blocks], black_list] 
         
         except Exception as ex:
             # print(f"220____{ex}")
             black_list.append({
                 "hotel_id": hotelid,
                 "url": fixed_url,
-                "?": '?',
+                "fotos": 0,
+                "description": 0,
+                "facility": 0,
+                "otziv": "?",
+                "room": 0,
+                "room_block": 0,
             })
             return [[None], black_list] 
         
 # ////////// grendMather_controller block end/////////////////////////////////////
-
-        
+#         
 def proxy_reader():
     with open("proxy_booking.txt", encoding="utf-8") as f1:    
         prLi = ''.join(f1.readlines()).split('\n')
@@ -259,10 +267,12 @@ def proxy_reader():
         prLi = list(filter(lambda item: item != '', prLi))
     return prLi
 
-def father_multiprocessor(data_upz_hotels):
+def father_multiprocessor(data_upz_hotels, cpu_count):
     # import mpire
+    print('hello multi')
     from mpire import WorkerPool   
     # n = multiprocessing.cpu_count() * 10  
+    # print(data_upz_hotels)
     try:
         data_upz_hotels_new = eval(data_upz_hotels) 
     except Exception as ex:
@@ -273,18 +283,21 @@ def father_multiprocessor(data_upz_hotels):
     except Exception as ex:
         # print(f"283____{ex}")
         pass
-    try:
-        n = 22
+    # try:
+    #     cpu_count = int(cpu_count)
+    # except:
+    #     return None
+    try:        
         data_upz_hotels_args = list(f"{prLi}SamsonovNik{item}" for item in data_upz_hotels_new)
     except Exception as ex:
         # print(f"288____{ex}")
         pass
     try:
-        with WorkerPool(n_jobs = n) as p2:
+        with WorkerPool(n_jobs = cpu_count) as p2:
             # print('hello multi')                                
             finRes = p2.map(grendMather_controller, data_upz_hotels_args)
     except Exception as ex:
-        # print(f"295____{ex}")
+        print(f"295____{ex}")
         pass
     # writerr.writerr(finRes) 
     try:  
@@ -293,16 +306,22 @@ def father_multiprocessor(data_upz_hotels):
         # print(f"300____{ex}")
         return None
 
-def pattern_cycles(data):
+def pattern_cycles(data, cpu_count):
+    print('helo pattern_cycles')
     finRes = []
     black_list = []
     try:
-        finRes = father_multiprocessor(data)
+        finRes = father_multiprocessor(data, cpu_count)
     except Exception as ex:
-        # print(f"422____{ex}")
+        print(f"422____{ex}")
         pass
     try:
         writerr.writerr(finRes)
+    except Exception as ex:
+        # print(f"378____{ex}")
+        pass
+    try:
+        db_writerrr.db_wrtr(finRes)
     except Exception as ex:
         # print(f"378____{ex}")
         pass
@@ -316,10 +335,9 @@ def pattern_cycles(data):
     except:
         return None
 
-def cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycles):   
+def cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycles, cpu_count):   
     black_list = []
     ex_list = []
-    limit = 10
 
     try:
         for item in exeptions_data:
@@ -328,35 +346,50 @@ def cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycl
         pass
     try:
         if flag_end_cycles == True:
-            black_list = pattern_cycles(ex_list)
-            b_writerr_func.b_w_writerr(black_list, const_data)
-            cleanup_cache()
-            return print('Finish')
-        else:
-
-            interval_chekcer = len_const_data - n2
+            print('hello end_flag_cycles')
             try:
-                if interval_chekcer <= 10:
-                    n2 = len(const_data)
+                black_list = pattern_cycles(ex_list, cpu_count)
+                try:
+                   b_writerr_func.b_w_writerr(black_list)
+                except Exception as ex:
+                   print(f"351____{ex}") 
+                try:
+                   bl_writerr.bl_db_wrtr(black_list)
+                except Exception as ex:
+                   print(f"355____{ex}") 
+                cleanup_cache()
+            except Exception as ex:
+                print(f"358____{ex}")
+
+            return print('Finish')
+        else:            
+            try:
+                counter +=1
+                n1 = (counter*1000) - 1000 + 1
+                n2 = counter*1000 
+
+                interval_chekcer = len_const_data - n2
+                if interval_chekcer <= 1000:
+                    n2 = len_const_data
                     flag_end_cycles = True
                 else:
-                    counter +=1
-                    n1 = (counter*10) - 10
-                    n2 = counter*10
+                    pass
+
                     # print(f"362___{n2}")
             except Exception as ex:
                 # print(f"343____{ex}")
                 pass
             # print(f"348___{n1, n2}")
 
-            if len(ex_list) != 10 and len(ex_list) < 10:
+            if len(ex_list) != 1000 and len(ex_list) < 1000:
                 try:       
                     # const_data = json_reader_test.data_upz_hotels_func()    
-                    const_data = db_reader.db_opener(n1, n2, limit) 
+                    const_data = db_reader.db_opener(n1, n2)
+                    # print(const_data)
                 except Exception as ex:
                     print(f"443____{ex}")
                 try:
-                    black_list = pattern_cycles(const_data[n1:n2])
+                    black_list = pattern_cycles(const_data, cpu_count)
                 except:
                     pass
                 try:
@@ -365,17 +398,25 @@ def cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycl
                     # print(f"398____{ex}")
                     pass
                 try:
-                    cycles_worker(exeptions_data, n1, n2, limit, const_data, counter, flag_end_cycles) 
+                    cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycles, cpu_count) 
                 except Exception as ex:
                     # print(f"408____{ex}")
                     pass
-            elif len(ex_list) == 10 or len(ex_list) > 10:
+            elif len(ex_list) == 1000 or len(ex_list) > 1000:
+                # print('hello exlist')
                 exeptions_data = []
-                black_list = pattern_cycles(ex_list)
-                
-                b_writerr_func.b_w_writerr(black_list)
+                black_list = pattern_cycles(ex_list, cpu_count)   
+                try:             
+                    b_writerr_func.b_w_writerr(black_list)
+                except Exception as ex:
+                    print(f"408____{ex}")
                 try:
-                    cycles_worker(exeptions_data, n1, n2, const_data, counter, flag_end_cycles) 
+                    bl_writerr.bl_db_wrtr(black_list)
+                except Exception as ex:
+                    print(f"412____{ex}") 
+                # bl_db_wrtr(black_list)
+                try:
+                    cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycles, cpu_count) 
                 except Exception as ex:
                     # print(f"408____{ex}")
                     pass
@@ -403,17 +444,30 @@ def cleanup_cache():
     except Exception as ex:
         # print(f"396____{ex}")
         pass
+
+def speed_determinants():
+    len_items = input("Please enter the length of source table", )
+    try:
+        len_items = int(len_items.strip())
+    except:        
+        len_items = 10000
+    cpu_count = input('Please enter cpu_count', )
+    try:
+        cpu_count = int(cpu_count.strip())
+    except:        
+        cpu_count = 30
+    return len_items, cpu_count
   
 def main():   
     n1 = 0
-    n2 = 10
-    counter = 1
-    len_const_data = 33
+    n2 = 1000
+    counter = 0
     exeptions_data = [] 
     flag_end_cycles = False
+    len_items, cpu_count = speed_determinants()
 
     try:
-        cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycles)
+        cycles_worker(exeptions_data, n1, n2, len_items, counter, flag_end_cycles, cpu_count)
     except Exception as ex:
         print(f"454____{ex}")
 

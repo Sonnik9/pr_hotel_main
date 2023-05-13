@@ -1,19 +1,15 @@
-# import main
 from bs4 import BeautifulSoup
 import re
 from . import facilities_data
 
 def page_scraper_room(resHtml, hotelid):
     result_room_upz = []
-    result_room_upz_list = []  
-
     try:
         soup1 = BeautifulSoup(resHtml, "lxml")       
     except Exception as ex:
         # print(f"str102___{ex}") 
         # pass
-        return None 
-
+        return None
     try:        
         all_sripts_list = []
         scripts_fraction_list = []
@@ -26,7 +22,6 @@ def page_scraper_room(resHtml, hotelid):
         list_elements = section.find_all('div', recursive=False)
         for i, item in enumerate(list_elements):
             room_id = 'not found'
-            name_room = 'not found'
             endescription = 'not found'
             allow_children = 'not found'
             private_bathroom_highlight = 'not found'
@@ -39,14 +34,7 @@ def page_scraper_room(resHtml, hotelid):
             except:
                 room_id = 'not found'
                 continue
-            # print(room_id)
-            try:
-                name_room_pre = item.find('a')
-                name_room = name_room_pre.get_text(strip=True, separator="\n")
-            except:
-                name_room = 'not found'
-                continue 
- 
+
             try:
                 pattern_bed = r'\b\d.*?(?:bed|beds)'
                 all_bed_text = item.get_text(strip=True, separator="\n").split('\n')
@@ -61,39 +49,31 @@ def page_scraper_room(resHtml, hotelid):
                         bed_config = ' '.join(all_bed_text[bed_index[0]])
                     except:
                         bed_config = 'not found'
-                # print(bed_config)
-                # continue
             except:
                 bed_config = 'not found'
-            # continue
+
             try:                
                 pattern1 = f'"roomId":{room_id}.*__typename":"RTRoomCard".*"description".*"hasRoomInventory".*' 
-                # pattern3 = f'RTRoomPhoto:\d+'            
+                           
                 for fr in scripts_fraction_list:
                     match1 = re.search(pattern1, fr)                   
                     if match1:
                         match_general_block = match1.group()
-                        #    print(match_general_block)
+                    
                         try:
                             match_allow_children = re.search(r'"maxChildren":\d', match_general_block)
                             count_allow_children = match_allow_children.group().split(':')[1].strip() 
-                            # print(match_allow_children.group())
-                            # print(count_allow_children)
-                            # continue
                         except:
-                            allow_children = 'not found'
-                            # allow_children = '0'
+                            pass
+                            # allow_children = 'not found'
                         try:
                             allow_children = int(count_allow_children)
                             if allow_children and allow_children >0:
                                 allow_children = '1'
                             else:
                                 allow_children = '0'
-                            # print(allow_children)  
                         except:
                             allow_children = 'not found'                           
-                        # print(allow_children) 
-                        # continue
                         try:
                             private_bathroom_highlight = ''
                             try:
@@ -110,8 +90,6 @@ def page_scraper_room(resHtml, hotelid):
                                         pattern3 = r'\[(.*?)\]'
                                         match_facilities = re.search(pattern3, bathroom_facilities_match)
                                         bathroom_facilities_list = eval(match_facilities.group())
-                                        # print(f"ok_____{bathroom_facilities_list}")
-                                # print(bathroom_facilities_list)
                             except:
                                 bathroom_facilities_list = []
                             try:
@@ -139,19 +117,69 @@ def page_scraper_room(resHtml, hotelid):
                         except Exception as ex:
                             apartament_photo_list = 'not found'
                             # print(f"215____{ex}") 
+                try:
+                    photo1 = apartament_photo_list[0]
+                except:
+                    photo1 = ''
+                try:
+                    photo2 = apartament_photo_list[1]
+                except:
+                    photo2 = ''
+                try:
+                    photo3 = apartament_photo_list[2]
+                except:
+                    photo3 = ''
+                try:
+                    photo4 = apartament_photo_list[3]
+                except:
+                    photo4 = ''
+                try:
+                    photo5 = apartament_photo_list[4]
+                except:
+                    photo5 = ''
+                try:
+                    photo6 = apartament_photo_list[5]
+                except:
+                    photo6 = ''
+                try:
+                    photo7 = apartament_photo_list[6]
+                except:
+                    photo7 = ''
+                try:
+                    photo8 = apartament_photo_list[7]
+                except:
+                    photo8 = ''
+                try:
+                    photo9 = apartament_photo_list[8]
+                except:
+                    photo9 = ''
+                try:
+                    photo10 = apartament_photo_list[9]
+                except:
+                    photo10 = ''
             except Exception as ex:
                 # print(f"140____{ex}")  
                 pass
             try:
-                result_room_upz_list.append({
-                    'room_id': str(room_id), 
-                    'name_room': str(name_room), 
+                result_room_upz.append({
+                    "hotelid": hotelid,
+                    'roomid': str(room_id),                    
                     'endescription': str(endescription), 
                     'allow_children': str(allow_children),
-                    'apartament_photo_list': str(apartament_photo_list),
+                    'photo1': photo1,
+                    'photo2': photo2,
+                    'photo3': photo3,
+                    'photo4': photo4,
+                    'photo5': photo5,
+                    'photo6': photo6,
+                    'photo7': photo7,
+                    'photo8': photo8,
+                    'photo9': photo9,
+                    'photo10': photo10,                  
                     'private_bathroom_highlight': str(private_bathroom_highlight),
                     'bed_configurations': bed_config,
                 })
+
             except Exception as ex:
                 # print(f"150____{ex}") 
                 # pass
@@ -160,26 +188,14 @@ def page_scraper_room(resHtml, hotelid):
     except Exception as ex:
         # print(f"154____{ex}")
         # pass
-        return None 
+        return None
+    try:
 
-    try:
-        result_room_upz.append({
-            "id":"",
-            "hotelid": hotelid,
-            "result_room_upz_list": result_room_upz_list,            
-        })
-    except Exception as ex:
-        # print(f"str163___{ex}") 
-        # pass
-        return None 
-    # print(ok)
-    try:
-        # try:
-        #     with open(f'room_upz_Test_16.json', "w", encoding="utf-8") as file: 
-        #         json.dump(result_room_upz, file, indent=4, ensure_ascii=False)
-        # except Exception as ex:
-        #     print(f"str210__{ex}")
-        # return
-        return result_room_upz[0]
+        return result_room_upz
     except:
         return None
+
+
+# python rooms_func.py
+
+ 

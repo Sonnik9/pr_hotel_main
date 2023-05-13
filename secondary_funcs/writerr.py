@@ -1,5 +1,3 @@
-
-
 def writerr(total):
     import json
     from datetime import datetime
@@ -9,73 +7,73 @@ def writerr(total):
     resDescription = []
     resFacilities = []
     resRooms = []
-    resRoomHighlights = []
+    # resRoomHighlights = []
     resRoomsBlock = []
 
     try:
         for t in total:
             try:
-                resPhoto.append(t[0][0])
+                resPhoto += t[0][0]
             except:
                 continue 
 
-            try:
-                resPhoto = list(filter(None, resPhoto))
-                resPhoto = list(filter("", resPhoto)) 
-            except:
-                pass
+        try:
+            resPhoto = list(filter(None, resPhoto))
+            resPhoto = list(filter("", resPhoto)) 
+        except:
+            pass
         for t in total:
             try:
                 resDescription.append(t[0][1])
             except Exception as ex:
                 print(f"writerr__str30__{ex}")
                 continue 
-            try:
-                resDescription = list(filter(None, resDescription))
-                resDescription = list(filter("", resDescription)) 
-            except:
-                pass
+        try:
+            resDescription = list(filter(None, resDescription))
+            resDescription = list(filter("", resDescription)) 
+        except:
+            pass
 
         for t in total:
             try:
-               resFacilities.append(t[0][2])
+               resFacilities +=t[0][2]
             except:
                 continue 
-            try:
-                resFacilities = list(filter(None, resFacilities))
-                resFacilities = list(filter("", resFacilities)) 
-            except:
-                pass
+        try:
+            resFacilities = list(filter(None, resFacilities))
+            resFacilities = list(filter("", resFacilities)) 
+        except:
+            pass
         for t in total:
             try:
-               resRooms.append(t[0][3])
+               resRooms += t[0][3]
             except:
                 continue 
-            try:
-                resRooms = list(filter(None, resRooms))
-                resRooms = list(filter("", resRooms)) 
-            except:
-                pass
+        try:
+            resRooms = list(filter(None, resRooms))
+            resRooms = list(filter("", resRooms)) 
+        except:
+            pass
         for t in total:
             try:
-               resRoomsBlock.append(t[0][4])
+               resRoomsBlock += t[0][4]
             except:
                 continue 
-            try:
-                resRoomsBlock = list(filter(None, resRoomsBlock))
-                resRoomsBlock = list(filter("", resRoomsBlock)) 
-            except:
-                pass
-        for t in total:
-            try:
-               resRoomHighlights.append(t[0][6])
-            except:
-                continue 
-            try:
-                resRoomHighlights = list(filter(None, resRoomHighlights))
-                resRoomHighlights = list(filter("", resRoomHighlights)) 
-            except:
-                pass
+        try:
+            resRoomsBlock = list(filter(None, resRoomsBlock))
+            resRoomsBlock = list(filter("", resRoomsBlock)) 
+        except:
+            pass
+        # for t in total:
+        #     try:
+        #        resRoomHighlights.append(t[0][6])
+        #     except:
+        #         continue 
+        #     try:
+        #         resRoomHighlights = list(filter(None, resRoomHighlights))
+        #         resRoomHighlights = list(filter("", resRoomHighlights)) 
+        #     except:
+        #         pass
 
     except Exception as ex:
         print(f"str342__{ex}")
@@ -123,113 +121,4 @@ def writerr(total):
                 print(f"str221__{ex}")
     except Exception as ex:
         print(f"writerr__str136__{ex}")
-
-# total = 'jdfkjfdjkdfkj'
-# writerr(total)
-# python writerr.py
-
-
-# we have:
-# data = [
-#     {"id": 1, "url": '1', "f": "0"},
-#     {"id": 2, "url": '2', "r": "B"},
-#     {"id": 1, "url": '1', "fac": "C"},
-#     {"id": 3, "url": '3', "r_b": "D"},
-#     {"id": 2, "url": '2', "d": "E"}
-# ]
-
-# i want to get:
-
-# new_data = [
-#     {"id": 1, "url": '1', "f": "0", "fac": "C"},
-#     {"id": 2, "url": '2', "r": "B", "d": "E"},
-#     {"id": 3, "url": '3', "r_b": "D"},
-
-# ]
-
-# write me python code for sorting data list ruling of principles selections of new_data list
-
-
-
-
-
-# if resRevievs != None and resRevievs != []:
-#     print(f"len_resRevievs___{len(resRevievs)}")
-#     try:
-#         with open(f'result_review_upz_7.json', "w", encoding="utf-8") as file: 
-#             json.dump(resRevievs, file, indent=4, ensure_ascii=False)
-#     except Exception as ex:
-#         print(f"str221__{ex}") 
-
-# i have this:
-# [
-#     [
-#         {
-#             "hotel_id": "4012065",
-#             "url": "https://www.booking.com/hotel/uz/barselona-s.html",
-#             "foto": 0
-#         },
-#         {
-#             "hotel_id": "4012065",
-#             "url": "https://www.booking.com/hotel/uz/barselona-s.html",
-#             "description": 0
-#         },
-#         {
-#             "hotel_id": "4012065",
-#             "url": "https://www.booking.com/hotel/uz/barselona-s.html",
-#             "facility": 0
-#         },
-#         {
-#             "hotel_id": "4012065",
-#             "url": "https://www.booking.com/hotel/uz/barselona-s.html",
-#             "room": 0
-#         },
-#         {
-#             "hotel_id": "4012065",
-#             "url": "https://www.booking.com/hotel/uz/barselona-s.html",
-#             "room_blocks": 0
-#         }
-#     ],
-#     [the same structure]
-# ]
-# write me python code for getting this:
-
-# [
-#     [
-#         {
-#             "hotel_id": "4012065",
-#             "url": "https://www.booking.com/hotel/uz/barselona-s.html",
-#             "foto": 0,
-#             "description": 0,
-#             "facility": 0,
-#             "room": 0,
-#             "room_blocks": 0
-#         },
-#        {another sorted dict like first}
-#     ]
-# ]
-
-
-
-
-        # id_dict = defaultdict(dict)
-        # for d in resBlackList:
-        #     id_dict[d["hotel_id"]].update(d)        
-        # for k, v in id_dict.items():
-        #     new_resBlackList.append(v)
-        # print(resBlackList)
-        # try:
-        #     for d in resBlackList:
-        #         found = False
-        #         for nd in new_resBlackList:
-        #             if d["hotel_id"] == nd["hotel_id"]:
-        #                 nd.update(d)
-        #                 found = True
-        #                 break
-        #         if not found:
-        #             new_resBlackList.append(d)
-        # except Exception as ex:
-        #     print(ex)
-
-        # return
 
