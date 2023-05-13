@@ -2,11 +2,6 @@ def black_filter(finRes):
     d_lackList = []
     sorted_blackList = []
     refactor_blackList = []
-    # try:
-    #     resBlackList = eval(finRes)
-    # except Exception as ex:
-    #     print(f"308____{ex}")
-    #     resBlackList = finRes
 
     for t in finRes:
         try:
