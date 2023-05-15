@@ -12,3 +12,4 @@ requests==2.30.0
 soupsieve==2.4.1
 tqdm==4.65.0
 urllib3==1.26.15
+lxml==4.9.2

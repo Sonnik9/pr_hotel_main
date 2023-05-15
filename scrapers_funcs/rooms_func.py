@@ -3,9 +3,11 @@ import re
 from . import facilities_data
 
 def page_scraper_room(resHtml, hotelid):
+    print('hello room')
     result_room_upz = []
     try:
-        soup1 = BeautifulSoup(resHtml, "lxml")       
+        soup1 = BeautifulSoup(resHtml, "lxml")  
+        # print(resHtml)     
     except Exception as ex:
         # print(f"str102___{ex}") 
         # pass
@@ -190,7 +192,7 @@ def page_scraper_room(resHtml, hotelid):
         # pass
         return None
     try:
-
+        # print(result_room_upz)
         return result_room_upz
     except:
         return None

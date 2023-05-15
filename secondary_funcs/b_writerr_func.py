@@ -4,11 +4,17 @@ def b_w_writerr(black_list):
     import json
     print("hello black writer")
     # white_list_refactor = []
-    try:
-        new_resBlackList = eval(b_filter_func.black_filter(black_list))
-    except Exception as ex:
-        # print(f"339____{ex}")
-        new_resBlackList = black_list
+    new_resBlackList = black_list
+    # try:
+    #     new_resBlackList = eval(b_filter_func.black_filter(black_list))
+    # except Exception as ex:
+    #     print(f"sec_funcs_b_writerr_func___str10____{ex}")
+    #     try:
+    #        new_resBlackList = b_filter_func.black_filter(black_list)
+    #        print(f"sec_funcs_b_writerr_func___13____{new_resBlackList}")
+    #     except Exception as ex:
+    #         new_resBlackList = black_list
+    #         print(f"sec_funcs_b_writerr_func___14____{ex}")
 
     now = datetime.now() 
     curentTimeForFile = now.strftime("%d_%m_%Y__%H_%M")

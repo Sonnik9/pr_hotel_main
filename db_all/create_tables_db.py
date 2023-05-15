@@ -22,28 +22,28 @@ def create_tables():
     except Error as e:
         print(f"Error connecting to MySQL: {e}")
 
-    try:
-       cursor.execute("DROP TABLE result_photos_test1")
-    except:
-        pass 
+    # try:
+    #    cursor.execute("DROP TABLE result_photos_test1")
+    # except:
+    #     pass 
 
-    try:
-        cursor.execute("DROP TABLE result_description_test1")
-    except:
-        pass 
+    # try:
+    #     cursor.execute("DROP TABLE result_description_test1")
+    # except:
+    #     pass 
 
-    try:
-       cursor.execute("DROP TABLE result_facilities_test1")
-    except:
-        pass 
-    try:
-       cursor.execute("DROP TABLE result_room_test1")
-    except:
-        pass 
-    try:
-       cursor.execute("DROP TABLE result_room_block_test1")
-    except:
-        pass
+    # try:
+    #    cursor.execute("DROP TABLE result_facilities_test1")
+    # except:
+    #     pass 
+    # try:
+    #    cursor.execute("DROP TABLE result_room_test1")
+    # except:
+    #     pass 
+    # try:
+    #    cursor.execute("DROP TABLE result_room_block_test1")
+    # except:
+    #     pass
     try:
        cursor.execute("DROP TABLE black_list_test1")
     except:
@@ -131,11 +131,11 @@ def create_tables():
 
     )
     '''
-    cursor.execute(create_table_query1)
-    cursor.execute(create_table_query2)
-    cursor.execute(create_table_query3)
-    cursor.execute(create_table_query4)
-    cursor.execute(create_table_query5)
+    # cursor.execute(create_table_query1)
+    # cursor.execute(create_table_query2)
+    # cursor.execute(create_table_query3)
+    # cursor.execute(create_table_query4)
+    # cursor.execute(create_table_query5)
     cursor.execute(create_table_query6)
 
     cursor.close()
@@ -144,7 +144,7 @@ def create_tables():
     return print("the tables was created successfully")
 
 
-# create_tables()
+create_tables()
 
 
 # python create_tables_db.py

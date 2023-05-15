@@ -4,7 +4,7 @@ def bl_db_wrtr(black_list):
     import pyperclip
     from . import config_real
     # from . import b_db_filter_func
-    from ..secondary_funcs import b_filter_func
+    from . import b_filter_func
     pyperclip.copy('')
     clipboard_text = pyperclip.paste()
 
@@ -31,32 +31,19 @@ def bl_db_wrtr(black_list):
     print(black_list)
     resBlackList = []
 
-    try:
-        resBlackList = eval(b_filter_func.black_filter(black_list))
-        print(resBlackList)
-    except Exception as ex:
-        resBlackList = eval(b_filter_func.black_filter(black_list))
-        print(resBlackList)
-        print(f"b_db_filter_func___35{ex}")
-        resBlackList = black_list
+    # try:
+    #     resBlackList = eval(b_filter_func.black_filter(black_list))
+    #     # print(resBlackList)
+    # except Exception as ex:
+    #     resBlackList = b_filter_func.black_filter(black_list)
+    #     print(resBlackList)
+    #     print(f"b_db_filter_func___35_35{ex}")
+    #     resBlackList = black_list
 
-    #         CREATE TABLE black_list_test1 (
-    #     id INT AUTO_INCREMENT PRIMARY KEY,
-    #     hotelid VARCHAR(20),
-    #     url TEXT,
-    #     fotos INT,
-    #     description INT,
-    #     facility INT,
-    #     otziv VARCHAR(4),
-    #     room INT,
-    #     room_block INT
-
-    # )
-    # '''
     try:
         query6 = "INSERT INTO black_list_test1 (hotelid, url, fotos, description, facility, otziv, room, room_block) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
 
-        for item in resBlackList:
+        for item in black_list:
             try:
                 values = (item["hotel_id"], item["url"], item["fotos"], item["description"], item["facility"], item["otziv"], item["room"], item["room_block"])
                 cursor.execute(query6, values)

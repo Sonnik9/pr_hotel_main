@@ -1,29 +1,29 @@
 def black_filter(finRes):
+    print('helo secondary_funcs____black_filter')
     d_lackList = []
     sorted_blackList = []
     refactor_blackList = []
-    # try:
-    #     resBlackList = eval(finRes)
-    # except Exception as ex:
-    #     print(f"308____{ex}")
-    #     resBlackList = finRes
 
     for t in finRes:
         try:
            d_lackList.append(t[1])
-        except:
+        except Exception as ex:
+            print(f"secondary_funcs____black_filter__11____{ex}")
             continue
     try:
         d_lackList = list(filter(None, d_lackList))                
         d_lackList = list(filter([], d_lackList))
     except Exception as ex:
-        print(f"315____{ex}")
+        print(f"secondary_funcs____black_filter__17____{ex}")
     try:
         for lst in d_lackList:
             merged_dict = {}
             for dct in lst:
-                hotel_id = dct["hotel_id"]
-                url = dct["url"]
+                try:
+                    hotel_id = dct["hotel_id"]
+                    url = dct["url"]
+                except Exception as ex:
+                    print(f"b_filter_func___24{ex}")
                 if hotel_id not in merged_dict:
                     merged_dict[hotel_id] = {"hotel_id": hotel_id, "url": url}
                 merged_dict[hotel_id][list(dct.keys())[2]] = dct[list(dct.keys())[2]]

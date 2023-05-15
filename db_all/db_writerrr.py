@@ -33,7 +33,7 @@ def db_wrtr(total):
         print(f"Error connecting to MySQL: {e}")
 
     print(len(total))
-    print(total)
+    # print(total)
     resPhoto = []
     resDescription = []
     resFacilities = []
