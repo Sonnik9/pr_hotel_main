@@ -1,4 +1,5 @@
 import requests
+from fake_useragent import UserAgent
 import random 
 from random import choice
 import time
@@ -9,17 +10,13 @@ import shutil
 import tempfile
 import sys 
 try:
-    import secondary_funcs
+
     import scrapers_funcs
     import db_all
 except Exception as ex:
     print(f"16____{ex}")
 
-try:
-   from secondary_funcs import smart_headers, b_filter_func
-#    print('success secondary_funcs')
-except Exception as ex:
-    print(f"12____{ex}")
+
 try:
    from scrapers_funcs import photos_func, description_func, faciclities_func, rooms_func, rooms_block_func
 #    print('success scrapers_funcs') 
@@ -31,6 +28,133 @@ try:
 #    print('success db_all') 
 except Exception as ex:
     print(f"25____{ex}")
+
+
+uagent = UserAgent()  
+
+
+
+# //////////////spart headers start///////////////////////////////
+
+def random_headers(): 
+    
+    desktop_accept = [
+        'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',     
+        'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',     
+        'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',     
+        'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',     
+        'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',     
+        'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',     
+        'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',                
+        ]
+    device_memoryHelper = [2,4,8,16,32]
+    sett = set()
+    finHeaders = []  
+ 
+    headFront = [{
+            'authority': 'www.booking.com',
+            'accept': choice(desktop_accept), 
+            'User-Agent': uagent.random,  
+            'accept-language': 'en-US,en;q=0.8',
+            # 'accept-language': 'ru-RU,ru;q=0.9',         
+            # 'accept-language': f"'en-US,en;q=0.8', 'ru-RU,ru;q=0.9', 'uk-Uk,uk;q=0.5'",       
+            'origin': 'https://www.booking.com/',
+            'device-memory': f'{choice(device_memoryHelper)}'   
+                   
+            }
+    ]
+
+    headersHelper = [       
+            {"sec-fetch-dest": "empty"},
+            {"sec-fetch-mode": "cors"},
+            {"sec-fetch-site": "same-origin"},
+            {"accept-ch": "sec-ch-ua-model,sec-ch-ua-platform-version,sec-ch-ua-full-version"},
+            {'cache-control': 'no-cache'},
+            {'content-type': 'application/json'},
+            {'rtt': '200'},
+            {"ect": "4g"},
+            {'sec-fetch-user': '?1'},
+            {"viewport-width": "386"},            
+            {'sec-ch-ua': '".Not/A)Brand";v="99", "Google Chrome";v="103", "Chromium";v="103"'},
+            {'upgrade-insecure-requests': '1'}
+    ]
+    headersHelperFormated = []
+    strr = ''
+    for i in headersHelper[0:len(headersHelper)-random.randrange(0,len(headersHelper))]:
+        strr += ((str(choice(headersHelper)))[1:-1]).strip() + ',' + ' '  
+         
+    sett.add(strr)    
+    headersHelperFormated = list(sett)    
+    finHeaders = headFront + headersHelperFormated
+    finHeaders[1] = eval("{" + finHeaders[1] + "}")    
+    finfinH = finHeaders[0]|finHeaders[1]    
+    return finfinH
+
+# //////////////smart headers start///////////////////////////////
+
+# ///////////////filter start//////////////////
+
+def black_filter(finRes):
+    print('helo secondary_funcs____black_filter')
+    d_lackList = []
+    sorted_blackList = []
+    refactor_blackList = []
+
+    for t in finRes:
+        try:
+           d_lackList.append(t[1])
+        except Exception as ex:
+            print(f"secondary_funcs____black_filter__11____{ex}")
+            continue
+    try:
+        d_lackList = list(filter(None, d_lackList))                
+        d_lackList = list(filter([], d_lackList))
+    except Exception as ex:
+        print(f"secondary_funcs____black_filter__17____{ex}")
+    try:
+        for lst in d_lackList:
+            merged_dict = {}
+            for dct in lst:
+                try:
+                    hotel_id = dct["hotel_id"]
+                    url = dct["url"]
+                except Exception as ex:
+                    print(f"b_filter_func___24{ex}")
+                if hotel_id not in merged_dict:
+                    merged_dict[hotel_id] = {"hotel_id": hotel_id, "url": url}
+                merged_dict[hotel_id][list(dct.keys())[2]] = dct[list(dct.keys())[2]]
+            sorted_blackList.append(list(merged_dict.values()))
+        for item in sorted_blackList:
+            refactor_blackList += item
+
+        for rfi in refactor_blackList:            
+            if "fotos" not in rfi:
+                rfi.setdefault("fotos", 1)
+            if "description" not in rfi:
+                rfi.setdefault("description", 1)
+            if "facility" not in rfi:
+                rfi.setdefault("facility", 1)
+            if "otziv" not in rfi:
+                rfi.setdefault("otziv", '?')
+            if "room" not in rfi:
+                rfi.setdefault("room", 1)
+            if "room_block" not in rfi:
+                rfi.setdefault("room_block", 1)
+
+    except Exception as ex:
+        # print(f"327____{ex}")
+        pass
+    try:
+        return refactor_blackList
+    except Exception as ex:
+        # print(f"331____{ex}")
+        return None
+    
+# ///////////////filter end//////////////////
+
 
 # ////////// grendMather_controller block/////////////////////////////////////
 
@@ -151,7 +275,7 @@ def grendMather_controller(data):
                 } 
                 # print(proxy_item)
                 # print(fixed_url)
-                headers=smart_headers.random_headers()
+                headers=random_headers()
                 print(headers)
                 k = 2 / random.randrange(1, 5)
                 m = 1 / random.randrange(1, 11)
@@ -330,7 +454,7 @@ def pattern_cycles(data, cpu_count):
         # print(f"378____{ex}")
         pass
     try:
-        black_list = b_filter_func.black_filter(finRes) 
+        black_list = black_filter(finRes) 
     except Exception as ex:
         # print(f"390____{ex}")
         pass
@@ -361,7 +485,7 @@ def cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycl
                    bl_writerr.bl_db_wrtr(black_list)
                 except Exception as ex:
                    print(f"355____{ex}") 
-                cleanup_cache()
+               
             except Exception as ex:
                 print(f"358____{ex}")
 
@@ -410,10 +534,6 @@ def cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycl
                 # print('hello exlist')
                 exeptions_data = []
                 black_list = pattern_cycles(ex_list, cpu_count)   
-                # try:             
-                #     b_writerr_func.b_w_writerr(black_list)
-                # except Exception as ex:
-                #     print(f"408____{ex}")
                 try:
                     bl_writerr.bl_db_wrtr(black_list)
                 except Exception as ex:
@@ -429,57 +549,6 @@ def cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycl
         # print(f"334____{ex}")
         pass
 
-def cleanup_cache():
-    import os
-    try:
-        cache_dir = tempfile.mkdtemp()
-    except Exception as ex:
-        # print(f"386____{ex}")
-        pass    
-    try:
-        if os.path.exists("__pycache__"):
-            shutil.rmtree("__pycache__")
-    except Exception as ex:
-        # print(f"392____{ex}")
-        pass  
-    try:
-        if os.path.exists("./secondary_funcs/__pycache__"):
-            shutil.rmtree("./secondary_funcs/__pycache__")
-    except Exception as ex:
-        print(f"445____{ex}")
-        pass 
-    try:
-        if os.path.exists("./scrapers_funcs/__pycache__"):
-            shutil.rmtree("./scrapers_funcs/__pycache__")
-    except Exception as ex:
-        print(f"451____{ex}")
-        pass 
-    try:
-        if os.path.exists("./db_all/__pycache__"):
-            shutil.rmtree("./db_all/__pycache__")
-    except Exception as ex:
-        print(f"457____{ex}")
-        pass  
-    # secondary_funcs  
-    try:
-        if os.path.exists(cache_dir):
-            shutil.rmtree(cache_dir)
-    except Exception as ex:
-        # print(f"396____{ex}")
-        pass
-
-def speed_determinants():
-    len_items = input("Please enter the length of source table", )
-    try:
-        len_items = int(len_items.strip())
-    except:        
-        len_items = 10000
-    cpu_count = input('Please enter cpu_count', )
-    try:
-        cpu_count = int(cpu_count.strip())
-    except:        
-        cpu_count = 30
-    return len_items, cpu_count
   
 def main():   
     n1 = 0
@@ -497,14 +566,7 @@ def main():
 if __name__ == "__main__":
     # import pyperclip
     start_time = time.time() 
-    try:
-        atexit.register(cleanup_cache)
-    except Exception as ex:
-        print(f"461____{ex}")
     main() 
-    # cleanup_cache()
-    # pyperclip.copy('')
-    # clipboard_text = pyperclip.paste()
     finish_time = time.time() - start_time
     print(f"Total time:  {math.ceil(finish_time)} сек")
     try:
