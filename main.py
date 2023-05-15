@@ -42,6 +42,7 @@ def random_headers(uagent):
         uagent = eval(uagent)
     except:
         uagent = uagent
+    print(uagent)
     
     desktop_accept = [
         'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
@@ -63,7 +64,7 @@ def random_headers(uagent):
     headFront = [{
             'authority': 'www.booking.com',
             'accept': choice(desktop_accept), 
-            'User-Agent': uagent.random,  
+            'User-Agent': choice(uagent),  
             'accept-language': 'en-US,en;q=0.8',
             # 'accept-language': 'ru-RU,ru;q=0.9',         
             # 'accept-language': f"'en-US,en;q=0.8', 'ru-RU,ru;q=0.9', 'uk-Uk,uk;q=0.5'",       
