@@ -187,8 +187,14 @@ def grendMather_controller(data):
         pass
     try:
         uaG = data.split('SamsonovNik')[2]
+        try:
+            uaG = eval(uaG)
+        except:
+            uaG = uaG
+
+
     except Exception as ex:
-        # print(f"48____{ex}")
+        print(f"197____{ex}")
         pass
     try:
         data_upz_hotels_item_dict = eval(data_upz_hotels_item)
