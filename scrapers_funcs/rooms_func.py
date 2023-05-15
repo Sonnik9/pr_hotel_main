@@ -3,7 +3,7 @@ import re
 from . import facilities_data
 
 def page_scraper_room(resHtml, hotelid):
-    print('hello room')
+    # print('hello room')
     result_room_upz = []
     try:
         soup1 = BeautifulSoup(resHtml, "lxml")  
