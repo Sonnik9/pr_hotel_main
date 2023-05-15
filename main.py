@@ -29,14 +29,15 @@ try:
 except Exception as ex:
     print(f"25____{ex}")
 
-
-uagent = UserAgent()  
+def uaRefresh():
+    uagent = UserAgent() 
+    return uagent
 
 
 
 # //////////////spart headers start///////////////////////////////
 
-def random_headers(): 
+def random_headers(uagent): 
     
     desktop_accept = [
         'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
@@ -181,6 +182,11 @@ def grendMather_controller(data):
         # print(f"48____{ex}")
         pass
     try:
+        uaG = data.split('SamsonovNik')[2]
+    except Exception as ex:
+        # print(f"48____{ex}")
+        pass
+    try:
         data_upz_hotels_item_dict = eval(data_upz_hotels_item)
     except Exception as ex:
         # print(f"53____{ex}")
@@ -247,24 +253,24 @@ def grendMather_controller(data):
         room_blockInd = data_upz_hotels_item_dict["room_block"]
     except:
         room_blockInd = None     
-    # try:
-    #     if photoInd == "1" or photoInd == 1:
-    #         flag_photo = False
-    #         flagCount += 1  
-    #     if descriptionInd == "1" or descriptionInd == 1:
-    #         flag_description = False
-    #         flagCount += 1 
-    #     if facilityInd == "1" or facilityInd == 1:
-    #         flag_facilities = False
-    #         flagCount += 1 
-    #     if roomInd == "1" or roomInd == 1:
-    #         flag_room = False
-    #         flagCount += 1
-    #     if room_blockInd == "1" or room_blockInd == 1:
-    #         flag_room_block = False
-    # except:
-    #     pass
-    if flagCount == 7:  
+    try:
+        if photoInd == "1" or photoInd == 1:
+            flag_photo = False
+            flagCount += 1  
+        if descriptionInd == "1" or descriptionInd == 1:
+            flag_description = False
+            flagCount += 1 
+        if facilityInd == "1" or facilityInd == 1:
+            flag_facilities = False
+            flagCount += 1 
+        if roomInd == "1" or roomInd == 1:
+            flag_room = False
+            flagCount += 1
+        if room_blockInd == "1" or room_blockInd == 1:
+            flag_room_block = False
+    except:
+        pass
+    if flagCount == 4:  
         return [[None], black_list]     
     else:
         for _ in range(2):
@@ -278,11 +284,11 @@ def grendMather_controller(data):
                 # print(proxy_item)
                 # print(fixed_url)
                 try:
-                   headerss=random_headers()
+                   headerss=random_headers(uaG)
                    
                 except Exception as ex:
                     print(f"headers281____{ex}")
-                # print(headerss)
+                print(headerss)
                 
                 k = 2 / random.randrange(1, 5)
                 m = 1 / random.randrange(1, 11)
@@ -292,7 +298,7 @@ def grendMather_controller(data):
                 try:     
                     r = requests.get(fixed_url, headers=headerss, proxies=proxy_item)
                     # r.raise_for_status()
-                    print(r)
+                    # print(r)
                     if r.status_code == 404: 
                         return None
                     if r.status_code == 200 and r.text is not None and r.text != '':
@@ -377,7 +383,7 @@ def grendMather_controller(data):
                 "room_block": 0,
             })        
         try:
-            print(result_description_upz)
+            # print(result_description_upz)
             return [[result_photos_upz, result_description_upz, result_facilities_upz, result_rooms_upz, upz_hotels_rooms_blocks], black_list] 
         
         except Exception as ex:
@@ -409,6 +415,7 @@ def father_multiprocessor(data_upz_hotels, cpu_count):
     from mpire import WorkerPool   
     # n = multiprocessing.cpu_count() * 10  
     # print(data_upz_hotels)
+    uaG = uaRefresh()
     try:
         data_upz_hotels_new = eval(data_upz_hotels) 
     except Exception as ex:
@@ -424,7 +431,7 @@ def father_multiprocessor(data_upz_hotels, cpu_count):
     # except:
     #     return None
     try:        
-        data_upz_hotels_args = list(f"{prLi}SamsonovNik{item}" for item in data_upz_hotels_new)
+        data_upz_hotels_args = list(f"{prLi}SamsonovNik{item}SamsonovNik{uaG}" for item in data_upz_hotels_new)
     except Exception as ex:
         # print(f"288____{ex}")
         pass
@@ -443,7 +450,7 @@ def father_multiprocessor(data_upz_hotels, cpu_count):
         return None
 
 def pattern_cycles(data, cpu_count):
-    print('helo pattern_cycles')
+    # print('helo pattern_cycles')
     finRes = []
     black_list = []
     try:
@@ -501,8 +508,8 @@ def cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycl
         else:            
             try:
                 counter +=1
-                n1 = (counter*10) - 10 + 1
-                n2 = counter*10
+                n1 = (counter*1000) - 1000 + 1
+                n2 = counter*1000
 
                 interval_chekcer = len_const_data - n2
                 if interval_chekcer <= 10:
@@ -517,7 +524,7 @@ def cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycl
                 pass
             # print(f"348___{n1, n2}")
 
-            if len(ex_list) != 10 and len(ex_list) < 10:
+            if len(ex_list) != 1000 and len(ex_list) < 1000:
                 try:       
                     # const_data = json_reader_test.data_upz_hotels_func()    
                     const_data = db_reader.db_opener(n1, n2)
@@ -538,7 +545,7 @@ def cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycl
                 except Exception as ex:
                     # print(f"408____{ex}")
                     pass
-            elif len(ex_list) == 10 or len(ex_list) > 10:
+            elif len(ex_list) == 1000 or len(ex_list) > 1000:
                 # print('hello exlist')
                 exeptions_data = []
                 black_list = pattern_cycles(ex_list, cpu_count)   
@@ -560,11 +567,11 @@ def cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycl
   
 def main():   
     n1 = 0
-    n2 = 10
+    n2 = 0
     counter = 0
     exeptions_data = [] 
     flag_end_cycles = False
-    len_items, cpu_count = 36, 6
+    len_items, cpu_count = 10000, 8
 
     try:
         cycles_worker(exeptions_data, n1, n2, len_items, counter, flag_end_cycles, cpu_count)
