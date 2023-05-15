@@ -1,11 +1,11 @@
 def db_wrtr(total):
     import mysql.connector
     from mysql.connector import connect, Error 
-    import pyperclip
+    # import pyperclip
     from . import config_real
     # import json
-    pyperclip.copy('')
-    clipboard_text = pyperclip.paste()
+    # pyperclip.copy('')
+    # clipboard_text = pyperclip.paste()
 
     # user = 'hote_tophot77_db'
     # password = '8dGBX2Kx'

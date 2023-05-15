@@ -1,10 +1,10 @@
 def db_opener(n1, n2):
     import mysql.connector
     from mysql.connector import connect, Error 
-    import pyperclip
+    # import pyperclip
     from . import config_real
-    pyperclip.copy('')
-    clipboard_text = pyperclip.paste()
+    # pyperclip.copy('')
+    # clipboard_text = pyperclip.paste()
     data_DB = []
     config = {
         'user': config_real.user,
