@@ -149,8 +149,8 @@ def grendMather_controller(data):
                 proxy_item = {       
                     "https": f"http://{choice(prLi)}"          
                 } 
-                print(proxy_item)
-                print(fixed_url)
+                # print(proxy_item)
+                # print(fixed_url)
                 headers=smart_headers.random_headers()
                 print(headers)
                 k = 2 / random.randrange(1, 5)
