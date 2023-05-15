@@ -149,14 +149,17 @@ def grendMather_controller(data):
                 proxy_item = {       
                     "https": f"http://{choice(prLi)}"          
                 } 
-                # print(proxy_item)
+                print(proxy_item)
+                print(fixed_url)
+                headers=smart_headers.random_headers()
+                print(headers)
                 k = 2 / random.randrange(1, 5)
                 m = 1 / random.randrange(1, 11)
                 g = random.randrange(1, 5)
                 n = round(g + k + m, 2) 
                 time.sleep(n)  
                 try:     
-                    r = requests.get(fixed_url, headers=smart_headers.random_headers(), proxies=proxy_item, timeout=(3.15, 21.15))
+                    r = requests.get(fixed_url, headers=headers, proxies=proxy_item)
                     r.raise_for_status()
                     print(r.status_code)
                     if r.status_code == 404: 
