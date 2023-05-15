@@ -484,7 +484,7 @@ def main():
     counter = 0
     exeptions_data = [] 
     flag_end_cycles = False
-    len_items, cpu_count = 10000, 22
+    len_items, cpu_count = 10000, 12
 
     try:
         cycles_worker(exeptions_data, n1, n2, len_items, counter, flag_end_cycles, cpu_count)
