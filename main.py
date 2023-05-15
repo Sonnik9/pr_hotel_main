@@ -275,17 +275,22 @@ def grendMather_controller(data):
                 } 
                 # print(proxy_item)
                 # print(fixed_url)
-                headers=random_headers()
-                print(headers)
+                try:
+                   headerss=random_headers()
+                   
+                except Exception as ex:
+                    print(f"headers281____{ex}")
+                print(headerss)
+                
                 k = 2 / random.randrange(1, 5)
                 m = 1 / random.randrange(1, 11)
                 g = random.randrange(1, 5)
                 n = round(g + k + m, 2) 
                 time.sleep(n)  
                 try:     
-                    r = requests.get(fixed_url, headers=headers, proxies=proxy_item)
-                    r.raise_for_status()
-                    print(r.status_code)
+                    r = requests.get(fixed_url, headers=headerss, proxies=proxy_item)
+                    # r.raise_for_status()
+                    print(r)
                     if r.status_code == 404: 
                         return None
                     if r.status_code == 200 and r.text is not None and r.text != '':
