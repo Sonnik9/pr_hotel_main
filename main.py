@@ -28,21 +28,19 @@ try:
 #    print('success db_all') 
 except Exception as ex:
     print(f"25____{ex}")
+uagent = UserAgent()
 
-def uaRefresh():
-    uagent = UserAgent() 
-    return uagent
+
+# def uaRefresh():
+#     uagent = UserAgent() 
+#     ua = uagent.data_browsers
+#     return ua
 
 
 
 # //////////////spart headers start///////////////////////////////
 
-def random_headers(uagent): 
-    try:
-        uagent = eval(uagent)
-    except:
-        uagent = uagent
-    print(uagent)
+def random_headers():
     
     desktop_accept = [
         'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
@@ -60,11 +58,12 @@ def random_headers(uagent):
     sett = set()
     finHeaders = []    
     finfinH = {} 
+    
  
     headFront = [{
             'authority': 'www.booking.com',
             'accept': choice(desktop_accept), 
-            'User-Agent': choice(uagent),  
+            'User-Agent': uagent.random,  
             'accept-language': 'en-US,en;q=0.8',
             # 'accept-language': 'ru-RU,ru;q=0.9',         
             # 'accept-language': f"'en-US,en;q=0.8', 'ru-RU,ru;q=0.9', 'uk-Uk,uk;q=0.5'",       
@@ -186,12 +185,12 @@ def grendMather_controller(data):
     except Exception as ex:
         # print(f"48____{ex}")
         pass
-    try:
-        uaG = data.split('SamsonovNik')[2]
-        try:
-            uaG = eval(uaG)
-        except:
-            uaG = uaG
+    # try:
+    #     uaG = data.split('SamsonovNik')[2]
+    #     try:
+    #         uaG = eval(uaG)
+    #     except:
+    #         uaG = uaG
 
 
     except Exception as ex:
@@ -295,11 +294,11 @@ def grendMather_controller(data):
                 # print(proxy_item)
                 # print(fixed_url)
                 try:
-                   headerss=random_headers(uaG)
+                   headerss=random_headers()
                    
                 except Exception as ex:
                     print(f"headers281____{ex}")
-                print(headerss)
+                # print(headerss)
                 
                 k = 2 / random.randrange(1, 5)
                 m = 1 / random.randrange(1, 11)
@@ -426,7 +425,7 @@ def father_multiprocessor(data_upz_hotels, cpu_count):
     from mpire import WorkerPool   
     # n = multiprocessing.cpu_count() * 10  
     # print(data_upz_hotels)
-    uaG = uaRefresh()
+    # uaG = uaRefresh()
     try:
         data_upz_hotels_new = eval(data_upz_hotels) 
     except Exception as ex:
@@ -442,7 +441,7 @@ def father_multiprocessor(data_upz_hotels, cpu_count):
     # except:
     #     return None
     try:        
-        data_upz_hotels_args = list(f"{prLi}SamsonovNik{item}SamsonovNik{uaG}" for item in data_upz_hotels_new)
+        data_upz_hotels_args = list(f"{prLi}SamsonovNik{item}" for item in data_upz_hotels_new)
     except Exception as ex:
         # print(f"288____{ex}")
         pass
