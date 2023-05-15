@@ -52,7 +52,8 @@ def random_headers():
         ]
     device_memoryHelper = [2,4,8,16,32]
     sett = set()
-    finHeaders = []  
+    finHeaders = []    
+    finfinH = {} 
  
     headFront = [{
             'authority': 'www.booking.com',
@@ -90,7 +91,8 @@ def random_headers():
     headersHelperFormated = list(sett)    
     finHeaders = headFront + headersHelperFormated
     finHeaders[1] = eval("{" + finHeaders[1] + "}")    
-    finfinH = finHeaders[0]|finHeaders[1]    
+    finfinH.update(finHeaders[0])
+    finfinH.update(finHeaders[1])   
     return finfinH
 
 # //////////////smart headers start///////////////////////////////
