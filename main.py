@@ -35,7 +35,7 @@ except Exception as ex:
 # ////////// grendMather_controller block/////////////////////////////////////
 
 def grendMather_controller(data):
-    print('hello controler')
+    # print('hello controler')
     flagCount = 0
     # flagTest = True
     flag_photo = True
@@ -64,7 +64,7 @@ def grendMather_controller(data):
     except Exception as ex:
         # print(f"61____{ex}")
         hotelid = 'not found'
-    print(hotelid)
+    # print(hotelid)
     try:
         prLi_str = data.split('SamsonovNik')[0]
         try:
@@ -121,24 +121,24 @@ def grendMather_controller(data):
         room_blockInd = data_upz_hotels_item_dict["room_block"]
     except:
         room_blockInd = None     
-    try:
-        if photoInd == "1" or photoInd == 1:
-            flag_photo = False
-            flagCount += 1  
-        if descriptionInd == "1" or descriptionInd == 1:
-            flag_description = False
-            flagCount += 1 
-        if facilityInd == "1" or facilityInd == 1:
-            flag_facilities = False
-            flagCount += 1 
-        if roomInd == "1" or roomInd == 1:
-            flag_room = False
-            flagCount += 1
-        if room_blockInd == "1" or room_blockInd == 1:
-            flag_room_block = False
-    except:
-        pass
-    if flagCount == 4:  
+    # try:
+    #     if photoInd == "1" or photoInd == 1:
+    #         flag_photo = False
+    #         flagCount += 1  
+    #     if descriptionInd == "1" or descriptionInd == 1:
+    #         flag_description = False
+    #         flagCount += 1 
+    #     if facilityInd == "1" or facilityInd == 1:
+    #         flag_facilities = False
+    #         flagCount += 1 
+    #     if roomInd == "1" or roomInd == 1:
+    #         flag_room = False
+    #         flagCount += 1
+    #     if room_blockInd == "1" or room_blockInd == 1:
+    #         flag_room_block = False
+    # except:
+    #     pass
+    if flagCount == 7:  
         return [[None], black_list]     
     else:
         for _ in range(2):
