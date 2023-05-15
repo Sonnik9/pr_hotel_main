@@ -16,7 +16,7 @@ except Exception as ex:
     print(f"16____{ex}")
 
 try:
-   from secondary_funcs import smart_headers, writerr, b_writerr_func, b_filter_func
+   from secondary_funcs import smart_headers, b_filter_func
 #    print('success secondary_funcs')
 except Exception as ex:
     print(f"12____{ex}")
@@ -35,7 +35,7 @@ except Exception as ex:
 # ////////// grendMather_controller block/////////////////////////////////////
 
 def grendMather_controller(data):
-    # print('hello controler')
+    print('hello controler')
     flagCount = 0
     # flagTest = True
     flag_photo = True
@@ -64,6 +64,7 @@ def grendMather_controller(data):
     except Exception as ex:
         # print(f"61____{ex}")
         hotelid = 'not found'
+    print(hotelid)
     try:
         prLi_str = data.split('SamsonovNik')[0]
         try:
@@ -483,7 +484,7 @@ def main():
     counter = 0
     exeptions_data = [] 
     flag_end_cycles = False
-    len_items, cpu_count = 10000, 50
+    len_items, cpu_count = 10000, 22
 
     try:
         cycles_worker(exeptions_data, n1, n2, len_items, counter, flag_end_cycles, cpu_count)
@@ -491,7 +492,7 @@ def main():
         print(f"454____{ex}")
 
 if __name__ == "__main__":
-    import pyperclip
+    # import pyperclip
     start_time = time.time() 
     try:
         atexit.register(cleanup_cache)
@@ -499,8 +500,8 @@ if __name__ == "__main__":
         print(f"461____{ex}")
     main() 
     # cleanup_cache()
-    pyperclip.copy('')
-    clipboard_text = pyperclip.paste()
+    # pyperclip.copy('')
+    # clipboard_text = pyperclip.paste()
     finish_time = time.time() - start_time
     print(f"Total time:  {math.ceil(finish_time)} сек")
     try:

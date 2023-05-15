@@ -5,6 +5,7 @@ from . import facilities_data
 def page_scraper_room_block(resHtml, hotelid):
     meal_facilities_const = [1, 166, 167, 168, 169, 170, 171, 217, 218, 219, 220]
     result_room_block_upz = []
+    print('hello room block')
 
     try:   
         soup1 = BeautifulSoup(resHtml, "lxml")      
@@ -132,6 +133,7 @@ def page_scraper_room_block(resHtml, hotelid):
         # pass
         return None
     try:
+        print(result_room_block_upz)
         return result_room_block_upz
     except:
         return None
