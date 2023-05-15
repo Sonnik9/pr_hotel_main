@@ -437,7 +437,26 @@ def cleanup_cache():
             shutil.rmtree("__pycache__")
     except Exception as ex:
         # print(f"392____{ex}")
-        pass    
+        pass  
+    try:
+        if os.path.exists("./secondary_funcs/__pycache__"):
+            shutil.rmtree("./secondary_funcs/__pycache__")
+    except Exception as ex:
+        print(f"445____{ex}")
+        pass 
+    try:
+        if os.path.exists("./scrapers_funcs/__pycache__"):
+            shutil.rmtree("./scrapers_funcs/__pycache__")
+    except Exception as ex:
+        print(f"451____{ex}")
+        pass 
+    try:
+        if os.path.exists("./db_all/__pycache__"):
+            shutil.rmtree("./db_all/__pycache__")
+    except Exception as ex:
+        print(f"457____{ex}")
+        pass  
+    # secondary_funcs  
     try:
         if os.path.exists(cache_dir):
             shutil.rmtree(cache_dir)
@@ -488,4 +507,3 @@ if __name__ == "__main__":
         sys.exit()
     except Exception as ex:
         print(f"467____{ex}")
-

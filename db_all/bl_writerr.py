@@ -3,7 +3,8 @@ def bl_db_wrtr(black_list):
     from mysql.connector import connect, Error 
     import pyperclip
     from . import config_real
-    from . import b_db_filter_func
+    # from . import b_db_filter_func
+    from ..secondary_funcs import b_filter_func
     pyperclip.copy('')
     clipboard_text = pyperclip.paste()
 
@@ -27,11 +28,15 @@ def bl_db_wrtr(black_list):
         print(f"Error connecting to MySQL: {e}")
 
     print(len(black_list))
+    print(black_list)
     resBlackList = []
 
     try:
-        resBlackList = eval(b_db_filter_func.black_filter(black_list))
+        resBlackList = eval(b_filter_func.black_filter(black_list))
+        print(resBlackList)
     except Exception as ex:
+        resBlackList = eval(b_filter_func.black_filter(black_list))
+        print(resBlackList)
         print(f"b_db_filter_func___35{ex}")
         resBlackList = black_list
 

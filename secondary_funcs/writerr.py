@@ -26,7 +26,7 @@ def writerr(total):
             try:
                 resDescription.append(t[0][1])
             except Exception as ex:
-                print(f"writerr__str30__{ex}")
+                # print(f"writerr__str30__{ex}")
                 continue 
         try:
             resDescription = list(filter(None, resDescription))

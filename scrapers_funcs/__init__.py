@@ -1,0 +1,1 @@
+from . import photos_func, description_func, faciclities_func, rooms_func, rooms_block_func

@@ -23,7 +23,7 @@ def db_wrtr(total):
 
     try:
         conn = mysql.connector.connect(**config)      
-        print("Connection established")
+        print("Connection established2")
     except Error as e:
         print(f"Error connecting to MySQL: {e}")
     
@@ -33,6 +33,7 @@ def db_wrtr(total):
         print(f"Error connecting to MySQL: {e}")
 
     print(len(total))
+    print(total)
     resPhoto = []
     resDescription = []
     resFacilities = []
@@ -66,7 +67,7 @@ def db_wrtr(total):
             try:
                 resDescription.append(t[0][1])
             except Exception as ex:
-                print(f"writerr__str30__{ex}")
+                # print(f"writerr__str30__{ex}")
                 continue 
         try:
             resDescription = list(filter(None, resDescription))
