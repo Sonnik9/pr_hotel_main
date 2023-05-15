@@ -3,6 +3,7 @@ def db_wrtr(total):
     from mysql.connector import connect, Error 
     # import pyperclip
     from . import config_real
+    print('hello db_writerr')
     # import json
     # pyperclip.copy('')
     # clipboard_text = pyperclip.paste()
@@ -23,7 +24,7 @@ def db_wrtr(total):
 
     try:
         conn = mysql.connector.connect(**config)      
-        print("Connection established2")
+        print("Writerr connection established2")
     except Error as e:
         print(f"Error connecting to MySQL: {e}")
     
@@ -33,7 +34,7 @@ def db_wrtr(total):
         print(f"Error connecting to MySQL: {e}")
 
     print(len(total))
-    # print(total)
+    print(total)
     resPhoto = []
     resDescription = []
     resFacilities = []

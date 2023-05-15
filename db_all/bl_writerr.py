@@ -4,7 +4,7 @@ def bl_db_wrtr(black_list):
     # import pyperclip
     from . import config_real
     # from . import b_db_filter_func
-    from . import b_filter_func
+    # from . import b_filter_func
     # pyperclip.copy('')
     # clipboard_text = pyperclip.paste()
 
