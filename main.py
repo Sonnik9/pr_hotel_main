@@ -282,7 +282,7 @@ def grendMather_controller(data):
                    
                 except Exception as ex:
                     print(f"headers281____{ex}")
-                print(headerss)
+                # print(headerss)
                 
                 k = 2 / random.randrange(1, 5)
                 m = 1 / random.randrange(1, 11)
@@ -377,6 +377,7 @@ def grendMather_controller(data):
                 "room_block": 0,
             })        
         try:
+            print(result_description_upz)
             return [[result_photos_upz, result_description_upz, result_facilities_upz, result_rooms_upz, upz_hotels_rooms_blocks], black_list] 
         
         except Exception as ex:
@@ -500,11 +501,11 @@ def cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycl
         else:            
             try:
                 counter +=1
-                n1 = (counter*1000) - 1000 + 1
-                n2 = counter*1000
+                n1 = (counter*10) - 10 + 1
+                n2 = counter*10
 
                 interval_chekcer = len_const_data - n2
-                if interval_chekcer <= 1000:
+                if interval_chekcer <= 10:
                     n2 = len_const_data
                     flag_end_cycles = True
                 else:
@@ -516,7 +517,7 @@ def cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycl
                 pass
             # print(f"348___{n1, n2}")
 
-            if len(ex_list) != 1000 and len(ex_list) < 1000:
+            if len(ex_list) != 10 and len(ex_list) < 10:
                 try:       
                     # const_data = json_reader_test.data_upz_hotels_func()    
                     const_data = db_reader.db_opener(n1, n2)
@@ -537,7 +538,7 @@ def cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycl
                 except Exception as ex:
                     # print(f"408____{ex}")
                     pass
-            elif len(ex_list) == 1000 or len(ex_list) > 1000:
+            elif len(ex_list) == 10 or len(ex_list) > 10:
                 # print('hello exlist')
                 exeptions_data = []
                 black_list = pattern_cycles(ex_list, cpu_count)   
@@ -559,11 +560,11 @@ def cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycl
   
 def main():   
     n1 = 0
-    n2 = 1000
+    n2 = 10
     counter = 0
     exeptions_data = [] 
     flag_end_cycles = False
-    len_items, cpu_count = 10000, 12
+    len_items, cpu_count = 36, 6
 
     try:
         cycles_worker(exeptions_data, n1, n2, len_items, counter, flag_end_cycles, cpu_count)
