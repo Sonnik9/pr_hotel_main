@@ -529,8 +529,8 @@ def cleanup_cache():
             # print(f"392____{ex}")
             pass  
         try:
-            if os.path.exists("./utils/__pycache__"):
-                shutil.rmtree("./utils/__pycache__")
+            if os.path.exists("./utilsss/__pycache__"):
+                shutil.rmtree("./utilsss/__pycache__")
         except Exception as ex:
             print(f"445____{ex}")
             pass 
