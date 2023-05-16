@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 
 def page_scraper_description(resHtml, hotelid):
-    print('hello description!')
+    # print('hello description!')
     result_description_upz = []
     try:
         soup1 = BeautifulSoup(resHtml, "lxml")  

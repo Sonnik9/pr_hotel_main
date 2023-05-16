@@ -8,7 +8,11 @@ import re
 import atexit
 import shutil
 import tempfile
-import sys 
+import sys
+
+# import scrapers_funcs
+# import db_all 
+# import utils
 
 from scrapers_funcs import photos_func, description_func, faciclities_func, rooms_func, rooms_block_func
 from db_all import db_reader, db_writerrr, bl_writerr
