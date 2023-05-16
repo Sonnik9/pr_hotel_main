@@ -394,15 +394,24 @@ def pattern_cycles(data, cpu_count):
 def cycles_worker(**args_cycles):   
     black_list = []
     ex_list = []
+
     exceptions_data = args_cycles["exceptions_data"]
-    n1=args_cycles["n1"]
-    n2=args_cycles["n2"] 
-    interval=args_cycles["interval"]
-    from_item=args_cycles["from_item"]
-    len_items=args_cycles["len_items"]
-    counter=args_cycles["len_items"]
-    flag_end_cycles=args_cycles["flag_end_cycles"]
-    cpu_count = args_cycles["cpu_count"]
+    # print(type(exceptions_data))
+    # return
+    try:
+        
+        n1=int(args_cycles["n1"])
+        # print(type(n1))
+        n2=int(args_cycles["n2"])
+        interval=int(args_cycles["interval"])
+        from_item=int(args_cycles["from_item"])
+        len_items=int(args_cycles["len_items"])
+        counter=int(args_cycles["counter"])
+        flag_end_cycles=args_cycles["flag_end_cycles"]
+        cpu_count = int(args_cycles["cpu_count"])
+    except Exception as ex:
+        print(f"441____{ex}")
+
 
     try:
         for item in exceptions_data:
@@ -425,8 +434,12 @@ def cycles_worker(**args_cycles):
         else:            
             try:
                 counter +=1
-                n1 = (counter*interval) - interval + 1 + from_item
-                n2 = counter*interval + from_item
+                n1 = (counter * interval) - interval + 1 + from_item
+                n2 = counter * interval + from_item
+                # print(n1)
+                # print(n2)
+                # print(type(flag_end_cycles))
+                # return
 
                 interval_chekcer = len_items - n2
                 if interval_chekcer <= interval:
@@ -557,7 +570,7 @@ def main():
         'interval': 100,
         'from_item': 40,
         'len_items': 370,
-        'counter': 10,
+        'counter': 0,
         'flag_end_cycles': False,
         'cpu_count': 4
     }

@@ -2,6 +2,7 @@ def db_opener(n1, n2):
     import mysql.connector
     from mysql.connector import connect, Error 
     from . import config_real
+    print(n1, n2)
     data_DB = []
     config = {
         'user': config_real.user,
