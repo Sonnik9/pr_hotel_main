@@ -5,6 +5,60 @@ host =  '5.75.140.137'
 port = '3306'
 
 
+# email: hotel.upz69@gmail.com
+# password: 8dGBX2Kx
+
+# gitHab: 
+# login: hotelUpz
+# email: hotel.upz69@gmail.com
+# password: 8dGBX2Kx
+
+# Visit: https://5.75.140.137:8090                     
+#                 Panel username: admin                              
+#                 Panel password: 6lrMgXfBcwakSujt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # user = 'hotel_test1'
 # password = '6687vono'
 # database = 'hote_tophot77_db'
@@ -23,9 +77,7 @@ port = '3306'
 # db_pass='8dGBX2Kx';
 # db_name="hote_tophot77_db";
 
-# Visit: https://5.75.140.137:8090                     
-#                 Panel username: admin                              
-#                 Panel password: 6lrMgXfBcwakSujt
+
 
 
 # my credentials for phpMyAdmin:

@@ -1,7 +1,7 @@
 def create_tables():
     import mysql.connector
     from mysql.connector import connect, Error 
-    import config_real
+    from . import config_real
 
     config = {
         'user': config_real.user,
@@ -144,10 +144,11 @@ def create_tables():
     return print("the tables was created successfully")
 
 
-create_tables()
+# create_tables()
 
 
 # python create_tables_db.py
+# python -m db_all.create_tables_db
 
 
 # sudo mysql -u root -p

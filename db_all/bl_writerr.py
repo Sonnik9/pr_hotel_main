@@ -1,13 +1,7 @@
 def bl_db_wrtr(black_list):
     import mysql.connector
     from mysql.connector import connect, Error 
-    # import pyperclip
     from . import config_real
-    # from . import b_db_filter_func
-    # from . import b_filter_func
-    # pyperclip.copy('')
-    # clipboard_text = pyperclip.paste()
-
     config = {
         'user': config_real.user,
         'password': config_real.password,
@@ -27,18 +21,8 @@ def bl_db_wrtr(black_list):
     except Error as e:
         print(f"Error connecting to MySQL: {e}")
 
-    print(len(black_list))
-    print(black_list)
-    resBlackList = []
-
-    # try:
-    #     resBlackList = eval(b_filter_func.black_filter(black_list))
-    #     # print(resBlackList)
-    # except Exception as ex:
-    #     resBlackList = b_filter_func.black_filter(black_list)
-    #     print(resBlackList)
-    #     print(f"b_db_filter_func___35_35{ex}")
-    #     resBlackList = black_list
+    print(f"len blackList___{len(black_list)}")
+    # print(black_list)
 
     try:
         query6 = "INSERT INTO black_list_test1 (hotelid, url, fotos, description, facility, otziv, room, room_block) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"

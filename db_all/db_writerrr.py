@@ -1,18 +1,8 @@
 def db_wrtr(total):
     import mysql.connector
     from mysql.connector import connect, Error 
-    # import pyperclip
     from . import config_real
     print('hello db_writerr')
-    # import json
-    # pyperclip.copy('')
-    # clipboard_text = pyperclip.paste()
-
-    # user = 'hote_tophot77_db'
-    # password = '8dGBX2Kx'
-    # database = 'hote_tophot77_db'
-    # host =  '5.75.140.137'
-    # port = '3306'
 
     config = {
         'user': config_real.user,
@@ -34,7 +24,7 @@ def db_wrtr(total):
         print(f"Error connecting to MySQL: {e}")
 
     print(len(total))
-    print(total)
+    # print(total)
     resPhoto = []
     resDescription = []
     resFacilities = []

@@ -9,34 +9,12 @@ import atexit
 import shutil
 import tempfile
 import sys 
-try:
 
-    import scrapers_funcs
-    import db_all
-except Exception as ex:
-    print(f"16____{ex}")
+from scrapers_funcs import photos_func, description_func, faciclities_func, rooms_func, rooms_block_func
+from db_all import db_reader, db_writerrr, bl_writerr
+from utils import b_filter_func
 
-
-try:
-   from scrapers_funcs import photos_func, description_func, faciclities_func, rooms_func, rooms_block_func
-#    print('success scrapers_funcs') 
-except Exception as ex:
-    print(f"17____{ex}")
-
-try:
-   from db_all import db_reader, db_writerrr, bl_writerr
-#    print('success db_all') 
-except Exception as ex:
-    print(f"25____{ex}")
 uagent = UserAgent()
-
-
-# def uaRefresh():
-#     uagent = UserAgent() 
-#     ua = uagent.data_browsers
-#     return ua
-
-
 
 # //////////////spart headers start///////////////////////////////
 
@@ -68,8 +46,7 @@ def random_headers():
             # 'accept-language': 'ru-RU,ru;q=0.9',         
             # 'accept-language': f"'en-US,en;q=0.8', 'ru-RU,ru;q=0.9', 'uk-Uk,uk;q=0.5'",       
             'origin': 'https://www.booking.com/',
-            'device-memory': f'{choice(device_memoryHelper)}'   
-                   
+            'device-memory': f'{choice(device_memoryHelper)}'                  
             }
     ]
 
@@ -102,67 +79,6 @@ def random_headers():
 
 # //////////////smart headers start///////////////////////////////
 
-# ///////////////filter start//////////////////
-
-def black_filter(finRes):
-    print('helo secondary_funcs____black_filter')
-    d_lackList = []
-    sorted_blackList = []
-    refactor_blackList = []
-
-    for t in finRes:
-        try:
-           d_lackList.append(t[1])
-        except Exception as ex:
-            print(f"secondary_funcs____black_filter__11____{ex}")
-            continue
-    try:
-        d_lackList = list(filter(None, d_lackList))                
-        d_lackList = list(filter([], d_lackList))
-    except Exception as ex:
-        print(f"secondary_funcs____black_filter__17____{ex}")
-    try:
-        for lst in d_lackList:
-            merged_dict = {}
-            for dct in lst:
-                try:
-                    hotel_id = dct["hotel_id"]
-                    url = dct["url"]
-                except Exception as ex:
-                    print(f"b_filter_func___24{ex}")
-                if hotel_id not in merged_dict:
-                    merged_dict[hotel_id] = {"hotel_id": hotel_id, "url": url}
-                merged_dict[hotel_id][list(dct.keys())[2]] = dct[list(dct.keys())[2]]
-            sorted_blackList.append(list(merged_dict.values()))
-        for item in sorted_blackList:
-            refactor_blackList += item
-
-        for rfi in refactor_blackList:            
-            if "fotos" not in rfi:
-                rfi.setdefault("fotos", 1)
-            if "description" not in rfi:
-                rfi.setdefault("description", 1)
-            if "facility" not in rfi:
-                rfi.setdefault("facility", 1)
-            if "otziv" not in rfi:
-                rfi.setdefault("otziv", '?')
-            if "room" not in rfi:
-                rfi.setdefault("room", 1)
-            if "room_block" not in rfi:
-                rfi.setdefault("room_block", 1)
-
-    except Exception as ex:
-        # print(f"327____{ex}")
-        pass
-    try:
-        return refactor_blackList
-    except Exception as ex:
-        # print(f"331____{ex}")
-        return None
-    
-# ///////////////filter end//////////////////
-
-
 # ////////// grendMather_controller block/////////////////////////////////////
 
 def grendMather_controller(data):
@@ -185,17 +101,7 @@ def grendMather_controller(data):
     except Exception as ex:
         # print(f"48____{ex}")
         pass
-    # try:
-    #     uaG = data.split('SamsonovNik')[2]
-    #     try:
-    #         uaG = eval(uaG)
-    #     except:
-    #         uaG = uaG
 
-
-    except Exception as ex:
-        print(f"197____{ex}")
-        pass
     try:
         data_upz_hotels_item_dict = eval(data_upz_hotels_item)
     except Exception as ex:
@@ -313,7 +219,6 @@ def grendMather_controller(data):
                         return None
                     if r.status_code == 200 and r.text is not None and r.text != '':
                         try:
-                            # result_photos_upz, result_description_upz, result_facilities_upz, result_rooms_upz, upz_hotels_rooms_blocks = scraper_gr_mather_func.scraper_grendmather(r.text, hotelid, photoInd, descriptionInd, facilityInd, roomInd)
                             if flag_photo == True:
                                 try:
                                     result_photos_upz = photos_func.page_scraper_photos(r.text, hotelid)
@@ -479,7 +384,7 @@ def pattern_cycles(data, cpu_count):
         # print(f"378____{ex}")
         pass
     try:
-        black_list = black_filter(finRes) 
+        black_list = b_filter_func.black_filter(finRes) 
     except Exception as ex:
         # print(f"390____{ex}")
         pass
@@ -488,12 +393,21 @@ def pattern_cycles(data, cpu_count):
     except:
         return None
 
-def cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycles, cpu_count):   
+def cycles_worker(**args_cycles):   
     black_list = []
     ex_list = []
+    exceptions_data = args_cycles["exceptions_data"]
+    n1=args_cycles["n1"]
+    n2=args_cycles["n2"] 
+    interval=args_cycles["interval"]
+    from_item=args_cycles["from_item"]
+    len_items=args_cycles["len_items"]
+    counter=args_cycles["len_items"]
+    flag_end_cycles=args_cycles["flag_end_cycles"]
+    cpu_count = args_cycles["cpu_count"]
 
     try:
-        for item in exeptions_data:
+        for item in exceptions_data:
             ex_list += item
     except:
         pass
@@ -502,28 +416,23 @@ def cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycl
             print('hello end_flag_cycles')
             try:
                 black_list = pattern_cycles(ex_list, cpu_count)
-                # try:
-                #    b_writerr_func.b_w_writerr(black_list)
-                # except Exception as ex:
-                #    print(f"351____{ex}") 
                 try:
                    bl_writerr.bl_db_wrtr(black_list)
                 except Exception as ex:
-                   print(f"355____{ex}") 
-               
+                   print(f"355____{ex}")
+                cleanup_cache()               
             except Exception as ex:
                 print(f"358____{ex}")
-
             return print('Finish')
         else:            
             try:
                 counter +=1
-                n1 = (counter*1000) - 1000 + 1
-                n2 = counter*1000
+                n1 = (counter*interval) - interval + 1 + from_item
+                n2 = counter*interval + from_item
 
-                interval_chekcer = len_const_data - n2
-                if interval_chekcer <= 10:
-                    n2 = len_const_data
+                interval_chekcer = len_items - n2
+                if interval_chekcer <= interval:
+                    n2 = len_items
                     flag_end_cycles = True
                 else:
                     pass
@@ -534,7 +443,7 @@ def cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycl
                 pass
             # print(f"348___{n1, n2}")
 
-            if len(ex_list) != 1000 and len(ex_list) < 1000:
+            if len(ex_list) != interval and len(ex_list) < interval:
                 try:       
                     # const_data = json_reader_test.data_upz_hotels_func()    
                     const_data = db_reader.db_opener(n1, n2)
@@ -546,26 +455,50 @@ def cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycl
                 except:
                     pass
                 try:
-                    exeptions_data.append(black_list)
+                    exceptions_data.append(black_list)
                 except Exception as ex:
                     # print(f"398____{ex}")
                     pass
+                cleanup_cache()
+                args_cycles = {
+                    'exceptions_data': exceptions_data,
+                    'n1': n1,
+                    'n2': n2,
+                    'interval': interval,
+                    'from_item': from_item,
+                    'len_items': len_items,
+                    'counter': counter,
+                    'flag_end_cycles': flag_end_cycles,
+                    'cpu_count': cpu_count
+                }
                 try:
-                    cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycles, cpu_count) 
+                    cycles_worker(**args_cycles) 
                 except Exception as ex:
                     # print(f"408____{ex}")
                     pass
-            elif len(ex_list) == 1000 or len(ex_list) > 1000:
+            elif len(ex_list) == interval or len(ex_list) > interval:
                 # print('hello exlist')
-                exeptions_data = []
+                exceptions_data = []
                 black_list = pattern_cycles(ex_list, cpu_count)   
                 try:
                     bl_writerr.bl_db_wrtr(black_list)
                 except Exception as ex:
                     print(f"412____{ex}") 
                 # bl_db_wrtr(black_list)
+                args_cycles = {
+                    'exceptions_data': exceptions_data,
+                    'n1': n1,
+                    'n2': n2,
+                    'interval': interval,
+                    'from_item': from_item,
+                    'len_items': len_items,
+                    'counter': counter,
+                    'flag_end_cycles': flag_end_cycles,
+                    'cpu_count': cpu_count
+                }
+
                 try:
-                    cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycles, cpu_count) 
+                    cycles_worker(**args_cycles) 
                 except Exception as ex:
                     # print(f"408____{ex}")
                     pass
@@ -574,22 +507,73 @@ def cycles_worker(exeptions_data, n1, n2, len_const_data, counter, flag_end_cycl
         # print(f"334____{ex}")
         pass
 
+def cleanup_cache():
+    try:
+        import os
+        try:
+            cache_dir = tempfile.mkdtemp()
+        except Exception as ex:
+            # print(f"386____{ex}")
+            pass    
+        try:
+            if os.path.exists("__pycache__"):
+                shutil.rmtree("__pycache__")
+        except Exception as ex:
+            # print(f"392____{ex}")
+            pass  
+        try:
+            if os.path.exists("./utils/__pycache__"):
+                shutil.rmtree("./utils/__pycache__")
+        except Exception as ex:
+            print(f"445____{ex}")
+            pass 
+        try:
+            if os.path.exists("./scrapers_funcs/__pycache__"):
+                shutil.rmtree("./scrapers_funcs/__pycache__")
+        except Exception as ex:
+            print(f"451____{ex}")
+            pass 
+        try:
+            if os.path.exists("./db_all/__pycache__"):
+                shutil.rmtree("./db_all/__pycache__")
+        except Exception as ex:
+            print(f"457____{ex}")
+            pass  
+        # secondary_funcs  
+        try:
+            if os.path.exists(cache_dir):
+                shutil.rmtree(cache_dir)
+        except Exception as ex:
+            # print(f"396____{ex}")
+            pass
+    except Exception as ex:
+        print(f"551____{ex}")
+    
+
   
-def main():   
-    n1 = 0
-    n2 = 0
-    counter = 0
-    exeptions_data = [] 
-    flag_end_cycles = False
-    len_items, cpu_count = 10000, 8
+def main():
+    args_cycles = {
+        'exceptions_data': [],
+        'n1': 0,
+        'n2': 0,
+        'interval': 100,
+        'from_item': 40,
+        'len_items': 370,
+        'counter': 10,
+        'flag_end_cycles': False,
+        'cpu_count': 4
+    }
 
     try:
-        cycles_worker(exeptions_data, n1, n2, len_items, counter, flag_end_cycles, cpu_count)
+        cycles_worker(**args_cycles)
     except Exception as ex:
         print(f"454____{ex}")
 
 if __name__ == "__main__":
-    # import pyperclip
+    try:
+        atexit.register(cleanup_cache)
+    except Exception as ex:
+        print(f"461____{ex}")
     start_time = time.time() 
     main() 
     finish_time = time.time() - start_time
