@@ -10,13 +10,13 @@ import shutil
 import tempfile
 import sys
 
-import scrapers_funcs
-import db_all 
-import utils
+# import scrapers_funcs
+# import db_all 
+from utils import b_filter_func as b
 
 from scrapers_funcs import photos_func, description_func, faciclities_func, rooms_func, rooms_block_func
 from db_all import db_reader, db_writerrr, bl_writerr
-from utils import b_filter_func
+# from utils import b_filter_func
 
 uagent = UserAgent()
 
@@ -381,7 +381,7 @@ def pattern_cycles(data, cpu_count):
         # print(f"378____{ex}")
         pass
     try:
-        black_list = b_filter_func.black_filter(finRes) 
+        black_list = b.black_filter(finRes) 
     except Exception as ex:
         # print(f"390____{ex}")
         pass
