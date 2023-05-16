@@ -12,7 +12,7 @@ import sys
 
 # import scrapers_funcs
 # import db_all 
-import asecss
+import asecss   
 from asecss import b_filter_func as b
 
 from scrapers_funcs import photos_func, description_func, faciclities_func, rooms_func, rooms_block_func
