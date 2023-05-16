@@ -10,9 +10,9 @@ import shutil
 import tempfile
 import sys
 
-# import scrapers_funcs
-# import db_all 
-# import utils
+import scrapers_funcs
+import db_all 
+import utils
 
 from scrapers_funcs import photos_func, description_func, faciclities_func, rooms_func, rooms_block_func
 from db_all import db_reader, db_writerrr, bl_writerr
@@ -329,12 +329,9 @@ def proxy_reader():
     return prLi
 
 def father_multiprocessor(data_upz_hotels, cpu_count):
-    # import mpire
     print('hello multi')
     from mpire import WorkerPool   
     # n = multiprocessing.cpu_count() * 10  
-    # print(data_upz_hotels)
-    # uaG = uaRefresh()
     try:
         data_upz_hotels_new = eval(data_upz_hotels) 
     except Exception as ex:
@@ -345,10 +342,6 @@ def father_multiprocessor(data_upz_hotels, cpu_count):
     except Exception as ex:
         # print(f"283____{ex}")
         pass
-    # try:
-    #     cpu_count = int(cpu_count)
-    # except:
-    #     return None
     try:        
         data_upz_hotels_args = list(f"{prLi}SamsonovNik{item}" for item in data_upz_hotels_new)
     except Exception as ex:
