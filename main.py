@@ -563,9 +563,9 @@ def main():
         'exceptions_data': [],
         'n1': 0,
         'n2': 0,
-        'interval': 100,
-        'from_item': 40,
-        'len_items': 370,
+        'interval': 1000,
+        'from_item': 370,
+        'len_items': 5000,
         'counter': 0,
         'flag_end_cycles': False,
         'cpu_count': 4

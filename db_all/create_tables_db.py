@@ -144,7 +144,7 @@ def create_tables():
     return print("the tables was created successfully")
 
 
-# create_tables()
+create_tables()
 
 
 # python create_tables_db.py
