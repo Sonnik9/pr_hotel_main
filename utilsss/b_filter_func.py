@@ -50,7 +50,7 @@ def black_filter(finRes):
         # print(f"327____{ex}")
         pass
     try:
-        print(f"refactor_blackList___53__{refactor_blackList}")
+        print(f"refactor_blackList___53str__len__{len(refactor_blackList)}")
         return refactor_blackList
     except Exception as ex:
         # print(f"331____{ex}")
