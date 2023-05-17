@@ -485,7 +485,7 @@ def main():
         'counter': 0,
         'flag_end_cycles': False,
         'cpu_count': 40
-    }
+    }  
 
     try:
         cycles_worker(**args_cycles)
