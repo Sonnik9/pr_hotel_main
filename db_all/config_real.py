@@ -4,6 +4,8 @@ database = 'hote_tophot77_db'
 host =  '5.75.140.137'
 port = '3306'
 
+# ssh-password:
+# 9283s
 
 # email: hotel.upz69@gmail.com
 # password: 8dGBX2Kx

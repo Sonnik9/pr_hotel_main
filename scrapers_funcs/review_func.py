@@ -3,6 +3,16 @@ from bs4 import BeautifulSoup
 def page_scraper_otziv(resHtml, hotelid):
     # return print('hello page_scraper_otziv')
     result_review_upz = []
+    title = ''
+    pros = ''
+    cons = ''
+    dt1 = ''
+    average_score = ''
+    author_name = ''
+    room_id = ''
+    checkinBlock = ''
+    checkout = ''
+    languagecode = ''
 
     try:
         soup1 = BeautifulSoup(resHtml, "lxml")  
@@ -19,6 +29,17 @@ def page_scraper_otziv(resHtml, hotelid):
             return None
         # print(len(review_block))
         for item in review_block:
+            title = ''
+            pros = ''
+            cons = ''
+            dt1 = ''
+            average_score = ''
+            author_name = ''
+            room_id = ''
+            checkinBlock = ''
+            checkout = ''
+            languagecode = ''
+
             try:
                 title = item.find('h3', attrs={'class': 'c-review-block__title', 'class': 'c-review__title--ltr'}).get_text().strip()
                 # print(title)               
@@ -68,7 +89,7 @@ def page_scraper_otziv(resHtml, hotelid):
             try:
                 checkinBlock = item.find_all('div', class_='bui-list__body')[1]
                 #    print(checkinBlock)
-                checkin = checkinBlock.get_text(strip=True, separator="\n")
+                checkin = checkinBlock.get_text(strip=True, separator=" ")
                 # print(checkin)
                 #    break
             except Exception as ex:
@@ -92,17 +113,17 @@ def page_scraper_otziv(resHtml, hotelid):
                         print(f"review_func__str96___{ex}") 
             # print(languagecode)
             result_review_upz.append({
-                "hotelid": hotelid,
-                "title": title, 
-                "cons": cons, 
-                "pros":pros, 
-                "dt1": dt1, 
-                "average_score": average_score, 
-                "author_name": author_name, 
-                "room_id":room_id, 
-                "checkin": checkin, 
-                "checkout": checkout, 
-                "languagecode": languagecode,                
+                "hotelid": str(hotelid),
+                "title": str(title), 
+                "cons": str(cons), 
+                "pros": str(pros), 
+                "dt1": str(dt1), 
+                "average_score": str(average_score), 
+                "author_name": str(author_name), 
+                "room_id": str(room_id), 
+                "checkin": str(checkin), 
+                "checkout": str(checkout), 
+                "languagecode": str(languagecode),                
             })
 
             # print(len(result_review_upz_list))
