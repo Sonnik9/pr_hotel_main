@@ -480,7 +480,7 @@ def main():
         'n1': 0,
         'n2': 0,
         'interval': 1000,
-        'from_item': 0,
+        'from_item': 1000,
         'len_items': 10000,
         'counter': 0,
         'flag_end_cycles': False,
