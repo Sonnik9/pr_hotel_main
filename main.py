@@ -19,18 +19,18 @@ import threading
 
 uagent = UserAgent()
 
-def monitor_cpu(interval, stop_event):
-    while not stop_event.is_set():
-        cpu_percent = psutil.cpu_percent(interval=interval)
-        print(f"CPU Usage: {cpu_percent}%")
-        time.sleep(interval)
+# def monitor_cpu(interval, stop_event):
+#     while not stop_event.is_set():
+#         cpu_percent = psutil.cpu_percent(interval=interval)
+#         print(f"CPU Usage: {cpu_percent}%")
+#         time.sleep(interval)
 
-# Создаем объект Event для контроля состояния мониторинга
-stop_event = threading.Event()
+# # Создаем объект Event для контроля состояния мониторинга
+# stop_event = threading.Event()
 
-# Запуск мониторинга CPU в отдельном потоке
-monitor_thread = threading.Thread(target=monitor_cpu, args=(1, stop_event))
-monitor_thread.start()
+# # Запуск мониторинга CPU в отдельном потоке
+# monitor_thread = threading.Thread(target=monitor_cpu, args=(1, stop_event))
+# monitor_thread.start()
 
 # //////////////spart headers start///////////////////////////////
 
@@ -281,7 +281,7 @@ def father_multiprocessor(data_upz_hotels, cpu_count):
     try:
         finRes = Parallel(n_jobs=cpu_count, prefer="threads")(delayed(call_grendMather_controller)(item) for item in data_upz_hotels_args)
     except Exception as ex:
-        print(f"Error: {ex}")
+        print(f"284STR__Error: {ex}")
         return None
 
     return finRes
@@ -484,7 +484,7 @@ def main():
         'len_items': 10000,
         'counter': 0,
         'flag_end_cycles': False,
-        'cpu_count': 28
+        'cpu_count': 40
     }
 
     try:
@@ -501,8 +501,8 @@ if __name__ == "__main__":
     main() 
     finish_time = time.time() - start_time
     print(f"Total time:  {math.ceil(finish_time)} сек")
-    stop_event.set()
-    monitor_thread.join()
+    # stop_event.set()
+    # monitor_thread.join()
     try:
         sys.exit()
     except Exception as ex:
