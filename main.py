@@ -162,6 +162,7 @@ def grendMather_controller(data):
     else:
         for _ in range(2):
             try:
+                print('hello requests')
                 # print(fixed_url)
                 # https://www.booking.com/hotel/vn/laluna-hoi-an-riverside-hotel.html
                 cc1 = fixed_url.split('/')[-2].strip()
