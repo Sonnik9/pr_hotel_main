@@ -155,11 +155,11 @@ def grendMather_controller(data):
     except Exception as ex:
         print(f"140____{ex}")
         return [None, black_list]  
-    # try:
-    #     if otzivInd == "1" or otzivInd == 1:
-    #         flag_otziv = False
-    # except:
-    #     pass
+    try:
+        if otzivInd == "1" or otzivInd == 1:
+            flag_otziv = False
+    except:
+        pass
     if flag_otziv == False:  
         return [None, black_list]     
     else:
@@ -646,12 +646,12 @@ def main():
         'exceptions_data': [],
         'n1': 0,
         'n2': 0,
-        'interval': 10,
+        'interval': 1000,
         'from_item': 0,
-        'len_items': 12,
+        'len_items': 1500,
         'counter': 0,
         'flag_end_cycles': False,
-        'cpu_count': 22
+        'cpu_count': 28
     }
 
     try:
