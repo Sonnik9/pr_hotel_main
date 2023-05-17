@@ -53,7 +53,7 @@ def db_wrtr(total):
                     values = (item["hotelid"], item["title"], item["cons"], item["pros"], item["dt1"], item["average_score"], item["author_name"], item["room_id"], item["checkin"], item["checkout"], item["languagecode"])
                     cursor.execute(query7, values)
                 except Exception as ex:
-                    print(f"db_writerr__str56__{ex}")
+                    # print(f"db_writerr__str56__{ex}")
                     continue
             conn.commit()
         except:
