@@ -52,5 +52,5 @@ def db_opener(n1, n2):
         # print(result[100000:100002])
     except Error as e:
         print(f"Error connecting to MySQL: {e}")
-    # print(f"data_DB _____{data_DB[0]}")
+    print(f"data_DB _____{data_DB[0]}")
     return data_DB
