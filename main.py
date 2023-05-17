@@ -14,8 +14,8 @@ from multiprocessing import cpu_count
 from utilsss import b_filter_func
 from scrapers_funcs import review_func
 from db_all import db_reader, db_writerrr, bl_writerr
-import psutil
-import threading
+# import psutil
+# import threading
 
 uagent = UserAgent()
 
@@ -51,8 +51,7 @@ def random_headers():
     device_memoryHelper = [2,4,8,16,32]
     sett = set()
     finHeaders = []    
-    finfinH = {} 
-    
+    finfinH = {}   
  
     headFront = [{
             'authority': 'www.booking.com',
@@ -65,7 +64,6 @@ def random_headers():
             'device-memory': f'{choice(device_memoryHelper)}'                  
             }
     ]
-
     headersHelper = [       
             {"sec-fetch-dest": "empty"},
             {"sec-fetch-mode": "cors"},
@@ -107,7 +105,6 @@ def grendMather_controller(data):
     except Exception as ex:
         # print(f"48____{ex}")
         return [None, black_list]
-
     try:
         data_upz_hotels_item_dict = eval(data_upz_hotels_item)
     except Exception as ex:
@@ -232,9 +229,8 @@ def grendMather_controller(data):
             black_list.append({
                 "hotel_id": hotelid,
                 "url": fixed_url,
-                "otziv": 0,
-            })
-        
+                "otziv": 0
+            })        
         try:
             # print(result_description_upz)
             return [[result_reviews], black_list] 
@@ -245,7 +241,6 @@ def grendMather_controller(data):
                 "hotel_id": hotelid,
                 "url": fixed_url,
                 "otziv": 0,
-
             })
             return [None, black_list] 
         
@@ -258,8 +253,7 @@ def proxy_reader():
         prLi = list(filter(lambda item: item != '', prLi))
     return prLi
 
-def father_multiprocessor(data_upz_hotels, cpu_count):
-    
+def father_multiprocessor(data_upz_hotels, cpu_count):    
     try:
         data_upz_hotels_new = eval(data_upz_hotels)
     except Exception as ex:
@@ -429,7 +423,6 @@ def cycles_worker(**args_cycles):
         # print(f"334____{ex}")
         pass
 
-
 def cleanup_cache():
     try:
         import os
@@ -470,18 +463,16 @@ def cleanup_cache():
             # print(f"396____{ex}")
             pass
     except Exception as ex:
-        print(f"551____{ex}")
-    
+        print(f"551____{ex}") 
 
-  
 def main():
     args_cycles = {
         'exceptions_data': [],
         'n1': 0,
         'n2': 0,
         'interval': 1000,
-        'from_item': 10000,
-        'len_items': 20000,
+        'from_item': 20000,
+        'len_items': 50000,
         'counter': 0,
         'flag_end_cycles': False,
         'cpu_count': 40
@@ -507,7 +498,27 @@ if __name__ == "__main__":
         sys.exit()
     except Exception as ex:
         print(f"467______{ex}")
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
