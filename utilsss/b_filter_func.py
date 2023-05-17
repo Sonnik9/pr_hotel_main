@@ -28,7 +28,7 @@ def black_filter(finRes):
 
     try:
         print(f"refactor_blackList___19str__len__{len(refactor_blacList)}")
-        print(refactor_blacList)
+        # print(refactor_blacList)
         return refactor_blacList
     except Exception as ex:
         # print(f"331____{ex}")

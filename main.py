@@ -287,159 +287,6 @@ def father_multiprocessor(data_upz_hotels, cpu_count):
     return finRes
 
 
-# def pattern_cycles(data, cpu_count):
-#     # print('helo pattern_cycles')
-#     finRes = []
-#     black_list = []
-   
-#     try:
-#         finRes = father_multiprocessor(data, cpu_count)
-#     except Exception as ex:
-#         print(f"422____{ex}")
-#         pass
-#     try:
-#         writerr.writerr(finRes)
-#     except Exception as ex:
-#         # print(f"378____{ex}")
-#         pass
-#     # try:
-#     #     db_writerrr.db_wrtr(finRes)
-#     # except Exception as ex:
-#     #     # print(f"378____{ex}")
-#     #     pass
-#     try:
-#         black_list = b_filter_func.black_filter(finRes) 
-#     except Exception as ex:
-#         # print(f"390____{ex}")
-#         pass
-#     try:
-#        return black_list
-#     except:
-#         return None
-
-# def cycles_worker(**args_cycles):   
-#     black_list = []
-#     ex_list = []
-
-#     exceptions_data = args_cycles["exceptions_data"]
-#     # print(type(exceptions_data))
-#     # return
-#     try:
-        
-#         n1=int(args_cycles["n1"])
-#         # print(type(n1))
-#         n2=int(args_cycles["n2"])
-#         interval=int(args_cycles["interval"])
-#         from_item=int(args_cycles["from_item"])
-#         len_items=int(args_cycles["len_items"])
-#         counter=int(args_cycles["counter"])
-#         flag_end_cycles=args_cycles["flag_end_cycles"]
-#         cpu_count = int(args_cycles["cpu_count"])
-#     except Exception as ex:
-#         print(f"441____{ex}")
-
-
-#     try:
-#         for item in exceptions_data:
-#             ex_list += item
-#     except:
-#         pass
-#     try:
-#         if flag_end_cycles == True:
-#             print('hello end_flag_cycles')
-#             try:
-#                 black_list = pattern_cycles(ex_list, cpu_count)
-#                 try:
-#                    b_writerr_func.b_w_writerr(black_list)
-#                 except Exception as ex:
-#                    print(f"355____{ex}")
-#                 cleanup_cache()               
-#             except Exception as ex:
-#                 print(f"358____{ex}")
-#             return print('Finish')
-#         else:            
-#             try:
-#                 counter +=1
-#                 n1 = (counter * interval) - interval + 1 + from_item
-#                 n2 = (counter * interval) + from_item
-#                 interval_chekcer = len_items - n2
-#                 if interval_chekcer <= interval:
-#                     n2 = len_items
-#                     flag_end_cycles = True
-#                 else:
-#                     pass
-
-#                     # print(f"362___{n2}")
-#             except Exception as ex:
-#                 # print(f"343____{ex}")
-#                 pass
-#             # print(f"348___{n1, n2}")
-
-#             if len(ex_list) != interval and len(ex_list) < interval:
-#                 try:       
-#                     # const_data = json_reader_test.data_upz_hotels_func()    
-#                     const_data = json_reader_test.data_upz_hotels_func(n1, n2)
-#                     # print(const_data)
-#                 except Exception as ex:
-#                     print(f"443____{ex}")
-#                 try:
-#                     black_list = pattern_cycles(const_data, cpu_count)
-#                 except:
-#                     pass
-#                 try:
-#                     exceptions_data.append(black_list)
-#                 except Exception as ex:
-#                     # print(f"398____{ex}")
-#                     pass
-#                 cleanup_cache()
-#                 args_cycles = {
-#                     'exceptions_data': exceptions_data,
-#                     'n1': n1,
-#                     'n2': n2,
-#                     'interval': interval,
-#                     'from_item': from_item,
-#                     'len_items': len_items,
-#                     'counter': counter,
-#                     'flag_end_cycles': flag_end_cycles,
-#                     'cpu_count': cpu_count
-#                 }
-#                 try:
-#                     cycles_worker(**args_cycles) 
-#                 except Exception as ex:
-#                     # print(f"408____{ex}")
-#                     pass
-#             elif len(ex_list) == interval or len(ex_list) > interval:
-#                 # print('hello exlist')
-#                 return print('ex_data >10')
-#                 exceptions_data = []
-#                 black_list = pattern_cycles(ex_list, cpu_count)   
-#                 try:
-#                     bl_writerr.bl_db_wrtr(black_list)
-#                 except Exception as ex:
-#                     print(f"412____{ex}") 
-#                 # bl_db_wrtr(black_list)
-#                 args_cycles = {
-#                     'exceptions_data': exceptions_data,
-#                     'n1': n1,
-#                     'n2': n2,
-#                     'interval': interval,
-#                     'from_item': from_item,
-#                     'len_items': len_items,
-#                     'counter': counter,
-#                     'flag_end_cycles': flag_end_cycles,
-#                     'cpu_count': cpu_count
-#                 }
-
-#                 try:
-#                     cycles_worker(**args_cycles) 
-#                 except Exception as ex:
-#                     # print(f"408____{ex}")
-#                     pass
-
-#     except Exception as ex:
-#         # print(f"334____{ex}")
-#         pass
-
 def pattern_cycles(data, cpu_count):
     # print('helo pattern_cycles')
     finRes = []
@@ -449,11 +296,6 @@ def pattern_cycles(data, cpu_count):
     except Exception as ex:
         print(f"422____{ex}")
         pass
-    # try:
-    #     writerr.writerr(finRes)
-    # except Exception as ex:
-    #     # print(f"378____{ex}")
-    #     pass
     try:
         db_writerrr.db_wrtr(finRes)
     except Exception as ex:
@@ -474,12 +316,8 @@ def cycles_worker(**args_cycles):
     ex_list = []
 
     exceptions_data = args_cycles["exceptions_data"]
-    # print(type(exceptions_data))
-    # return
-    try:
-        
+    try:        
         n1=int(args_cycles["n1"])
-        # print(type(n1))
         n2=int(args_cycles["n2"])
         interval=int(args_cycles["interval"])
         from_item=int(args_cycles["from_item"])
@@ -514,11 +352,6 @@ def cycles_worker(**args_cycles):
                 counter +=1
                 n1 = (counter * interval) - interval + 1 + from_item
                 n2 = (counter * interval) + from_item
-                # print(n1)
-                # print(n2)
-                # print(type(flag_end_cycles))
-                # return
-
                 interval_chekcer = len_items - n2
                 if interval_chekcer <= interval:
                     n2 = len_items

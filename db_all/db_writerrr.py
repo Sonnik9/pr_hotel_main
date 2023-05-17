@@ -44,7 +44,7 @@ def db_wrtr(total):
             resReviews = list(filter([], resReviews)) 
         except:
             pass
-        print(resReviews[0])
+        # print(resReviews[0])
         try:
             query7 = "INSERT INTO result_review_test1 (hotelid, title, cons, pros, dt1, average_score, author_name, room_id, checkin, checkout, languagecode) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
                   
