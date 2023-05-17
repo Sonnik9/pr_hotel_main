@@ -471,8 +471,8 @@ def main():
         'n1': 0,
         'n2': 0,
         'interval': 1000,
-        'from_item': 20000,
-        'len_items': 50000,
+        'from_item': 83000,
+        'len_items': 100000,
         'counter': 0,
         'flag_end_cycles': False,
         'cpu_count': 40
