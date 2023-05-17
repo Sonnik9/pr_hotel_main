@@ -33,10 +33,10 @@ def db_wrtr(total):
                     try:
                         resReviews += t2
                     except Exception as ex:
-                        print(f"writerr__str13__{ex}")
+                        # print(f"writerr__str13__{ex}")
                         continue 
             except Exception as ex:
-                print(f"writerr__str18__{ex}")
+                # print(f"writerr__str18__{ex}")
                 continue
         try:
             resReviews = list(filter(None, resReviews))
