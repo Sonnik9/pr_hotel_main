@@ -221,7 +221,7 @@ def grendMather_controller(data):
                     continue
 
             except Exception as ex:
-                # print(f"237____{ex}")
+                print(f"224____{ex}")
                 continue
                 # return [[None], black_list] 
         # result_reviews = None
