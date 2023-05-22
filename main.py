@@ -133,6 +133,8 @@ def grendMather_controller(data):
         except Exception as ex:
             # print(f"74____{ex}")
             fixed_url = data_upz_hotels_item_dict["url"]
+        # print(fixed_url)
+        # return
     except Exception as ex:
         # print(f"str83___{ex}")
         try:
@@ -171,6 +173,7 @@ def grendMather_controller(data):
     except:
         room_blockInd = None     
     try:
+        pass
         if photoInd == "1" or photoInd == 1:
             flag_photo = False
             flagCount += 1  
@@ -416,6 +419,7 @@ def cycles_worker(**args_cycles):
         pass
     try:
         if flag_end_cycles == True:
+            # return
             print('hello end_flag_cycles')
             try:
                 black_list = pattern_cycles(ex_list, cpu_count)
@@ -431,11 +435,7 @@ def cycles_worker(**args_cycles):
             try:
                 counter +=1
                 n1 = (counter * interval) - interval + 1 + from_item
-                n2 = counter * interval + from_item
-                # print(n1)
-                # print(n2)
-                # print(type(flag_end_cycles))
-                # return
+                n2 = (counter * interval) + from_item
 
                 interval_chekcer = len_items - n2
                 if interval_chekcer <= interval:
@@ -467,6 +467,8 @@ def cycles_worker(**args_cycles):
                     # print(f"398____{ex}")
                     pass
                 cleanup_cache()
+                # return
+             
                 args_cycles = {
                     'exceptions_data': exceptions_data,
                     'n1': n1,
@@ -564,12 +566,25 @@ def main():
         'n1': 0,
         'n2': 0,
         'interval': 1000,
-        'from_item': 370,
-        'len_items': 5000,
+        'from_item': 0,
+        'len_items': 326000 ,
         'counter': 0,
         'flag_end_cycles': False,
-        'cpu_count': 4
+        'cpu_count': 22
     }
+
+    #     args_cycles = {
+    #     'exceptions_data': [],
+    #     'n1': 0,
+    #     'n2': 0,
+    #     'interval': 1000,
+    #     'from_item': 370,
+    #     'len_items': 5000,
+    #     'counter': 0,
+    #     'flag_end_cycles': False,
+    #     'cpu_count': 22
+    # }
+
 
     try:
         cycles_worker(**args_cycles)

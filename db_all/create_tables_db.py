@@ -22,121 +22,120 @@ def create_tables():
     except Error as e:
         print(f"Error connecting to MySQL: {e}")
 
-    try:
-       cursor.execute("DROP TABLE result_photos_test1")
-    except:
-        pass 
+    # try:
+    #    cursor.execute("DROP TABLE result_photos_test2")
+    # except:
+    #     pass 
 
-    try:
-        cursor.execute("DROP TABLE result_description_test1")
-    except:
-        pass 
+    # try:
+    #     cursor.execute("DROP TABLE result_description_test2")
+    # except:
+    #     pass 
 
-    try:
-       cursor.execute("DROP TABLE result_facilities_test1")
-    except:
-        pass 
-    try:
-       cursor.execute("DROP TABLE result_room_test1")
-    except:
-        pass 
-    try:
-       cursor.execute("DROP TABLE result_room_block_test1")
-    except:
-        pass
-    try:
-       cursor.execute("DROP TABLE black_list_test1")
-    except:
-        pass
+    # try:
+    #    cursor.execute("DROP TABLE result_facilities_test2")
+    # except:
+    #     pass 
+    # try:
+    #    cursor.execute("DROP TABLE result_room_test2")
+    # except:
+    #     pass 
+    # try:
+    #    cursor.execute("DROP TABLE result_room_block_test2")
+    # except:
+    #     pass
+    # try:
+    #    cursor.execute("DROP TABLE black_list_test2")
+    # except:
+    #     pass
 
     create_table_query1 = '''
-    CREATE TABLE result_photos_test1 (
+    CREATE TABLE result_photos_test2 (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        hotelid VARCHAR(20),
-        photo_id VARCHAR(20),
-        tags TEXT,
-        url_square60 TEXT,
-        url_max TEXT
+        hotelid INT(11),
+        photo_id INT(11),
+        tags VARCHAR(255),
+        url_square60 VARCHAR(255),
+        url_max VARCHAR(255)
     )
     '''
+    alert_table_query1 = '''
+    ALTER TABLE result_photos_test2
+    MODIFY tags TEXT
 
+'''
     create_table_query2 = '''
-    CREATE TABLE result_description_test1 (
+    CREATE TABLE result_description_test2 (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        hotelid VARCHAR(20),
-        enusname TEXT
+        hotelid INT(11),
+        runame TEXT,
+        dename TEXT,
+        frname TEXT,
+        enusname TEXT,
+        esname TEXT,
+        ptptname TEXT,
+        itname TEXT,
+        trname TEXT,
+        arname TEXT,
+        zhcnname TEXT,
+        idname TEXT
     )
     '''
 
     create_table_query3 = '''
-    CREATE TABLE result_facilities_test1 (
+    CREATE TABLE result_facilities_test2 (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        hotelid VARCHAR(20),
-        facilitytype_id TEXT,
-        name TEXT,
-        facilitytype_name TEXT,
-        hotelfacilitytype_id TEXT,
-        uniq TEXT        
+        hotelid INT(9),
+        facilitytype_id MEDIUMINT(6),
+        name VARCHAR(255),
+        facilitytype_name VARCHAR(255),
+        hotelfacilitytype_id MEDIUMINT(5),
+        uniq VARCHAR(100)    
     )
     '''
     create_table_query4 = '''
-    CREATE TABLE result_room_test1 (
+    CREATE TABLE result_room_test2 (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        hotelid VARCHAR(20),
-        roomid VARCHAR(20),
+        hotelid INT(11),
+        roomid INT(11),
         endescription TEXT,
-        allow_children VARCHAR(15),
-        photo1 TEXT,
-        photo2 TEXT,
-        photo3 TEXT,
-        photo4 TEXT,
-        photo5 TEXT,
-        photo6 TEXT,
-        photo7 TEXT,
-        photo8 TEXT,
-        photo9 TEXT,
-        photo10 TEXT,
-        private_bathroom_highlight TEXT,
-        bed_configurations TEXT        
+        allow_children TINYINT(1),
+        photo1 VARCHAR(255),
+        photo2 VARCHAR(255),
+        photo3 VARCHAR(255),
+        photo4 VARCHAR(255),
+        photo5 VARCHAR(255),
+        photo6 VARCHAR(255),
+        photo7 VARCHAR(255),
+        photo8 VARCHAR(255),
+        photo9 VARCHAR(255),
+        photo10 VARCHAR(255),
+        private_bathroom_highlight VARCHAR(255),
+        bed_configurations TINYINT(3)    
     )
     '''
     create_table_query5 = '''
-        CREATE TABLE result_room_block_test1 (
+    CREATE TABLE result_room_block_test2 (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        hotelid VARCHAR(20),
-        room_id VARCHAR(20),
-        gross_price TEXT,
-        currency TEXT,
-        room_name TEXT,
-        nr_children VARCHAR(15),
-        max_occupancy TEXT,
-        mealplan TEXT,
-        room_surface_in_m2 TEXT,
-        nr_adults VARCHAR(15),
-        all_inclusive TEXT        
+        hotelid INT(11),
+        room_id INT(11),
+        gross_price FLOAT,
+        currency VARCHAR(15),
+        room_name VARCHAR(255),
+        nr_children TINYINT(3),
+        max_occupancy SMALLINT(4),
+        mealplan VARCHAR(255),
+        room_surface_in_m2 FLOAT,
+        nr_adults SMALLINT(4),
+        all_inclusive TINYINT(1)    
     )
     '''
-
-    create_table_query6 = '''
-    CREATE TABLE black_list_test1 (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        hotelid VARCHAR(20),
-        url TEXT,
-        fotos INT,
-        description INT,
-        facility INT,
-        otziv VARCHAR(4),
-        room INT,
-        room_block INT
-
-    )
-    '''
-    cursor.execute(create_table_query1)
-    cursor.execute(create_table_query2)
-    cursor.execute(create_table_query3)
-    cursor.execute(create_table_query4)
-    cursor.execute(create_table_query5)
-    cursor.execute(create_table_query6)
+    # cursor.execute(create_table_query1)
+    # cursor.execute(create_table_query2)
+    # cursor.execute(create_table_query3)
+    # cursor.execute(create_table_query4)
+    # cursor.execute(create_table_query5)
+    cursor.execute(alert_table_query1)
 
     cursor.close()
     conn.close()
@@ -144,7 +143,7 @@ def create_tables():
     return print("the tables was created successfully")
 
 
-create_tables()
+# create_tables()
 
 
 # python create_tables_db.py

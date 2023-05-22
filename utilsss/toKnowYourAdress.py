@@ -35,8 +35,8 @@ def checkIP():
             "https": f"http://{pr}"          
         } 
         headers=h()
-        print(headers)
-        print(proxy_item)
+        # print(headers)
+        # print(proxy_item)
         try:
             ip = requests.get(link, headers=headers, proxies=proxy_item, timeout=(3.15, 21.15))
             # ip = requests.get(link, headers=headers, timeout=(3.15, 21.15))
@@ -49,4 +49,4 @@ checkIP()
 
 # python toKnowYourAdress.py
 
-# python -m utils.toKnowYourAdress
+# python -m utilsss.toKnowYourAdress

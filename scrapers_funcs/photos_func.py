@@ -19,46 +19,59 @@ def page_scraper_photos(resHtml, hotelid):
         try:
             for src in imgBlock1:
                 try:
-                    photo_item_id = src.get('data-id')
+                    try:
+                        photo_item_id = src.get('data-id')
+                    except:
+                        photo_item_id = ''
+                        pass
+                    try:
+                        photo_item_title = src.find('img').get('alt')
+                    except Exception as ex:
+                        print(ex)
+                        photo_item_title = ''
+                        pass 
+                    # print(photo_item_title)
+                    preview_list_photo.append({
+                        'photo_item_id': int(photo_item_id),
+                        'photo_item_title': photo_item_title,
+                    }) 
                 except:
-                    pass
-                try:
-                    photo_item_title = src.find('img').get('alt')
-
-                except:
-                    pass 
-                preview_list_photo.append({
-                    'photo_item_id': photo_item_id,
-                    'photo_item_title': photo_item_title,
-                }) 
+                    continue
         except Exception as ex:
             # print(f"str65__{ex}") 
             pass
 
         try:
             for src in imgBlock2:
-                if src.find('a').find('img').get('src') != None:
+                try:
+                    if src.find('a').find('img').get('src') != None:
 
-                    try:
-                        photo_item_id = src.find('a').get('data-id')
-                    except:
-                        pass 
+                        try:
+                            photo_item_id = src.find('a').get('data-id')
+                        except:
+                            photo_item_id = ''
+                            pass 
 
-                    try:
-                        photo_item_title = src.find('a').find('img').get('alt')
-                    except:
-                        pass
+                        try:
+                            photo_item_title = src.find('a').find('img').get('alt')
+                            
+                        except:
+                            photo_item_title = ''
+                            pass
 
-                    preview_list_photo.append({
-                        'photo_item_id': photo_item_id,
-                        'photo_item_title': photo_item_title,
-                    }) 
+                        preview_list_photo.append({
+                            'photo_item_id': int(photo_item_id),
+                            'photo_item_title': photo_item_title,
+                        }) 
+                except:
+                    continue
         except Exception as ex:
             # print(f"str94__{ex}")
             pass
     except Exception as ex:
         # print(f"str94__{ex}")
         pass
+    # print(preview_list_photo)
 
     try:
         clean_links_set_max1280x900 = set()
@@ -76,26 +89,29 @@ def page_scraper_photos(resHtml, hotelid):
         clean_links_list_max1280x900 = list(clean_links_set_max1280x900)
         for url_max in clean_links_list_max1280x900:
             try:
-                photo_id = url_max.split('/')[-1].split('.')[0].strip()
-            except:
                 try:
-                    match = re.search(r"/(\d{9})\.", url_max)
-                    if match:
-                        photo_id = match.group(1)
+                    photo_id = url_max.split('/')[-1].split('.')[0].strip()
                 except:
-                    photo_id = 'not found'
-            try:      
-                url_square60 = re.sub(r'max1280x900', 'square60', url_max)
+                    try:
+                        match = re.search(r"/(\d{9})\.", url_max)
+                        if match:
+                            photo_id = match.group(1)
+                    except:
+                        photo_id = ''
+                try:      
+                    url_square60 = re.sub(r'max1280x900', 'square60', url_max)
+                except:
+                    url_square60 = '' 
+                
+                result_photos_upz.append({
+                    "hotelid": int(hotelid),
+                    'photo_id': int(photo_id),
+                    "tags": '',
+                    'url_max': url_max,
+                    'url_square60': url_square60                  
+                })
             except:
-                url_square60 = 'not found' 
-            
-            result_photos_upz.append({
-                "hotelid": hotelid,
-                'photo_id': photo_id,
-                "tags": '',
-                'url_max': url_max,
-                'url_square60': url_square60                  
-            })
+                continue
         try:
             for all_photo_item in result_photos_upz:
                 for prev_photo_item in preview_list_photo:

@@ -7,18 +7,28 @@ def page_scraper_description(resHtml, hotelid):
         soup1 = BeautifulSoup(resHtml, "lxml")  
         # print(soup1)
     except Exception as ex:
-        # print(f"description____str19___{ex}") 
-        # pass
-        return None 
+        # print(f"description____str19___{ex}")  
+        return None
 
     try:
+        description = ''        
         description_block = soup1.find("div", attrs={"class": "hp_desc_main_content"})
-        description = description_block.get_text(strip=True, separator="\n")
+        description = description_block.get_text(strip=True, separator="\n")       
 
         result_description_upz.append({
             "id": "",
-            "hotelid": hotelid,
-            "enusname": description,
+            "hotelid": int(hotelid),
+            "runame": '',
+            "dename": '',
+            "frname": '',
+            "enusname": str(description),
+            "esname": '',
+            "ptptname": '',
+            "itname": '',
+            "trname": '',
+            "arname": '',
+            "zhcnname": '',
+            "idname": ''            
         })
 
     except Exception as ex:

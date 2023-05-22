@@ -1,8 +1,20 @@
-user = 'hote_tophot77_db'
-password = '8dGBX2Kx'
-database = 'hote_tophot77_db'
+user = 'hote_rest'
+password = 'haho98_iu*'
+database = 'hote_rest'
 host =  '5.75.140.137'
 port = '3306'
+
+
+# user = 'hote_tophot77_db'
+# password = '8dGBX2Kx'
+# database = 'hote_tophot77_db'
+# host =  '5.75.140.137'
+# port = '3306'
+
+
+# db_user: hote_rest
+# db_pass: haho98_iu*
+# db_name hote_rest
 
 
 # email: hotel.upz69@gmail.com

@@ -31,6 +31,122 @@ def db_wrtr(total):
     resRooms = []
     resRoomsBlock = []
 
+    # try:
+    #     for t in total:
+    #         try:
+    #             resPhoto += t[0][0]
+    #         except:
+    #             continue 
+    #     try:
+    #         resPhoto = list(filter(None, resPhoto))
+    #         resPhoto = list(filter("", resPhoto)) 
+    #     except:
+    #         pass
+    #     try:
+    #         query1 = "INSERT INTO result_photos_test1 (hotelid, photo_id, tags, url_square60, url_max) VALUES (%s, %s, %s, %s, %s)"
+
+    #         for item in resPhoto:
+    #             try:
+    #                 values = (item["hotelid"], item["photo_id"], item["tags"], item["url_square60"], item["url_max"])
+    #                 cursor.execute(query1, values)
+    #             except:
+    #                 continue
+    #         conn.commit()
+    #     except:
+    #         pass
+    #     for t in total:
+    #         try:
+    #             resDescription.append(t[0][1])
+    #         except Exception as ex:
+    #             # print(f"writerr__str30__{ex}")
+    #             continue 
+    #     try:
+    #         resDescription = list(filter(None, resDescription))
+    #         resDescription = list(filter("", resDescription)) 
+    #     except:
+    #         pass
+    #     try:
+    #         query2 = "INSERT INTO result_description_test1 (hotelid, enusname) VALUES (%s, %s)"
+    #         # query = "UPDATE result_description_test1 SET hotelid = %s, enusname = %s"
+    #         for item in resDescription:
+    #             try:        
+    #                 values = (item["hotelid"], item["enusname"])
+    #                 cursor.execute(query2, values)
+    #             except Exception as ex:
+    #                 print(ex)
+    #                 continue
+    #         conn.commit()
+    #     except:
+    #         pass
+
+    #     for t in total:
+    #         try:
+    #            resFacilities += t[0][2]
+    #         except:
+    #             continue 
+    #     try:
+    #         resFacilities = list(filter(None, resFacilities))
+    #         resFacilities = list(filter("", resFacilities)) 
+    #     except:
+    #         pass
+    #     try: 
+    #         query3 = "INSERT INTO result_facilities_test1 (hotelid, facilitytype_id, name, facilitytype_name, hotelfacilitytype_id, uniq) VALUES (%s, %s, %s, %s, %s, %s)"
+
+    #         for item in resFacilities:
+    #             try:
+    #                 values = (item["hotelid"], item["facilitytype_id"], item["name"], item["facilitytype_name"], item["hotelfacilitytype_id"], item["uniq"])
+    #                 cursor.execute(query3, values)
+    #             except:
+    #                 continue
+    #         conn.commit() 
+    #     except:
+    #         pass
+
+    #     for t in total:
+    #         try:
+    #            resRooms += t[0][3]
+    #         except:
+    #             continue 
+    #     try:
+    #         resRooms = list(filter(None, resRooms))
+    #         resRooms = list(filter("", resRooms)) 
+    #     except:
+    #         pass
+    #     try: 
+    #         query4 = "INSERT INTO result_room_test1 (hotelid, roomid, endescription, allow_children, photo1, photo2, photo3, photo4, photo5, photo6, photo7, photo8, photo9, photo10, private_bathroom_highlight, bed_configurations) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+
+    #         for item in resRooms:
+    #             try:
+    #                 values = (item["hotelid"], item["roomid"], item["endescription"], item["allow_children"], item["photo1"], item["photo2"], item["photo3"], item["photo4"], item["photo5"], item["photo6"], item["photo7"], item["photo8"], item["photo9"], item["photo10"], item["private_bathroom_highlight"], item["bed_configurations"])
+    #                 cursor.execute(query4, values)
+    #             except:
+    #                 continue
+    #         conn.commit() 
+    #     except:
+    #         pass
+    #     for t in total:
+    #         try:
+    #            resRoomsBlock += t[0][4]
+    #         except:
+    #             continue 
+    #     try:
+    #         resRoomsBlock = list(filter(None, resRoomsBlock))
+    #         resRoomsBlock = list(filter("", resRoomsBlock)) 
+    #     except:
+    #         pass
+    #     try: 
+    #         query5 = "INSERT INTO result_room_block_test1 (hotelid, room_id, gross_price, currency, room_name, nr_children, max_occupancy, mealplan, room_surface_in_m2, nr_adults, all_inclusive) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+
+    #         for item in resRoomsBlock:
+    #             try:
+    #                 values = (item["hotelid"], item["room_id"], item["gross_price"], item["currency"], item["room_name"], item["nr_children"], item["max_occupancy"], item["mealplan"], item["room_surface_in_m2"], item["nr_adults"], item["all_inclusive"])
+    #                 cursor.execute(query5, values)
+    #             except Exception as ex:
+    #                 print(ex)
+    #                 continue
+    #         conn.commit() 
+    #     except Exception as ex:
+    #         print(ex)
     try:
         for t in total:
             try:
@@ -42,14 +158,27 @@ def db_wrtr(total):
             resPhoto = list(filter("", resPhoto)) 
         except:
             pass
+        import json
         try:
-            query1 = "INSERT INTO result_photos_test1 (hotelid, photo_id, tags, url_square60, url_max) VALUES (%s, %s, %s, %s, %s)"
+            with open(f'photo2.json', "w", encoding="utf-8") as file: 
+                json.dump(resPhoto, file, indent=4, ensure_ascii=False)
+        except Exception as ex:
+            print(f"str348__{ex}")
+        # query = "DESCRIBE upz_hotels_photos;"
+        # query = "DESCRIBE upz_hotels_description;"
+        # query = "DESCRIBE upz_hotels_facilityties;"
+        # query = "DESCRIBE upz_hotels_review;"
+        # query = "DESCRIBE upz_hotels_rooms;"
+        # query = "DESCRIBE upz_hotels_rooms_blocks;"
+        try:
+            query1 = "INSERT INTO upz_hotels_photos (hotelid, photo_id, tags, url_square60, url_max) VALUES (%s, %s, %s, %s, %s)"
 
             for item in resPhoto:
                 try:
                     values = (item["hotelid"], item["photo_id"], item["tags"], item["url_square60"], item["url_max"])
                     cursor.execute(query1, values)
-                except:
+                except Exception as ex:
+                    print(ex)
                     continue
             conn.commit()
         except:
@@ -65,12 +194,13 @@ def db_wrtr(total):
             resDescription = list(filter("", resDescription)) 
         except:
             pass
+
         try:
-            query2 = "INSERT INTO result_description_test1 (hotelid, enusname) VALUES (%s, %s)"
-            # query = "UPDATE result_description_test1 SET hotelid = %s, enusname = %s"
+            query2 = "INSERT INTO upz_hotels_description (hotelid, runame, dename, frname, enusname, esname, ptptname, itname, trname, arname, zhcnname, idname) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+
             for item in resDescription:
                 try:        
-                    values = (item["hotelid"], item["enusname"])
+                    values = (item["hotelid"], item["runame"], item["dename"], item["frname"], item["enusname"], item["esname"], item["ptptname"], item["itname"], item["trname"], item["arname"], item["zhcnname"], item["idname"])
                     cursor.execute(query2, values)
                 except Exception as ex:
                     print(ex)
@@ -90,13 +220,14 @@ def db_wrtr(total):
         except:
             pass
         try: 
-            query3 = "INSERT INTO result_facilities_test1 (hotelid, facilitytype_id, name, facilitytype_name, hotelfacilitytype_id, uniq) VALUES (%s, %s, %s, %s, %s, %s)"
+            query3 = "INSERT INTO upz_hotels_facilityties (hotelid, facilitytype_id, name, facilitytype_name, hotelfacilitytype_id, uniq) VALUES (%s, %s, %s, %s, %s, %s)"
 
             for item in resFacilities:
                 try:
                     values = (item["hotelid"], item["facilitytype_id"], item["name"], item["facilitytype_name"], item["hotelfacilitytype_id"], item["uniq"])
                     cursor.execute(query3, values)
-                except:
+                except Exception as ex:
+                    print(ex)
                     continue
             conn.commit() 
         except:
@@ -113,13 +244,14 @@ def db_wrtr(total):
         except:
             pass
         try: 
-            query4 = "INSERT INTO result_room_test1 (hotelid, roomid, endescription, allow_children, photo1, photo2, photo3, photo4, photo5, photo6, photo7, photo8, photo9, photo10, private_bathroom_highlight, bed_configurations) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            query4 = "INSERT INTO upz_hotels_rooms (hotelid, roomid, endescription, allow_children, photo1, photo2, photo3, photo4, photo5, photo6, photo7, photo8, photo9, photo10, private_bathroom_highlight, bed_configurations) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
             for item in resRooms:
                 try:
                     values = (item["hotelid"], item["roomid"], item["endescription"], item["allow_children"], item["photo1"], item["photo2"], item["photo3"], item["photo4"], item["photo5"], item["photo6"], item["photo7"], item["photo8"], item["photo9"], item["photo10"], item["private_bathroom_highlight"], item["bed_configurations"])
                     cursor.execute(query4, values)
-                except:
+                except Exception as ex:
+                    print(ex)
                     continue
             conn.commit() 
         except:
@@ -134,12 +266,13 @@ def db_wrtr(total):
             resRoomsBlock = list(filter("", resRoomsBlock)) 
         except:
             pass
-        try: 
-            query5 = "INSERT INTO result_room_block_test1 (hotelid, room_id, gross_price, currency, room_name, nr_children, max_occupancy, mealplan, room_surface_in_m2, nr_adults, all_inclusive) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+
+        try:
+            query5 = "INSERT INTO upz_hotels_rooms_blocks (hotelid, room_id, room_name, nr_children, max_occupancy, mealplan, nr_adults) VALUES (%s, %s, %s, %s, %s, %s, %s)"
 
             for item in resRoomsBlock:
                 try:
-                    values = (item["hotelid"], item["room_id"], item["gross_price"], item["currency"], item["room_name"], item["nr_children"], item["max_occupancy"], item["mealplan"], item["room_surface_in_m2"], item["nr_adults"], item["all_inclusive"])
+                    values = (item["hotelid"], item["room_id"], item["room_name"], item["nr_children"], item["max_occupancy"], item["mealplan"], item["nr_adults"])
                     cursor.execute(query5, values)
                 except Exception as ex:
                     print(ex)
@@ -181,3 +314,6 @@ def db_wrtr(total):
 # with open('room_block__12_05_2023__16_31__62.json', 'r') as f:
 #     resRoomsBlock = json.load(f)
     # print(resRoomsBlock)
+
+
+            # query = "UPDATE result_description_test1 SET hotelid = %s, enusname = %s"
