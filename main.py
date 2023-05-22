@@ -97,7 +97,7 @@ def random_headers():
 
 def grendMather_controller(data):
     # print('hello controler')
-    # flagTest = True
+    flagTest = True
     flag_otziv = True 
     black_list = []
     try:
@@ -157,12 +157,12 @@ def grendMather_controller(data):
             flag_otziv = False
     except:
         pass
-    if flag_otziv == False:  
+    if flag_otziv == False and flagTest == False:  
         return [None, black_list]     
     else:
         for _ in range(2):
             try:
-                print('hello requests')
+                # print('hello requests')
                 # print(fixed_url)
                 # https://www.booking.com/hotel/vn/laluna-hoi-an-riverside-hotel.html
                 cc1 = fixed_url.split('/')[-2].strip()
@@ -170,6 +170,7 @@ def grendMather_controller(data):
                 extract_title = fixed_url.split('/')[-1].split('.')[0].strip()   
                 # return print(extract_title)    
                 refactor_url  = f'https://www.booking.com/reviewlist.ru.html?cc1={cc1}&pagename={extract_title}&r_lang=&review_topic_category_id=&type=total&score=&sort=&time_of_year=&dist=1&offset=0&rows=100&rurl=&text=&translate=&'
+                # refactor_url = refactor_url.replace('.ru.html', '.en.html')
             except Exception as ex:
                 # print(f"str199___{ex}")
                 pass  
@@ -195,10 +196,11 @@ def grendMather_controller(data):
                 n = round(g + k + m, 2) 
                 time.sleep(n)  
                 try: 
-  
+                    # print(refactor_url)
+                    # return
                     r = requests.get(refactor_url, headers=headerss, proxies=proxy_item)
                     r.raise_for_status()
-                    print(r)
+                    # print(r.status_code)
                     if r.status_code == 404: 
                         return None
                     if r.status_code == 200 and r.text is not None and r.text != '':
@@ -259,7 +261,6 @@ def father_multiprocessor(data_upz_hotels, cpu_count):
         data_upz_hotels_new = eval(data_upz_hotels)
     except Exception as ex:
         data_upz_hotels_new = data_upz_hotels
-
     try:
         prLi = proxy_reader()
     except Exception as ex:
@@ -331,6 +332,7 @@ def cycles_worker(**args_cycles):
         pass
     try:
         if flag_end_cycles == True:
+            return
             print('hello end_flag_cycles')
             try:
                 black_list = pattern_cycles(ex_list, cpu_count)
@@ -376,6 +378,7 @@ def cycles_worker(**args_cycles):
                 except Exception as ex:
                     # print(f"398____{ex}")
                     pass
+                flag_end_cycles = True
                 cleanup_cache()
                 args_cycles = {
                     'exceptions_data': exceptions_data,

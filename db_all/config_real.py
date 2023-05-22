@@ -1,8 +1,13 @@
-user = 'hote_tophot77_db'
-password = '8dGBX2Kx'
-database = 'hote_tophot77_db'
+user = 'hote_rest'
+password = 'haho98_iu*'
+database = 'hote_rest'
 host =  '5.75.140.137'
 port = '3306'
+# user = 'hote_tophot77_db'
+# password = '8dGBX2Kx'
+# database = 'hote_tophot77_db'
+# host =  '5.75.140.137'
+# port = '3306'
 
 
 # ssh-password:

@@ -22,42 +22,82 @@ def create_tables():
     except Error as e:
         print(f"Error connecting to MySQL: {e}")
 
-    try:
-       cursor.execute("DROP TABLE result_review_test1")
-    except:
-        pass
-    try:
-       cursor.execute("DROP TABLE black_list_reviews_test1")
-    except:
-        pass
+    # try:
+    #    cursor.execute("DROP TABLE result_review_test1")
+    # except:
+    #     pass
+    # try:
+    #    cursor.execute("DROP TABLE black_list_reviews_test1")
+    # except:
+    #     pass
+
+    # create_table_query7 = '''
+    # CREATE TABLE result_review_test1 (
+    #     id INT AUTO_INCREMENT PRIMARY KEY,
+    #     hotelid VARCHAR(20),
+    #     title TEXT,
+    #     cons TEXT,
+    #     pros TEXT,
+    #     dt1 TEXT,
+    #     average_score TEXT,
+    #     author_name TEXT,
+    #     room_id TEXT,
+    #     checkin TEXT,
+    #     checkout TEXT,
+    #     languagecode TEXT
+    # )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    # '''
+
+    # create_table_query9 = '''
+    # CREATE TABLE black_list_reviews_test1 (
+    #     id INT AUTO_INCREMENT PRIMARY KEY,
+    #     hotelid VARCHAR(20),
+    #     url TEXT,
+    #     otziv VARCHAR(4)
+    # )
+    # '''
 
     create_table_query7 = '''
-    CREATE TABLE result_review_test1 (
+    ALTER TABLE upz_hotels_review
+    MODIFY hotelid INT(15),
+    MODIFY room_id INT(15)  
+    
+'''
+# MODIFY average_score FLOAT
+
+ # MODIFY average_score DECIMAL(5, 1),
+
+    create_table_query8 = '''
+    CREATE TABLE result_review_test2 (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        hotelid VARCHAR(20),
-        title TEXT,
+        hotelid INT(15),
+        title VARCHAR(255),
         cons TEXT,
         pros TEXT,
-        dt1 TEXT,
-        average_score TEXT,
-        author_name TEXT,
-        room_id TEXT,
-        checkin TEXT,
-        checkout TEXT,
-        languagecode TEXT
+        dt1 DATETIME,
+        average_score FLOAT,
+        author_name VARCHAR(255),
+        room_id INT(15),
+        checkin DATE,
+        checkout DATE,
+        languagecode VARCHAR(10)
     )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     '''
-
-    create_table_query9 = '''
-    CREATE TABLE black_list_reviews_test1 (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        hotelid VARCHAR(20),
-        url TEXT,
-        otziv VARCHAR(4)
-    )
+    alter_table_query = '''
+        ALTER TABLE result_review_test2
+        ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     '''
+    # alter_table_query = '''
+    #     ALTER TABLE result_review_test2
+    #     ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    # '''
+
+    # ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+
+    # conn.commit()
+    # cursor.execute(alter_table_query)
     cursor.execute(create_table_query7)
-    cursor.execute(create_table_query9)
+    # cursor.execute(create_table_query9)
 
 
     cursor.close()
@@ -66,7 +106,7 @@ def create_tables():
     return print("the tables was created successfully")
 
 
-# create_tables()
+create_tables()
 
 
 # python create_tables_db.py

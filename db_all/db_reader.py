@@ -9,7 +9,8 @@ def db_opener(n1, n2):
         'password': config_real.password,
         'host': config_real.host,
         'port': config_real.port,
-        'database': config_real.database,      
+        'database': config_real.database,   
+        # 'charset': 'utf8mb4'        
     }
 
     try:
@@ -24,6 +25,15 @@ def db_opener(n1, n2):
         print(f"Error connecting to MySQL: {e}")
 
     try:
+        query_last_item = "SELECT COUNT(*) FROM upz_hotels;"
+        cursor.execute(query_last_item)
+
+        # Извлечение результата запроса
+        last_item = cursor.fetchone()[0]
+        n2 = int(last_item)
+        n1 = n2 - 50
+        # n1 = 0
+        # n2 = 50
         # select_query  = ("SELECT id, hotel_id, url, fotos, description, room, facility, otziv FROM upz_hotels ")
         select_query  = ("SELECT id, hotel_id, url, otziv FROM upz_hotels "
         f"WHERE id BETWEEN {n1} AND {n2} "

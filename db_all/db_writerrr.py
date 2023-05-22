@@ -9,7 +9,8 @@ def db_wrtr(total):
         'password': config_real.password,
         'host': config_real.host,
         'port': config_real.port,
-        'database': config_real.database,      
+        'database': config_real.database, 
+        # 'charset': 'utf8mb4'     
     }
 
     try:
@@ -24,6 +25,8 @@ def db_wrtr(total):
         print(f"Error connecting to MySQL: {e}")
 
     print(len(total))
+    # print(total)
+
 
     resReviews = []
     try:
@@ -44,16 +47,23 @@ def db_wrtr(total):
             resReviews = list(filter([], resReviews)) 
         except:
             pass
+        import json
+        try:
+            with open(f'rew4.json', "w", encoding="utf-8") as file: 
+                json.dump(resReviews, file, indent=4, ensure_ascii=False)
+        except Exception as ex:
+            print(f"str348__{ex}")
+        # return
         # print(resReviews[0])
         try:
-            query7 = "INSERT INTO result_review_test1 (hotelid, title, cons, pros, dt1, average_score, author_name, room_id, checkin, checkout, languagecode) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            query7 = "INSERT INTO upz_hotels_review (hotelid, title, cons, pros, dt1, average_score, author_name, room_id, checkin, checkout, languagecode) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
                   
             for item in resReviews:
                 try:
                     values = (item["hotelid"], item["title"], item["cons"], item["pros"], item["dt1"], item["average_score"], item["author_name"], item["room_id"], item["checkin"], item["checkout"], item["languagecode"])
                     cursor.execute(query7, values)
                 except Exception as ex:
-                    # print(f"db_writerr__str56__{ex}")
+                    print(f"db_writerr__str65__{ex}")
                     continue
             conn.commit()
         except:
@@ -112,3 +122,8 @@ def db_wrtr(total):
 # with open('room_block__12_05_2023__16_31__62.json', 'r') as f:
 #     resRoomsBlock = json.load(f)
     # print(resRoomsBlock)
+
+
+                        # try:
+                        # pros_value = item["pros"].encode('utf8', 'ignore').decode('utf8')
+                    # except:
