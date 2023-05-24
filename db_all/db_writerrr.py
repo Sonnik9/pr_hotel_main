@@ -1,5 +1,6 @@
 def db_wrtr(total, n2):
     import mysql.connector
+    import datetime
     from mysql.connector import connect, Error 
     from . import config_real
     print('hello db_writerr_descript')
@@ -35,6 +36,8 @@ def db_wrtr(total, n2):
                 continue
 
         resDescription = list(filter(None, resDescription))
+        if len(resDescription) == 0:
+            return
 
         try:
             query2 = "INSERT INTO upz_hotels_description_test1 (hotelid, runame, dename, frname, enusname, esname, ptptname, itname, trname, arname, zhcnname, idname) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
@@ -81,7 +84,8 @@ def db_wrtr(total, n2):
         except:
             pass
         try:
-            query9 = "UPDATE upz_hotels SET description = %s, checkin = %s, checkout = %s WHERE hotel_id = %s"
+            current_date = datetime.datetime.now().strftime("%Y-%m-%d")
+            query9 = "UPDATE upz_hotels SET description = %s, checkin = %s, checkout = %s, updated = %s, done = %s WHERE hotel_id = %s"
             # print('query9_1')
 
             for item in whiteList:
@@ -99,7 +103,7 @@ def db_wrtr(total, n2):
                     if row:
                         try:
                         #    print('true4')
-                           cursor.execute(query9, (item["description"], item["checkin"], item["checkout"], item["hotelid"]))
+                           cursor.execute(query9, (item["description"], item["checkin"], item["checkout"], current_date, 1, item["hotelid"]))
                         #    print('true5')
                         except Exception as ex:
                             print(f"db_writerr__str90__{ex}")
