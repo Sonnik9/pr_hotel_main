@@ -10,29 +10,12 @@ import shutil
 import tempfile
 import sys
 from joblib import Parallel, delayed
-from multiprocessing import cpu_count
-from utilsss import b_filter_func
+# from multiprocessing import cpu_count
+
 from scrapers_funcs import review_func
-from db_all import db_reader, db_writerrr, bl_writerr
-# import psutil
-# import threading
+from db_all import db_reader, db_writerrr
 
 uagent = UserAgent()
-
-# def monitor_cpu(interval, stop_event):
-#     while not stop_event.is_set():
-#         cpu_percent = psutil.cpu_percent(interval=interval)
-#         print(f"CPU Usage: {cpu_percent}%")
-#         time.sleep(interval)
-
-# # Создаем объект Event для контроля состояния мониторинга
-# stop_event = threading.Event()
-
-# # Запуск мониторинга CPU в отдельном потоке
-# monitor_thread = threading.Thread(target=monitor_cpu, args=(1, stop_event))
-# monitor_thread.start()
-
-# //////////////spart headers start///////////////////////////////
 
 def random_headers():
     
@@ -97,9 +80,9 @@ def random_headers():
 
 def grendMather_controller(data):
     # print('hello controler')
-    flagTest = True
+    flag_test = True
     flag_otziv = True 
-    black_list = []
+ 
     try:
         data_upz_hotels_item = data.split('SamsonovNik')[1]
     except Exception as ex:
@@ -136,68 +119,50 @@ def grendMather_controller(data):
             fixed_url = data_upz_hotels_item_dict["url"]
     except Exception as ex:
         # print(f"str83___{ex}")
-        try:
-            black_list.append({
-                "hotel_id": hotelid,
-                "url": fixed_url,
-                "otziv": 0
-            })
-        except Exception as ex:
-            print(f"133____{ex}")
-            pass
-        return [None, black_list] 
+        return None
 
     try:
         otzivInd = data_upz_hotels_item_dict["otziv"]
     except Exception as ex:
         print(f"140____{ex}")
-        return [None, black_list]  
+        return None  
     try:
         if otzivInd == "1" or otzivInd == 1:
             flag_otziv = False
     except:
         pass
-    if flag_otziv == False and flagTest == False:  
-        return [None, black_list]     
+    if flag_otziv == False:  
+        # print('hello_flag false')
+        return None    
     else:
         for _ in range(2):
-            try:
-                # print('hello requests')
-                # print(fixed_url)
-                # https://www.booking.com/hotel/vn/laluna-hoi-an-riverside-hotel.html
+            try:              
                 cc1 = fixed_url.split('/')[-2].strip()
-                # return
-                extract_title = fixed_url.split('/')[-1].split('.')[0].strip()   
-                # return print(extract_title)    
+                extract_title = fixed_url.split('/')[-1].split('.')[0].strip()  
                 refactor_url  = f'https://www.booking.com/reviewlist.ru.html?cc1={cc1}&pagename={extract_title}&r_lang=&review_topic_category_id=&type=total&score=&sort=&time_of_year=&dist=1&offset=0&rows=100&rurl=&text=&translate=&'
-                # refactor_url = refactor_url.replace('.ru.html', '.en.html')
+          
             except Exception as ex:
                 # print(f"str199___{ex}")
                 pass  
             try:
-                result_reviews = ''
-          
+                result_reviews = ''          
                 black_list = []
                 proxy_item = {       
                     "https": f"http://{choice(prLi)}"          
                 } 
-                # print(proxy_item)
                 # print(fixed_url)
                 try:
                    headerss=random_headers()
                    
                 except Exception as ex:
                     print(f"headers281____{ex}")
-                # print(headerss)
-                
+                # print(headerss)                
                 k = 2 / random.randrange(1, 5)
                 m = 1 / random.randrange(1, 11)
                 g = random.randrange(1, 5)
                 n = round(g + k + m, 2) 
                 time.sleep(n)  
                 try: 
-                    # print(refactor_url)
-                    # return
                     r = requests.get(refactor_url, headers=headerss, proxies=proxy_item)
                     r.raise_for_status()
                     # print(r.status_code)
@@ -213,8 +178,7 @@ def grendMather_controller(data):
                             if result_reviews is None:
                                 continue                                                  
                         except Exception as ex:
-                            # print(f"str225___{ex}")
-                            # continue
+                            # print(f"str225___{ex}")      
                             pass
                         break
                     else:
@@ -226,26 +190,13 @@ def grendMather_controller(data):
             except Exception as ex:
                 print(f"224____{ex}")
                 continue
-                # return [[None], black_list] 
-        # result_reviews = None
-        if flag_otziv == True and result_reviews is None:
-            black_list.append({
-                "hotel_id": hotelid,
-                "url": fixed_url,
-                "otziv": 0
-            })        
+       
         try:
-            # print(result_description_upz)
-            return [[result_reviews], black_list] 
+            return result_reviews
         
         except Exception as ex:
             # print(f"220____{ex}")
-            black_list.append({
-                "hotel_id": hotelid,
-                "url": fixed_url,
-                "otziv": 0,
-            })
-            return [None, black_list] 
+            return None
         
 # ////////// grendMather_controller block end/////////////////////////////////////
 #         
@@ -283,35 +234,22 @@ def father_multiprocessor(data_upz_hotels, cpu_count):
     return finRes
 
 
-def pattern_cycles(data, cpu_count):
+def pattern_cycles(data, cpu_count, n2):
     # print('helo pattern_cycles')
     finRes = []
-    black_list = []
     try:
         finRes = father_multiprocessor(data, cpu_count)
     except Exception as ex:
         print(f"422____{ex}")
         pass
     try:
-        db_writerrr.db_wrtr(finRes)
+        db_writerrr.db_wrtr(finRes, n2)
     except Exception as ex:
         # print(f"378____{ex}")
         pass
-    try:
-        black_list = b_filter_func.black_filter(finRes) 
-    except Exception as ex:
-        # print(f"390____{ex}")
-        pass
-    try:
-       return black_list
-    except:
-        return None
 
-def cycles_worker(**args_cycles):   
-    black_list = []
-    ex_list = []
-
-    exceptions_data = args_cycles["exceptions_data"]
+def cycles_worker(**args_cycles):
+    
     try:        
         n1=int(args_cycles["n1"])
         n2=int(args_cycles["n2"])
@@ -324,26 +262,9 @@ def cycles_worker(**args_cycles):
     except Exception as ex:
         print(f"441____{ex}")
 
-
-    try:
-        for item in exceptions_data:
-            ex_list += item
-    except:
-        pass
     try:
         if flag_end_cycles == True:
-            return
-            print('hello end_flag_cycles')
-            try:
-                black_list = pattern_cycles(ex_list, cpu_count)
-                try:
-                   bl_writerr.bl_db_wrtr(black_list)
-                except Exception as ex:
-                   print(f"355____{ex}")
-                cleanup_cache()               
-            except Exception as ex:
-                print(f"358____{ex}")
-            return print('Finish')
+           return print('Finish')
         else:            
             try:
                 counter +=1
@@ -353,75 +274,40 @@ def cycles_worker(**args_cycles):
                 if interval_chekcer <= interval:
                     n2 = len_items
                     flag_end_cycles = True
-                else:
-                    pass
-
                     # print(f"362___{n2}")
             except Exception as ex:
                 # print(f"343____{ex}")
                 pass
+        
             # print(f"348___{n1, n2}")
-
-            if len(ex_list) != interval and len(ex_list) < interval:
-                try:       
-                    # const_data = json_reader_test.data_upz_hotels_func()    
-                    const_data = db_reader.db_opener(n1, n2)
-                    # print(const_data)
-                except Exception as ex:
-                    print(f"443____{ex}")
-                try:
-                    black_list = pattern_cycles(const_data, cpu_count)
-                except:
-                    pass
-                try:
-                    exceptions_data.append(black_list)
-                except Exception as ex:
-                    # print(f"398____{ex}")
-                    pass
-                flag_end_cycles = True
-                cleanup_cache()
-                args_cycles = {
-                    'exceptions_data': exceptions_data,
-                    'n1': n1,
-                    'n2': n2,
-                    'interval': interval,
-                    'from_item': from_item,
-                    'len_items': len_items,
-                    'counter': counter,
-                    'flag_end_cycles': flag_end_cycles,
-                    'cpu_count': cpu_count
-                }
-                try:
-                    cycles_worker(**args_cycles) 
-                except Exception as ex:
-                    # print(f"408____{ex}")
-                    pass
-            elif len(ex_list) == interval or len(ex_list) > interval:
-                # print('hello exlist')
-                exceptions_data = []
-                black_list = pattern_cycles(ex_list, cpu_count)   
-                try:
-                    bl_writerr.bl_db_wrtr(black_list)
-                except Exception as ex:
-                    print(f"412____{ex}") 
-                # bl_db_wrtr(black_list)
-                args_cycles = {
-                    'exceptions_data': exceptions_data,
-                    'n1': n1,
-                    'n2': n2,
-                    'interval': interval,
-                    'from_item': from_item,
-                    'len_items': len_items,
-                    'counter': counter,
-                    'flag_end_cycles': flag_end_cycles,
-                    'cpu_count': cpu_count
-                }
-
-                try:
-                    cycles_worker(**args_cycles) 
-                except Exception as ex:
-                    # print(f"408____{ex}")
-                    pass
+            try:  
+                print('hello')                
+                const_data = db_reader.db_opener(n1, n2)
+                # print(const_data)
+            except Exception as ex:
+                print(f"443____{ex}")
+            try:
+                pattern_cycles(const_data, cpu_count, n2)
+            except:
+                pass
+        
+            cleanup_cache()
+            args_cycles = {              
+                'n1': n1,
+                'n2': n2,
+                'interval': interval,
+                'from_item': from_item,
+                'len_items': len_items,
+                'counter': counter,
+                'flag_end_cycles': flag_end_cycles,
+                'cpu_count': cpu_count
+            }
+            try:
+                cycles_worker(**args_cycles) 
+            except Exception as ex:
+                # print(f"408____{ex}")
+                pass
+           
 
     except Exception as ex:
         # print(f"334____{ex}")
@@ -458,8 +344,7 @@ def cleanup_cache():
                 shutil.rmtree("./db_all/__pycache__")
         except Exception as ex:
             print(f"457____{ex}")
-            pass  
-        # secondary_funcs  
+            pass   
         try:
             if os.path.exists(cache_dir):
                 shutil.rmtree(cache_dir)
@@ -470,16 +355,15 @@ def cleanup_cache():
         print(f"551____{ex}") 
 
 def main():
-    args_cycles = {
-        'exceptions_data': [],
+    args_cycles = {       
         'n1': 0,
         'n2': 0,
         'interval': 1000,
-        'from_item': 150000,
-        'len_items': 250000,
+        'from_item': 0,
+        'len_items': 326000,
         'counter': 0,
         'flag_end_cycles': False,
-        'cpu_count': 40
+        'cpu_count': 22
     }  
 
     try:
@@ -496,8 +380,6 @@ if __name__ == "__main__":
     main() 
     finish_time = time.time() - start_time
     print(f"Total time:  {math.ceil(finish_time)} сек")
-    # stop_event.set()
-    # monitor_thread.join()
     try:
         sys.exit()
     except Exception as ex:
@@ -513,26 +395,3 @@ if __name__ == "__main__":
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# u9FSEvF3:igzQ94p1@45.132.207.81:62036
-# u9FSEvF3:igzQ94p1@154.7.205.72:64700
-# u9FSEvF3:igzQ94p1@154.7.207.155:63732
-
-
-
-# u9FSEvF3:igzQ94p1@185.97.76.249:62362
-
-# https://www.booking.com/reviewlist.ru.html?cc1=uz&pagename=129&r_lang=&review_topic_category_id=&type=total&score=&sort=&time_of_year=&dist=1&offset=0&rows=100&rurl=&text=&translate=&

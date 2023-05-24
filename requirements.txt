@@ -14,3 +14,11 @@ requests==2.30.0
 soupsieve==2.4.1
 tqdm==4.65.0
 urllib3==1.26.15
+unicodedata
+dateparser==1.1.8
+Faker==18.9.0
+python-dateutil==2.8.2
+pytz==2023.3
+regex==2023.5.5
+six==1.16.0
+tzlocal==5.0.1

@@ -22,10 +22,10 @@ def create_tables():
     except Error as e:
         print(f"Error connecting to MySQL: {e}")
 
-    # try:
-    #    cursor.execute("DROP TABLE result_review_test1")
-    # except:
-    #     pass
+    try:
+       cursor.execute("DROP TABLE upz_hotels_review_test1")
+    except:
+        pass
     # try:
     #    cursor.execute("DROP TABLE black_list_reviews_test1")
     # except:
@@ -67,8 +67,8 @@ def create_tables():
 
  # MODIFY average_score DECIMAL(5, 1),
 
-    create_table_query8 = '''
-    CREATE TABLE result_review_test2 (
+    create_table_query10 = '''
+    CREATE TABLE upz_hotels_review_test1 (
         id INT AUTO_INCREMENT PRIMARY KEY,
         hotelid INT(15),
         title VARCHAR(255),
@@ -96,8 +96,8 @@ def create_tables():
 
     # conn.commit()
     # cursor.execute(alter_table_query)
-    cursor.execute(create_table_query7)
-    # cursor.execute(create_table_query9)
+    # cursor.execute(create_table_query7)
+    cursor.execute(create_table_query10)
 
 
     cursor.close()
