@@ -37,6 +37,8 @@ def db_wrtr(total, n2):
                 continue
 
         resPhoto = list(filter(None, resPhoto))
+        if len(resPhoto) == 0:
+            return
 
         # try:
         #     with open(f'photo5.json', "w", encoding="utf-8") as file:
