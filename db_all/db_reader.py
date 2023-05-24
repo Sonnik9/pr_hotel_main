@@ -24,20 +24,18 @@ def db_opener(n1, n2):
         print(f"Error connecting to MySQL: {e}")
 
     try:
-        query_last_item = "SELECT COUNT(*) FROM upz_hotels;"
-        cursor.execute(query_last_item)
-        # # Извлечение результата запроса
-        last_item = cursor.fetchone()[0]
+        # query_last_item = "SELECT COUNT(*) FROM upz_hotels;"
+        # cursor.execute(query_last_item)
+        # # # Извлечение результата запроса
+        # last_item = cursor.fetchone()[0]
         # p2 = int(last_item) - n1
         # p1 = int(last_item) - n2
-        p2 = int(last_item) - 160
-        p1 = int(last_item) - 170
-        # # n1 = n2 - 50
-        # # n1, n2 = 0, 2
-        # print(n1, n2)
+        # p2 = int(last_item) - 160
+        # p1 = int(last_item) - 170
+
 
         select_query  = ("SELECT id, hotel_id, url, description FROM upz_hotels "
-        f"WHERE id BETWEEN {p1} AND {p2} "
+        f"WHERE id BETWEEN {n1} AND {n2} "
         )
         cursor.execute(select_query)
         hotels_data = cursor.fetchall()
@@ -63,7 +61,7 @@ def db_opener(n1, n2):
     except Error as e:
         print(f"Error connecting to MySQL: {e}")
     print(f"data_DB _____{data_DB[0]}")
-    print(f"data_DB _____{data_DB[-1]}")
+    # print(f"data_DB _____{data_DB[-1]}")
     # print(f"data_DB _____{data_DB[-1]}")
     return data_DB
 

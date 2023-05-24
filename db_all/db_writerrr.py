@@ -1,6 +1,4 @@
 def db_wrtr(total, n2):
-    import json
-    import datetime
     import mysql.connector
     from mysql.connector import connect, Error 
     from . import config_real
@@ -61,13 +59,35 @@ def db_wrtr(total, n2):
         except:
             pass
         try:
-            query9 = "UPDATE upz_hotels_copy SET description = %s, checkin = %s, checkout = %s WHERE hotel_id = %s"
+            query2 = "INSERT INTO upz_hotels_description (hotelid, runame, dename, frname, enusname, esname, ptptname, itname, trname, arname, zhcnname, idname) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+
+            for item in resDescription:
+                try:
+                    values = (item["hotelid"], item["runame"], item["dename"], item["frname"], item["enusname"], item["esname"], item["ptptname"], item["itname"], item["trname"], item["arname"], item["zhcnname"], item["idname"])
+                    cursor.execute(query2, values)
+                    whiteList.append({
+                        "hotelid": item["hotelid"],
+                        "description": 1,
+                        "checkin": item["checkin"],
+                        "checkout": item["checkout"]
+                    })
+                    # print(item["checkin"])
+                    # print(item["checkout"])                  
+                except Exception as ex:
+                    print(ex)
+                    continue
+
+            conn.commit()
+        except:
+            pass
+        try:
+            query9 = "UPDATE upz_hotels SET description = %s, checkin = %s, checkout = %s WHERE hotel_id = %s"
             # print('query9_1')
 
             for item in whiteList:
                 try:
                     try:
-                        find_query = "SELECT hotel_id FROM upz_hotels_copy WHERE hotel_id = %s"
+                        find_query = "SELECT hotel_id FROM upz_hotels WHERE hotel_id = %s"
                         # print("true1")
                         cursor.execute(find_query, (item["hotelid"],))
                         # print("true2")
@@ -113,25 +133,4 @@ def db_wrtr(total, n2):
 
     return 
 
-# total = None
-# db_opener(total)
-
 # python db_writerrr.py
-
-
-
-# resRoomHighlights = []
-# with open('result_description__interval_0__1120__Items_982.json', 'r') as f:
-#     data_result_descript = json.load(f)
-# with open('photos__12_05_2023__16_32__443.json', 'r') as f:
-#     resPhoto = json.load(f) 
-# with open('facilities__12_05_2023__16_32__1030.json', 'r') as f:
-#     resFacilities = json.load(f) 
-# with open('room__12_05_2023__16_31__62.json', 'r') as f:
-#     resRooms = json.load(f) 
-# with open('room_block__12_05_2023__16_31__62.json', 'r') as f:
-#     resRoomsBlock = json.load(f)
-    # print(resRoomsBlock)
-
-
-            # query = "UPDATE result_description_test1 SET hotelid = %s, enusname = %s"

@@ -82,7 +82,6 @@ def random_headers():
 def grendMather_controller(data):
     # print('hello controler')
     # flagTest = True
-
     flag_description = True 
     descriptionInd = 0
 
@@ -284,8 +283,7 @@ def cycles_worker(**args_cycles):
                 pattern_cycles(const_data, cpu_count, n2)
             except:
                 pass
-            flag_end_cycles = True
-
+    
             cleanup_cache()
             args_cycles = {              
                 'n1': n1,
