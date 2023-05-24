@@ -1,6 +1,5 @@
 def db_wrtr(total, n2):
     import json
-    import datetime
     import mysql.connector
     from mysql.connector import connect, Error 
     from . import config_real
@@ -39,13 +38,12 @@ def db_wrtr(total, n2):
 
         resPhoto = list(filter(None, resPhoto))
 
-        try:
-            with open(f'photo5.json', "w", encoding="utf-8") as file:
-                json.dump(resPhoto, file, indent=4, ensure_ascii=False)
-        except Exception as ex:
-            print(f"str348__{ex}")
-        # return
-
+        # try:
+        #     with open(f'photo5.json', "w", encoding="utf-8") as file:
+        #         json.dump(resPhoto, file, indent=4, ensure_ascii=False)
+        # except Exception as ex:
+        #     print(f"str348__{ex}")
+ 
         try:
             query1 = "INSERT INTO upz_hotels_photos_test1 (hotelid, photo_id, tags, url_square60, url_max) VALUES (%s, %s, %s, %s, %s)"
 
@@ -62,14 +60,30 @@ def db_wrtr(total, n2):
             conn.commit()
         except:
             pass
+        try:
+            query1 = "INSERT INTO upz_hotels_photos (hotelid, photo_id, tags, url_square60, url_max) VALUES (%s, %s, %s, %s, %s)"
+
+            for item in resPhoto:
+                try:
+                    values = (item["hotelid"], item["photo_id"], item["tags"], item["url_square60"], item["url_max"])
+                    cursor.execute(query1, values)                    
+                    whiteList_set.add(item["hotelid"])                 
+                        
+                except Exception as ex:
+                    print(ex)
+                    continue
+
+            conn.commit()
+        except:
+            pass
         whiteList = list(whiteList_set)
         try:
-            query9 = "UPDATE upz_hotels_copy SET fotos = %s WHERE hotel_id = %s"
+            query9 = "UPDATE upz_hotels SET fotos = %s WHERE hotel_id = %s"
 
             for item in whiteList:
                 try:
                     try:
-                        find_query = "SELECT hotel_id FROM upz_hotels_copy WHERE hotel_id = %s"
+                        find_query = "SELECT hotel_id FROM upz_hotels WHERE hotel_id = %s"
                         # print("true1")
                         cursor.execute(find_query, (item,))
                         # print("true2")
@@ -92,7 +106,7 @@ def db_wrtr(total, n2):
             conn.commit()
         except Exception as ex:
             print(ex)
-        n = 1
+        # n = 1
         try:
             select_queryF = "SELECT fotos_flag FROM hotels_simafor WHERE id = %s"
             cursor.execute(select_queryF, (n,))

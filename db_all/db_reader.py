@@ -28,16 +28,11 @@ def db_opener(n1, n2):
         cursor.execute(query_last_item)
         # # Извлечение результата запроса
         last_item = cursor.fetchone()[0]
-        # p2 = int(last_item) - n1
-        # p1 = int(last_item) - n2
         p2 = int(last_item) - 150
         p1 = int(last_item) - 160
-        # # n1 = n2 - 50
-        # # n1, n2 = 0, 2
-        # print(n1, n2)
 
         select_query  = ("SELECT hotel_id, url, fotos FROM upz_hotels "
-        f"WHERE id BETWEEN {p1} AND {p2} "
+        f"WHERE id BETWEEN {n1} AND {n2} "
         )
         cursor.execute(select_query)
         hotels_data = cursor.fetchall()
@@ -54,16 +49,6 @@ def db_opener(n1, n2):
             # print(hotel_id)
     except Exception as ex:
         print(f"source_DB_hotel_46str___{ex}")    
-    
-    try:
-        query10 = "INSERT INTO async_counter (cycles_id, fotos_flag, deskription_flag, facility_flag, otziv_flag, room_flag, rooms_block_flag) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-        cursor.execute(query10, (2000, 0, 0, 0, 0, 0, 0))
-        conn.commit()
-        print("ok_query10")
-    except:
-        pass
-
-
     try:
         cursor.close()
         conn.close()
@@ -71,7 +56,7 @@ def db_opener(n1, n2):
     except Error as e:
         print(f"Error connecting to MySQL: {e}")
     print(f"data_DB _____{data_DB[0]}")
-    print(f"data_DB _____{data_DB[-1]}")
+    # print(f"data_DB _____{data_DB[-1]}")
     # print(f"data_DB _____{data_DB[-1]}")
     return data_DB
 

@@ -280,21 +280,16 @@ def cycles_worker(**args_cycles):
             except Exception as ex:
                 # print(f"343____{ex}")
                 pass
-        
-            # print(f"348___{n1, n2}")
+
             try:  
                 print('hello')                
                 const_data = db_reader.db_opener(n1, n2)
-                # return
-                # print(const_data)
             except Exception as ex:
                 print(f"443____{ex}")
             try:
                 pattern_cycles(const_data, cpu_count, n2)
             except:
                 pass
-            flag_end_cycles = True
-
             cleanup_cache()
             args_cycles = {              
                 'n1': n1,
