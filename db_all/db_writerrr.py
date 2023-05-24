@@ -85,7 +85,7 @@ def db_wrtr(total, n2):
             pass
         try:
             current_date = datetime.datetime.now().strftime("%Y-%m-%d")
-            query9 = "UPDATE upz_hotels SET description = %s, checkin = %s, checkout = %s, updated = %s, done = %s WHERE hotel_id = %s"
+            query9 = "UPDATE upz_hotels SET description = %s, checkin = %s, checkout = %s, updated = %s WHERE hotel_id = %s"
             # print('query9_1')
 
             for item in whiteList:
@@ -103,7 +103,7 @@ def db_wrtr(total, n2):
                     if row:
                         try:
                         #    print('true4')
-                           cursor.execute(query9, (item["description"], item["checkin"], item["checkout"], current_date, 1, item["hotelid"]))
+                           cursor.execute(query9, (item["description"], item["checkin"], item["checkout"], current_date, item["hotelid"]))
                         #    print('true5')
                         except Exception as ex:
                             print(f"db_writerr__str90__{ex}")
