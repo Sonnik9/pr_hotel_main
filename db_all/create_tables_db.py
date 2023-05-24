@@ -9,7 +9,7 @@ def create_tables():
         'host': config_real.host,
         'port': config_real.port,
         'database': config_real.database,      
-    }
+    }  
 
     try:
         conn = mysql.connector.connect(**config)      
