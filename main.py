@@ -285,10 +285,11 @@ def cycles_worker(**args_cycles):
                 print('hello')                
                 const_data = db_reader.db_opener(n1, n2)
             except Exception as ex:
-                print(f"443____{ex}")
+                print(f"288____{ex}")
             try:
                 pattern_cycles(const_data, cpu_count, n2)
             except:
+                print(f"292____{ex}")
                 pass
             cleanup_cache()
             args_cycles = {              
@@ -358,7 +359,7 @@ def main():
         'n1': 0,
         'n2': 0,
         'interval': 1000,
-        'from_item': 0,
+        'from_item': 4000,
         'len_items': 326000,
         'counter': 0,
         'flag_end_cycles': False,
