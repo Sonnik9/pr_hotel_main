@@ -22,32 +22,32 @@ def create_tables():
     except Error as e:
         print(f"Error connecting to MySQL: {e}")
 
-    try:
-       cursor.execute("DROP TABLE upz_hotels_photos_test1")
-    except:
-        pass 
-
-    try:
-        cursor.execute("DROP TABLE upz_hotels_description_test1")
-    except:
-        pass 
-
-    try:
-       cursor.execute("DROP TABLE upz_hotels_facilityties_test1")
-    except:
-        pass 
-    try:
-       cursor.execute("DROP TABLE upz_hotels_rooms_test1")
-    except:
-        pass 
-    try:
-       cursor.execute("DROP TABLE upz_hotels_rooms_blocks_test1")
-    except:
-        pass
     # try:
-    #    cursor.execute("DROP TABLE hotels_simafor")
+    #    cursor.execute("DROP TABLE upz_hotels_photos_test1")
+    # except:
+    #     pass 
+
+    # try:
+    #     cursor.execute("DROP TABLE upz_hotels_description_test1")
+    # except:
+    #     pass 
+
+    # try:
+    #    cursor.execute("DROP TABLE upz_hotels_facilityties_test1")
+    # except:
+    #     pass 
+    # try:
+    #    cursor.execute("DROP TABLE upz_hotels_rooms_test1")
+    # except:
+    #     pass 
+    # try:
+    #    cursor.execute("DROP TABLE upz_hotels_rooms_blocks_test1")
     # except:
     #     pass
+    try:
+       cursor.execute("DROP TABLE hotels_simafor")
+    except:
+        pass
  
     create_table_query10 = '''
     CREATE TABLE hotels_simafor (
@@ -59,12 +59,12 @@ def create_tables():
         room_flag TINYINT(1)    
     )
     '''
-    # cursor.execute(create_table_query10)
+    cursor.execute(create_table_query10)
 
-    # query10 = "INSERT INTO hotels_simafor (fotos_flag, deskription_flag, facility_flag, otziv_flag, room_flag) VALUES (%s, %s, %s, %s, %s)"
-    # for _ in range(500):
-    #     cursor.execute(query10, (0, 0, 0, 0, 0))
-    # conn.commit()
+    query10 = "INSERT INTO hotels_simafor (fotos_flag, deskription_flag, facility_flag, otziv_flag, room_flag) VALUES (%s, %s, %s, %s, %s)"
+    for _ in range(500):
+        cursor.execute(query10, (0, 0, 0, 0, 0))
+    conn.commit()
 
     create_table_query1 = '''
     CREATE TABLE upz_hotels_photos_test1 (
@@ -147,11 +147,11 @@ def create_tables():
         all_inclusive TINYINT(1)    
     )
     '''
-    cursor.execute(create_table_query1)
-    cursor.execute(create_table_query2)
-    cursor.execute(create_table_query3)
-    cursor.execute(create_table_query4)
-    cursor.execute(create_table_query5)
+    # cursor.execute(create_table_query1)
+    # cursor.execute(create_table_query2)
+    # cursor.execute(create_table_query3)
+    # cursor.execute(create_table_query4)
+    # cursor.execute(create_table_query5)
 
     # cursor.execute(alert_table_query1)
 
