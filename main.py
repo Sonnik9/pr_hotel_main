@@ -359,7 +359,7 @@ def main():
         'n1': 0,
         'n2': 0,
         'interval': 1000,
-        'from_item': 3000,
+        'from_item': 0,
         'len_items': 100000,
         'counter': 0,
         'flag_end_cycles': False,
