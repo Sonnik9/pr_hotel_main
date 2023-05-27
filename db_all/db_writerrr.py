@@ -55,22 +55,34 @@ def db_wrtr(total, n2):
             resPhoto = remove_repetitions(resPhoto)
             print(f"arter___{len(resPhoto)}")
 
+
             try:
-                query1 = "INSERT INTO upz_hotels_photos (hotelid, photo_id, tags, url_square60, url_max) VALUES (%s, %s, %s, %s, %s)"
+                query1 = "INSERT INTO upz_hotels_photos (hotelid, photo_id, tags, url_square60, url_max) VALUES (%s, %s, %s, %s, %s)"              
+
+                batch_size = 150
+                batch_values = []
 
                 for item in resPhoto:
                     try:
                         values = (item["hotelid"], item["photo_id"], item["tags"], item["url_square60"], item["url_max"])
-                        cursor.execute(query1, values)                    
-                        whiteList_set.add(item["hotelid"])                 
-                            
+                        batch_values.append(values)
+                        whiteList_set.add(item["hotelid"])
+
+                        if len(batch_values) == batch_size:
+                            cursor.executemany(query1, batch_values)
+                            conn.commit()
+                            batch_values = []
+
                     except Exception as ex:
                         print(ex)
                         continue
 
-                conn.commit()
+                if batch_values:
+                    cursor.executemany(query1, batch_values)
+                    conn.commit()
             except:
                 pass
+
             whiteList = list(whiteList_set)
             try:
                 query9 = "UPDATE upz_hotels SET fotos = %s WHERE hotel_id = %s"
@@ -97,13 +109,14 @@ def db_wrtr(total, n2):
             except Exception as ex:
                 print(ex)
        
-            try:
-                semaforr(conn, cursor, n)
-            except:
-                pass
+
 
         except Exception as ex:
             print(ex)
+        try:
+            semaforr(conn, cursor, n)
+        except:
+            pass
 
         try:
             cursor.close()
