@@ -33,7 +33,7 @@ def db_opener(n1, n2):
             # continue
 
         try:
-            select_query  = ("SELECT id, hotel_id, url, fotos FROM upz_hotels "
+            select_query  = ("SELECT id, hotel_id, url, fotos FROM upz_hotels_copy "
             f"WHERE id BETWEEN {n1} AND {n2} "
             )
             cursor.execute(select_query)
