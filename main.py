@@ -10,6 +10,7 @@ import shutil
 import tempfile
 import sys
 from joblib import Parallel, delayed
+import multiprocessing
 from scrapers_funcs import photos_func
 from db_all import db_reader, db_writerrr
 
@@ -161,7 +162,7 @@ def grendMather_controller(data):
                 n = round(g + k + m, 2) 
                 time.sleep(n)  
                 try:     
-                    r = requests.get(fixed_url, headers=headerss, proxies=proxy_item)
+                    r = requests.get(fixed_url, headers=headerss, proxies=proxy_item, timeout=(6.15, 21.15))
                     r.raise_for_status()               
                     if r.status_code == 404: 
                         return None
@@ -231,10 +232,19 @@ def father_multiprocessor(data_upz_hotels, cpu_count):
     try:
         finRes = Parallel(n_jobs=cpu_count, prefer="threads")(delayed(call_grendMather_controller)(item) for item in data_upz_hotels_args)
     except Exception as ex:
-        print(f"284STR__Error: {ex}")
+        print(f"235__Error: {ex}")
+        pass
+        # return None
+    try:
+        multiprocessing.active_children()
+        for process in multiprocessing.active_children():
+            process.terminate()
+    except Exception as ex:
+        print(f"243__Error: {ex}")
+    try:
+        return finRes
+    except:
         return None
-
-    return finRes
 
 def pattern_cycles(data, cpu_count, n2):
     # print('helo pattern_cycles')
@@ -363,7 +373,7 @@ def main():
         'len_items': 100000,
         'counter': 0,
         'flag_end_cycles': False,
-        'cpu_count': 40
+        'cpu_count': 32
     }  
 
     try:
