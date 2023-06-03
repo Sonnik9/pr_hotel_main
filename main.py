@@ -419,7 +419,7 @@ def main():
     args_cycles = {       
         'n1': 0,
         'n2': 0,
-        'interval': 1000,
+        'interval': 5000,
         'from_item': 102000,
         'len_items': 326859,
         'counter': 0,
