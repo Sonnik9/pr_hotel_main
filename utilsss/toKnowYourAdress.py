@@ -6,13 +6,13 @@ import time
 # import os
 # import sys 
 # sys.path.append(os.path.abspath('../secondary_funcs'))
-from main import random_headers as h
+# from ..main import random_headers as h
 # python -m utils.toKnowYourAdress
 # export PYTHONPATH=/home/kali/Desktop/IgorParser/Igor_parser/secondary_funcs:$PYTHONPATH
 
 
 def proxy_reader():
-    with open("./proxy_booking.txt", encoding="utf-8") as f1:    
+    with open("../proxy_booking.txt", encoding="utf-8") as f1:    
         prLi = ''.join(f1.readlines()).split('\n')
         prLi= list(i.strip() for i in prLi)
         prLi = list(filter(lambda item: item != '', prLi))
@@ -34,11 +34,11 @@ def checkIP():
         proxy_item = {       
             "https": f"http://{pr}"          
         } 
-        headers=h()
+        # headers=h()
         # print(headers)
         # print(proxy_item)
         try:
-            ip = requests.get(link, headers=headers, proxies=proxy_item, timeout=(3.15, 21.15))
+            ip = requests.get(link, proxies=proxy_item, timeout=(3.15, 21.15))
             # ip = requests.get(link, headers=headers, timeout=(3.15, 21.15))
             print(ip.text)
         except Exception as ex:

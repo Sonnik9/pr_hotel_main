@@ -1,9 +1,8 @@
 from bs4 import BeautifulSoup
 import re
-from . import facilities_data
 
 def page_scraper_room_block(resHtml, hotelid):
-    meal_facilities_const = [1, 166, 167, 168, 169, 170, 171, 217, 218, 219, 220]
+    # meal_facilities_const = [1, 166, 167, 168, 169, 170, 171, 217, 218, 219, 220]
     result_room_block_upz = []
     # print('hello room block')
 
@@ -49,18 +48,10 @@ def page_scraper_room_block(resHtml, hotelid):
                 except:
                     name_room = ''
                     continue
-                try:
-                    for element in item.find_all(True):
-                        aria_label = element.get('aria-label')
-                        if aria_label:
-                            max_occupancy1 = aria_label.strip()                     
-                            break
-                except:
-                    max_occupancy1 = ''
+
                 try:            
                     pattern1 = f'"roomId":{room_id}.*__typename":"RTRoomCard".*"description".*"hasRoomInventory".*' 
-                    # pattern_meal = r'(?:"mealPlans"::\[[^]]*?\]|"mealPlans":^\[\s*\]$)'
-                    pattern_meal = f'"facilities":\[[^]]*?\]'
+                       
                     for fr in scripts_fraction_list:
                         match1 = re.search(pattern1, fr)                                   
                         if match1:
@@ -68,66 +59,43 @@ def page_scraper_room_block(resHtml, hotelid):
 
                             try:
                                 match_allow_children = re.search(r'"maxChildren":\d', match_general_block)
+                                # print(match_allow_children.group())
                                 nr_children = match_allow_children.group().split(':')[1].strip() 
                             except:
                                 nr_children = 0
                             try:
                                 match_nr_adults = re.search(r'"maxPersons":\d', match_general_block)
+                                # print(match_nr_adults.group())
                                 nr_adults = match_nr_adults.group().split(':')[1].strip() 
                             except:
                                 nr_adults = 0
-                            try:
-                                match2 = re.findall(pattern_meal, str(match_general_block))
-                                list_fs_meal = []
-                                meal_facilities_set_list = []
-                                if match2:
-                                    for mf in match2:
-                                        list_fs_meal += eval(mf.split(':')[1].strip())
-                                meal_facilities_set_list = list(set(list_fs_meal))
-                                common_facilities_items = [item for item in meal_facilities_const if item in meal_facilities_set_list]
-                                if common_facilities_items:
-                                    for fs in common_facilities_items:
-                                        mealplan += facilities_data.roomfacility[str(fs)] +'\n' 
-                                else:
-                                    mealplan = ""
-                            except:
-                                mealplan = ""
+                           
                     try:
-                        max_occupancy = nr_children + nr_adults
+                        max_occupancy = int(nr_children) + int(nr_adults)
                     except:
-                        max_occupancy = 0
-            
+                        max_occupancy = 0  
+                    # print(max_occupancy)          
                 except:
-                    try:       
-                        nr_children = int(max_occupancy1.split(',')[1].strip())                  
-                    except: 
-                        nr_children = 0                
-                    try:
-                        nr_adults = int(max_occupancy1.split(',')[0].strip())
-                    except:
-                        nr_adults = 0     
-                    try:
-                        max_occupancy = nr_children + nr_adults
-                    except:
-                        max_occupancy = 0      
-                try:
-                    result_room_block_upz.append({
-                        "hotelid": int(hotelid),
-                        'room_id': int(room_id),                    
-                        # 'gross_price': float(gross_price), 
-                        # 'currency': currency,  
-                        'room_name': name_room,                  
-                        'nr_children': int(nr_children),
-                        'max_occupancy': int(max_occupancy),
-                        'mealplan': mealplan,
-                        # 'room_surface_in_m2': float(room_surface_in_m2),
-                        'nr_adults': int(nr_adults),
-                        # 'all_inclusive': int(all_inclusive),
-
-                    })
-                except Exception as ex:
-                    # print(f"150____{ex}") 
                     pass
+    
+                # try:
+                result_room_block_upz.append({
+                    "hotelid": int(hotelid),
+                    'room_id': int(room_id),                    
+                    # 'gross_price': float(gross_price), 
+                    # 'currency': currency,  
+                    'room_name': name_room,                  
+                    'nr_children': nr_children,
+                    'max_occupancy': max_occupancy,
+                    # 'mealplan': mealplan,
+                    # 'room_surface_in_m2': float(room_surface_in_m2),
+                    'nr_adults': nr_adults,
+                    # 'all_inclusive': int(all_inclusive),
+
+                })
+                # except Exception as ex:
+                    # print(f"150____{ex}") 
+                    # pass
                     # return None 
             except:
                 continue

@@ -20,7 +20,6 @@ def page_scraper_facilities(resHtml, hotelid):
         for item in facilities_list:
 
             try:
-
                 try:
                     facilitytype_name = ''                
                     facilitytype_name = item.find('div', class_= parent_class).get_text().strip()
@@ -46,7 +45,7 @@ def page_scraper_facilities(resHtml, hotelid):
                     uniq = ''               
                     name_block = item.find_all('li')
                     for i, li in enumerate(name_block):
-                        uniq = f"{hotelid}_{i}"
+                        
                         try:
                             name = li.get_text(strip=True, separator="\n")   
                         except:
@@ -75,6 +74,10 @@ def page_scraper_facilities(resHtml, hotelid):
                                         break
                         except:
                             hotelfacilitytype_id = 'not found'
+                        try:
+                            uniq = f"{hotelid}__{facilitytype_id}_{hotelfacilitytype_id}"
+                        except:
+                            uniq = ''
                         
                         result_facilities_upz.append({  
                             "hotelid": int(hotelid),
@@ -85,14 +88,12 @@ def page_scraper_facilities(resHtml, hotelid):
                             "uniq": uniq, 
                         })
                 except Exception as ex:
-                    # name = 'not found' 
+                  
                     # print(f"str129___{ex}") 
                     pass
             except:
                 continue
-
-
-            # print(len(result_review_upz_list))
+           
     except Exception as ex:
         # print(f"str226___{ex}") 
         return None

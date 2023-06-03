@@ -22,35 +22,35 @@ def create_tables():
     except Error as e:
         print(f"Error connecting to MySQL: {e}")
 
-    # try:
-    #    cursor.execute("DROP TABLE result_photos_test2")
-    # except:
-    #     pass 
+    try:
+       cursor.execute("DROP TABLE upz_hotels_photos_test1")
+    except:
+        pass 
 
-    # try:
-    #     cursor.execute("DROP TABLE result_description_test2")
-    # except:
-    #     pass 
+    try:
+        cursor.execute("DROP TABLE upz_hotels_description_test1")
+    except:
+        pass 
 
-    # try:
-    #    cursor.execute("DROP TABLE result_facilities_test2")
-    # except:
-    #     pass 
-    # try:
-    #    cursor.execute("DROP TABLE result_room_test2")
-    # except:
-    #     pass 
-    # try:
-    #    cursor.execute("DROP TABLE result_room_block_test2")
-    # except:
-    #     pass
+    try:
+       cursor.execute("DROP TABLE upz_hotels_facilityties_test1")
+    except:
+        pass 
+    try:
+       cursor.execute("DROP TABLE upz_hotels_rooms_test1")
+    except:
+        pass 
+    try:
+       cursor.execute("DROP TABLE upz_hotels_rooms_blocks_test1")
+    except:
+        pass
     # try:
     #    cursor.execute("DROP TABLE black_list_test2")
     # except:
     #     pass
 
     create_table_query1 = '''
-    CREATE TABLE result_photos_test2 (
+    CREATE TABLE upz_hotels_photos_test1 (
         id INT AUTO_INCREMENT PRIMARY KEY,
         hotelid INT(11),
         photo_id INT(11),
@@ -65,7 +65,7 @@ def create_tables():
 
 '''
     create_table_query2 = '''
-    CREATE TABLE result_description_test2 (
+    CREATE TABLE upz_hotels_description_test1 (
         id INT AUTO_INCREMENT PRIMARY KEY,
         hotelid INT(11),
         runame TEXT,
@@ -83,7 +83,7 @@ def create_tables():
     '''
 
     create_table_query3 = '''
-    CREATE TABLE result_facilities_test2 (
+    CREATE TABLE upz_hotels_facilityties_test1 (
         id INT AUTO_INCREMENT PRIMARY KEY,
         hotelid INT(9),
         facilitytype_id MEDIUMINT(6),
@@ -94,7 +94,7 @@ def create_tables():
     )
     '''
     create_table_query4 = '''
-    CREATE TABLE result_room_test2 (
+    CREATE TABLE upz_hotels_rooms_test1 (
         id INT AUTO_INCREMENT PRIMARY KEY,
         hotelid INT(11),
         roomid INT(11),
@@ -115,7 +115,7 @@ def create_tables():
     )
     '''
     create_table_query5 = '''
-    CREATE TABLE result_room_block_test2 (
+    CREATE TABLE upz_hotels_rooms_blocks_test1 (
         id INT AUTO_INCREMENT PRIMARY KEY,
         hotelid INT(11),
         room_id INT(11),
@@ -130,12 +130,12 @@ def create_tables():
         all_inclusive TINYINT(1)    
     )
     '''
-    # cursor.execute(create_table_query1)
-    # cursor.execute(create_table_query2)
-    # cursor.execute(create_table_query3)
-    # cursor.execute(create_table_query4)
-    # cursor.execute(create_table_query5)
-    cursor.execute(alert_table_query1)
+    cursor.execute(create_table_query1)
+    cursor.execute(create_table_query2)
+    cursor.execute(create_table_query3)
+    cursor.execute(create_table_query4)
+    cursor.execute(create_table_query5)
+    # cursor.execute(alert_table_query1)
 
     cursor.close()
     conn.close()
