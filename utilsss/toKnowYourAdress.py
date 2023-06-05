@@ -38,7 +38,7 @@ def checkIP():
         # print(headers)
         # print(proxy_item)
         try:
-            ip = requests.get(link, proxies=proxy_item, timeout=(3.15, 21.15))
+            ip = requests.get(link, proxies=proxy_item, timeout=(9.15, 21.15))
             # ip = requests.get(link, headers=headers, timeout=(3.15, 21.15))
             print(ip.text)
         except Exception as ex:

@@ -86,7 +86,7 @@ def writerr_table(conn, cursor, resPhoto):
     try:
         query1 = "INSERT INTO upz_hotels_photos (hotelid, photo_id, tags, url_square60, url_max) VALUES (%s, %s, %s, %s, %s)"              
 
-        batch_size = 250
+        batch_size = 400
         batch_values = []
 
         for item in resPhoto:

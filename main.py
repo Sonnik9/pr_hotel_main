@@ -163,7 +163,7 @@ def grendMather_controller(data):
                 n = round(g + k + m, 2) 
                 time.sleep(n)  
                 try:     
-                    r = requests.get(fixed_url, headers=headerss, proxies=proxy_item, timeout=(6.15, 21.15))
+                    r = requests.get(fixed_url, headers=headerss, proxies=proxy_item, timeout=(12.15, 21.15))
                     r.raise_for_status()               
                     if r.status_code == 404: 
                         return None

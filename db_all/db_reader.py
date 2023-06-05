@@ -33,10 +33,7 @@ def db_opener(n1, n2):
         try:
             query_last_item = "SELECT COUNT(*) FROM upz_hotels;"
             cursor.execute(query_last_item)
-            # # Извлечение результата запроса
             last_item = cursor.fetchone()[0]
-            # p2 = int(last_item) - n1
-            # p1 = int(last_item) - n2
             p2 = int(last_item) - int(n1) + 1
             p1 = int(last_item) - int(n2) + 1
         except:
