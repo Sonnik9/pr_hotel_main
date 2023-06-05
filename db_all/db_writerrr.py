@@ -81,6 +81,7 @@ def writerr_table(conn, cursor, resPhoto):
     photo_white = []
     photo_white_add = []
     photo_white_set = set()
+    photo_white_batch_set = set()
 
     try:
         query1 = "INSERT INTO upz_hotels_photos (hotelid, photo_id, tags, url_square60, url_max) VALUES (%s, %s, %s, %s, %s)"              
@@ -92,17 +93,20 @@ def writerr_table(conn, cursor, resPhoto):
             try:
                 values = (item["hotelid"], item["photo_id"], item["tags"], item["url_square60"], item["url_max"])
                 batch_values.append(values)
-                photo_white_set.add(item["hotelid"])
+                photo_white_batch_set.add(item["hotelid"])
 
                 if len(batch_values) >= batch_size:
                     try:
                         cursor.executemany(query1, batch_values)
                         conn.commit()
+                        photo_white_set.update(photo_white_batch_set)
+                        photo_white_batch_set = set()
                         batch_values = []
                     except Exception as ex:
                         print(f"117___{ex}")                        
-                        photo_white_add = insert_rows_individually_room(conn, cursor, query1, batch_values)
+                        photo_white_add = insert_rows_individually_photo(conn, cursor, query1, batch_values)
                         photo_white += photo_white_add
+                        photo_white_batch_set = set()
                         batch_values = []
                         continue                   
 
@@ -114,10 +118,12 @@ def writerr_table(conn, cursor, resPhoto):
             try:
                 cursor.executemany(query1, batch_values)
                 conn.commit()
+                photo_white_set.update(photo_white_batch_set)
             except Exception as ex:
                 print(f"130___{ex}")
-                photo_white_add = insert_rows_individually_room(conn, cursor, query1, batch_values)
+                photo_white_add = insert_rows_individually_photo(conn, cursor, query1, batch_values)
                 photo_white += photo_white_add
+                photo_white_batch_set = set()
     except Exception as ex:
         print(f"123___{ex}")
         pass
@@ -130,18 +136,18 @@ def writerr_table(conn, cursor, resPhoto):
     return photo_white
 
 
-def insert_rows_individually_room(conn, cursor, query, data):
+def insert_rows_individually_photo(conn, cursor, query, data):
     photo_white_set = set()
     photo_white = []
     try:
         data = eval(data)
     except:
         data = data
-    for hotelid, photo_id, tags, url_square60, url_max in data:
+    for item in data:
         try:
-            values = (hotelid, photo_id, tags, url_square60, url_max)
+            values = item
             cursor.execute(query, values)            
-            photo_white_set.add(hotelid)
+            photo_white_set.add(item[0])
         except Exception as ex:
             # print(f"204___: {ex}")
             continue

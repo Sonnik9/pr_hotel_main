@@ -83,6 +83,7 @@ def random_headers():
 def grendMather_controller(data):
     # print('hello controler')  
     # flagTest = True
+    
     flag_photo = True
     photoInd = 0
 
@@ -368,12 +369,12 @@ def main():
     args_cycles = {       
         'n1': 0,
         'n2': 0,
-        'interval': 1000,
-        'from_item': 70000,
-        'len_items': 100000,
+        'interval': 5000,
+        'from_item': 0,
+        'len_items': 326859,
         'counter': 0,
         'flag_end_cycles': False,
-        'cpu_count': 32
+        'cpu_count': 40
     }  
 
     try:
